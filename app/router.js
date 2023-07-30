@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignupScreen from './screens/SignupScreen';
 import TableScreen from './screens/TableScreen';
 import ListScreen from './screens/ListScreen';
+import LoginScreen from './screens/LoginScreen';
 
 export default function App() {
   return (
@@ -28,8 +29,15 @@ const CustomBackButton = ({ onPress }) => (
 const RootNavigation = () => {
   return (
     <RootStack.Navigator
-      initialRouteName='ListScreen'
+      initialRouteName='LoginScreen'
     >
+      <RootStack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={() => ({
+          headerShown: false
+        })}
+      />
       <RootStack.Screen
         name="TableScreen"
         component={TableScreen}
@@ -50,6 +58,14 @@ const RootNavigation = () => {
           headerShown: false
         })}
       />
+       <RootStack.Screen
+        name="SignupScreen"
+        component={SignupScreen}
+        options={() => ({
+          headerShown: false
+        })}
+      />
+       
     </RootStack.Navigator>
   )
 }
