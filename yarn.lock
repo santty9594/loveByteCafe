@@ -6535,7 +6535,7 @@
     "react-freeze" "^1.0.0"
     "warn-once" "^0.1.0"
 
-"react-native-svg@*":
+"react-native-svg@*", "react-native-svg@^13.10.0":
   "integrity" "sha512-D/oYTmUi5nsA/2Nw4WYlF1UUi3vZqhpESpiEhpYCIFB/EMd6vz4A/uq3tIzZFcfa5z2oAdGSxRU1TaYr8IcPlQ=="
   "resolved" "https://registry.npmjs.org/react-native-svg/-/react-native-svg-13.10.0.tgz"
   "version" "13.10.0"

@@ -2,16 +2,24 @@ import React from 'react';
 import { View, StyleSheet, Dimensions, Text, TouchableOpacity, ScrollView } from 'react-native';
 import PrimaryText from './PrimaryText';
 
-const BoxWithMargin = () => {
+const BoxWithMargin = ({ items, selectCategory, handleClicked }) => {
   const SCREEN_WIDTH = Dimensions.get('window').width;
   const CARD_MARGIN = 20;
   const BOX_SIZE = (SCREEN_WIDTH - CARD_MARGIN * 4) / 3;
+  const filteredItems = items.filter(item => item.tableType === selectCategory);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {[...Array(30).keys()].map((item, i) => (
-        <TouchableOpacity key={i} style={[styles.box, { width: BOX_SIZE, height: BOX_SIZE }]}>
-          <PrimaryText>{item + 1}</PrimaryText>
+      {filteredItems.map((item, i) => (
+        <TouchableOpacity
+          style={[
+            styles.box,
+            { width: BOX_SIZE, height: BOX_SIZE, backgroundColor: item.booked ? '#E4CD05' : '#6495ED' },
+          ]}
+          onPress={() => handleClicked(item)}
+          key={i}
+        >
+          <PrimaryText>{item.name}</PrimaryText>
         </TouchableOpacity>
       ))}
     </ScrollView>
