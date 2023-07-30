@@ -1,13 +1,22 @@
 
+export const authLogin = (email, password) => (dispatch) => {
+  
+  dispatch({ type: 'AUTH_LOGIN_REQUEST' });
+  axios.post('/api/login', { email, password })
+    .then((response) => {
+      dispatch({
+        type: 'AUTH_LOGIN_SUCCESS',
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: 'AUTH_LOGIN_FAILURE',
+        payload: error.message,
+      });
+    });
+};
 
-
-export const authLogin = (email, password) => ({
-  type: 'AUTH_LOGIN',
-  payload: {
-    email,
-    password,
-  },
-});
 
 export const authRegister = (email, password) => ({
   type: 'AUTH_REGISTER',
@@ -19,8 +28,6 @@ export const authRegister = (email, password) => ({
 export const authLogout = () => ({
   type: 'AUTH_LOGOUT',
 });
-
-
 
 export const fetchTables = (email, password) => ({
   type: 'FETCH_TABLES_TYPES',
