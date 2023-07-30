@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import PrimaryText from './PrimaryText';
+import Constant from '../../src/constants/values';
 
 const ListItem = ({ onPress }) => {
-
     const Item = ({ name, value }) => (
-        <TouchableOpacity style={styles.item} onPress={() => onPress(value)}>
+        <TouchableOpacity style={styles.item} onPress={() => onPress(name, value)}>
             <View style={styles.item1}>
                 <PrimaryText>
                     {name}
@@ -16,9 +16,9 @@ const ListItem = ({ onPress }) => {
 
     return (
         <View style={styles.container}>
-            <Item name="Couple Table" value={1} />
-            <Item name="Party Hall" value={2} />
-            <Item name="Normal Table" value={3} />
+            {Constant.listItem.map((data, i) => (
+                <Item key={data.key} name={data.name} value={data.value} />
+            ))}
         </View>
     );
 };

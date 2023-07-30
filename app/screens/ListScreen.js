@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ListItem from '../Components/ListItem'
-import { authLogin } from '../../src/actions/index';
+import { tableType } from '../../src/actions/index';
 
 class ListScreen extends Component {
-    
-    handleListClick = (value) => {
-        this.props.authLogin('', value)
-        this.props.navigation.navigate('TableScreen')
+
+    handleListClick = (name, value) => {
+        this.props.tableType(value)
+        this.props.navigation.navigate('TableScreen', { name })
     }
 
     render() {
-        console.log(this.props.registerLoading)
         return (
             <ListItem
                 onPress={this.handleListClick}
@@ -29,7 +28,7 @@ function initMapStateToProps(state) {
 }
 
 function initMapDispatchToProps(dispatch) {
-    return bindActionCreators({ authLogin, }, dispatch);
+    return bindActionCreators({ tableType, }, dispatch);
 }
 
 
