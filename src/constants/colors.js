@@ -1,3 +1,5 @@
+// import { black } from "react-native-paper/lib/typescript/src/styles/themes/v2/colors";
+
 export default {
   baseColor:'#f0f0f0',
   primaryColor:'#fff',
@@ -9,5 +11,7 @@ export default {
   white:'#FFFFFF',
   black:'#000000',
   slateGrey:'#2F4F4F',
-  globalbgColor:"#6495ED"
+  globalbgColor:"#6495ED",
+  black:'#000000',
+  buttonColor:"#6495ED",
 };
