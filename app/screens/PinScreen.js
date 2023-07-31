@@ -1,13 +1,24 @@
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity,KeyboardAvoidingView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,KeyboardAvoidingView ,Keyboard } from 'react-native';
 import colors from '../../src/constants/colors';
+import {TextInput, Button, HelperText} from 'react-native-paper';
+
 
 const PinScreen = ({ navigation }) => {
   const [pin, setPin] = useState('');
+  const [inputs, setInputs] = useState({pin: '', confirmPin: ''});
+  const [errors, setErrors] = useState('');
 
   const handlePinChange = (value) => {
     setPin(value);
+  };
+  const handleOnChange = (text, input) => {
+    setInputs(prevState => ({...prevState, [input]: text}));
+  };
+
+  const handleError = (errorMessage, input) => {
+    setErrors(prevState => ({...prevState, [input]: errorMessage}));
   };
 
   const handlePinSubmit = () => {
@@ -19,60 +30,96 @@ const PinScreen = ({ navigation }) => {
     } else {
       console.log('Incorrect PIN!'); // Replace this with your desired action
     }
+
+    Keyboard.dismiss();
+    let valid = true;
+    if (!inputs.pin || inputs.pin < 4) {
+      handleError('Please enter pin', 'pin');
+      valid = false;
+    } 
+    if (!inputs.confirmPin || inputs.confirmPin.length < 4) {
+      handleError('Please enter valid password', 'confirmPin');
+      valid = false;
+    }
+    if (inputs.pin !== inputs.confirmPin ) {
+      handleError('Pin does not match !!', 'confirmPin');
+      valid = false;
+    }
+    if (valid) {
+      console.log('#############');
+    }
+
+
+
+
   };
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      <Text style={styles.title}>Enter PIN</Text>
+  <View style={styles.container}>
+    <View style={{flex: 1}}></View>
+    <View style={{flex: 2.5, margin: 16}}>
+      <Text style={{color: '#000', fontSize: 26, fontWeight: 'bold'}}>
+        Setup Pin
+      </Text>
+      
       <TextInput
-        style={styles.pinInput}
+        style={styles.textInputStyle}
+        contentStyle={styles.textInputContentStyle}
+        label="Pin"
         keyboardType="numeric"
         maxLength={4}
-        value={pin}
-        onChangeText={handlePinChange}
-        secureTextEntry
+        value={inputs.pin}
+        onChangeText={text => handleOnChange(text, 'pin')}
+        onFocus={() => {
+          handleError(null, 'pin');
+        }}
       />
-      <TouchableOpacity style={styles.submitButton} onPress={handlePinSubmit}>
-        <Text style={styles.submitButtonText}>Submit</Text>
-      </TouchableOpacity>
-    </KeyboardAvoidingView>
+      <HelperText type="error" visible={errors.pin}>
+        {errors.pin}
+      </HelperText>
+      <TextInput
+        style={styles.textInputStyle}
+        contentStyle={styles.textInputContentStyle}
+        keyboardType="numeric"
+        maxLength={4}
+        label="Confirm Pin"
+        value={inputs.confirmPin}
+        onChangeText={text => handleOnChange(text, 'confirmPin')}
+        onFocus={() => {
+          handleError(null, 'confirmPin');
+        }}
+      />
+      <HelperText type="error" visible={errors.confirmPin}>
+        {errors.confirmPin}
+      </HelperText>
+      <Button
+        style={{top: 20}}
+        buttonColor="#6495ED"
+        textColor="#fff"
+        mode="contained"
+         onPress={() => handlePinSubmit()}
+        >
+        Create Pin
+      </Button>
+    </View>
+  </View>
+ 
   );
 };
 
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor:colors.primaryColor,
-    },
-    title: {
-      fontSize: 24,
-      marginBottom: 20,
-      color:colors.black
-    },
-    pinInput: {
-      fontSize: 20,
-      borderWidth: 1,
-      borderColor: '#333',
-      padding: 10,
-      borderRadius: 5,
-      width: 200,
-      textAlign: 'center',
-      marginBottom: 20,
-      color:colors.black
-    },
-    submitButton: {
-        backgroundColor: colors.buttonColor,
-        padding: 10,
-        borderRadius: 5,
-      },
-      submitButtonText: {
-        color: colors.primaryColor,
-        fontSize: 16,
-        textAlign: 'center',
-      },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  textInputStyle: {
+    backgroundColor: '#fff',
+  },
+  textInputContentStyle: {
+    color: '#000',
+  },
+  
     });
     
-    export default PinScreen;
+export default PinScreen;
   
