@@ -13,7 +13,7 @@ class TableScreen extends Component {
     }
 
     render() {
-        let { tableList, selectCategory } = this.props;
+        let { tableList, selectCategory, menuCategory } = this.props;
         return (
             <Table
                 items={tableList}
@@ -27,8 +27,10 @@ class TableScreen extends Component {
 
 function initMapStateToProps(state) {
     return {
-        tableList: state.MYReducer.tableList,
-        selectCategory: state.MYReducer.selectCategory,
+        tableList: state.TableReducer.tableList,
+        menuCategory: state.MenuReducer.menuCategory,
+        menusItems: state.MenuReducer.menusItems,
+        selectCategory: state.TableReducer.selectCategory,
     };
 }
 

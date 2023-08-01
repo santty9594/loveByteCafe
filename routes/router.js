@@ -59,8 +59,20 @@ const LoginNavigation = () => {
           headerShown: false
         })}
       />
+    </LoginStack.Navigator>
+  )
+}
 
-      <LoginStack.Screen
+
+const MainStack = createNativeStackNavigator();
+
+const MainNavigation = () => {
+  const pinNumber = useSelector((state) => state.AuthReducer.pinNumber);
+  return (
+    <MainStack.Navigator
+      initialRouteName={pinNumber ? "EnterPinScreen" : 'SetupPinScreen'}
+    >
+      <MainStack.Screen
         name="EnterPinScreen"
         component={EnterPinScreen}
         options={() => ({
@@ -71,25 +83,6 @@ const LoginNavigation = () => {
       <LoginStack.Screen
         name="SetupPinScreen"
         component={SetupPinScreen}
-        options={() => ({
-          headerShown: false
-        })}
-      />
-    </LoginStack.Navigator>
-  )
-}
-
-
-const MainStack = createNativeStackNavigator();
-
-const MainNavigation = () => {
-  return (
-    <MainStack.Navigator
-      initialRouteName='EnterPinScreen'
-    >
-      <MainStack.Screen
-        name="EnterPinScreen"
-        component={EnterPinScreen}
         options={() => ({
           headerShown: false
         })}

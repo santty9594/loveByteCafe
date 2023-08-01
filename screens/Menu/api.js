@@ -1,15 +1,16 @@
-import { LOGIN_URL, REGISTER_URL } from './api_constants';
-import RestApi from '../utils/rest.service';
+import { MENUS_URL, MENUS_CATEGORY_URL } from '../../constants/api_constants';
+import RestApi from '../../utils/rest.service';
 
 const restApi = new RestApi();
 
-class AuthApi {
-  
-  async login(args) {
+class MenuApi {
+
+  async getMenuItems(args) {
     try {
-      const path = LOGIN_URL;
+      let _header = await restApi.getHeaders();
+      const path = MENUS_URL;
       let headers = {
-        token: '',
+        token: _header.token,
       };
       const data = await restApi.post(path, headers, args);
       return data;
@@ -18,11 +19,12 @@ class AuthApi {
     }
   }
 
-  async signup(args) {
+  async getMenuCategory(args) {
     try {
-      const path = REGISTER_URL;
+      let _header = await restApi.getHeaders();
+      const path = MENUS_CATEGORY_URL;
       let headers = {
-        token: '',
+        token: _header.token,
       };
       const data = await restApi.post(path, headers, args);
       return data;
@@ -30,7 +32,7 @@ class AuthApi {
       throw error;
     }
   }
-  
+
 }
 
-export { AuthApi };
+export { MenuApi };

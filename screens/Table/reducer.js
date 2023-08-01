@@ -41,7 +41,7 @@ const changeTableValues = (state, payload) => {
   return updatedValues;
 };
 
-const MYReducer = (state = initialState, { type, payload }) => {
+const TableReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case 'SELECT_TABLE_TYPE':
       return {
@@ -61,4 +61,4 @@ const MYReducer = (state = initialState, { type, payload }) => {
 };
 
 
-export default MYReducer;
+export default TableReducer;
