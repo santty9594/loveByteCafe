@@ -34,8 +34,19 @@ const CustomBackButton = ({ onPress }) => (
 const RootNavigation = () => {
   return (
     <RootStack.Navigator
-      initialRouteName='EnterPinScreen'
+      initialRouteName='MenuScreen'
     >
+      <RootStack.Screen
+        name="MenuScreen"
+        component={MenuScreen}
+        options={({ navigation, route }) => ({
+          headerTitle: 'Menus',
+          // headerTitle: route.params.name || 'Menus',
+          headerLeft: () => (
+            <CustomBackButton onPress={() => navigation.goBack()} />
+          ),
+        })}
+      />
       <RootStack.Screen
         name="EnterPinScreen"
         component={EnterPinScreen}
@@ -81,7 +92,7 @@ const RootNavigation = () => {
         })}
       />
 
-      <RootStack.Screen
+      {/* <RootStack.Screen
         name="MenuScreen"
         component={MenuScreen}
         options={({ navigation, route }) => ({
@@ -90,7 +101,7 @@ const RootNavigation = () => {
             <CustomBackButton onPress={() => navigation.goBack()} />
           ),
         })}
-      />
+      // /> */}
 
       <RootStack.Screen
         name="ListScreen"
