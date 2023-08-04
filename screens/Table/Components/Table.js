@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import PrimaryText from '../../../Components/PrimaryText';
+import colors from '../../../constants/colors';
 
 const BoxWithMargin = ({ items, selectCategory, handleClicked }) => {
   const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -14,7 +15,11 @@ const BoxWithMargin = ({ items, selectCategory, handleClicked }) => {
         <TouchableOpacity
           style={[
             styles.box,
-            { width: BOX_SIZE, height: BOX_SIZE, backgroundColor: item.booked ? '#E4CD05' : '#6495ED' },
+            {
+              width: BOX_SIZE,
+              height: BOX_SIZE,
+              backgroundColor: item.booked ? '#E4CD05' : '#6495ED',
+            },
           ]}
           onPress={() => handleClicked(item)}
           key={i}

@@ -30,5 +30,21 @@ export const getMenuCategory = (model) => async dispatch => {
     }
 }
 
+export const addQty = (model) => async dispatch => {
+    try {
+        dispatch({ type: 'ADD_QTY_ITEM', payload: model });
+    } catch (error) {
+    }
+}
+
+
+export const removeQty = (model) => async dispatch => {
+    try {
+        dispatch({ type: 'REMOVE_QTY_ITEM', payload: model });
+    } catch (error) {
+    }
+}
+
+
 
 

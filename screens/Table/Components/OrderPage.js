@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button, TextInput } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import Colors from '../../../constants/colors';
 import PrimaryText from '../../../Components/PrimaryText';
 import colors from '../../../constants/colors';
@@ -32,8 +32,8 @@ const OrderPage = ({ handleOrder }) => {
                 <View>
                     <PrimaryText color='black'>Order</PrimaryText>
                 </View>
-                <View onPress={() => handleOrder}>
-                    <TouchableOpacity style={[styles.input, { backgroundColor: colors.green }]}>
+                <View>
+                    <TouchableOpacity onPress={() => handleOrder()} style={[styles.input, { backgroundColor: colors.green }]}>
                         <PrimaryText>ADD</PrimaryText>
                     </TouchableOpacity>
                 </View>

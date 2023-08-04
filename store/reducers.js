@@ -7,7 +7,7 @@ import MenuReducer from '../screens/Menu/reducer';
 const rootReducer = combineReducers({
   AuthReducer,
   TableReducer,
-  MenuReducer
+  MenuReducer,
 });
 
 export default rootReducer;

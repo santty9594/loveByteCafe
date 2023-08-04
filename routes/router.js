@@ -14,7 +14,7 @@ import TableScreen from '../screens/Table/TableScreen';
 import OrderScreen from '../screens/Table/OrderScreen';
 import ListScreen from '../screens/Table//ListScreen';
 import MenuScreen from '../screens/Menu/MenuScreen';
-
+import OrderDetails from '../screens/Menu/OrderDetails';
 
 export default function App() {
   const userToken = useSelector((state) => state.AuthReducer.loginToken);
@@ -38,6 +38,13 @@ const CustomBackButton = ({ onPress }) => (
   </TouchableOpacity>
 );
 
+
+const CartItem = ({ onPress }) => (
+  <TouchableOpacity onPress={onPress}>
+    <RemixIcon name='shopping-cart-2-line' size={25} color={"#000"} />
+  </TouchableOpacity>
+);
+
 const LoginStack = createNativeStackNavigator();
 const LoginNavigation = () => {
   return (
@@ -55,6 +62,22 @@ const LoginNavigation = () => {
       <LoginStack.Screen
         name="LoginScreen"
         component={LoginScreen}
+        options={() => ({
+          headerShown: false
+        })}
+      />
+
+<MainStack.Screen
+        name="EnterPinScreen"
+        component={EnterPinScreen}
+        options={() => ({
+          headerShown: false
+        })}
+      />
+
+      <LoginStack.Screen
+        name="SetupPinScreen"
+        component={SetupPinScreen}
         options={() => ({
           headerShown: false
         })}
@@ -125,6 +148,20 @@ const MainNavigation = () => {
         component={MenuScreen}
         options={({ navigation, route }) => ({
           headerTitle: route.params.name || 'Menus',
+          headerLeft: () => (
+            <CustomBackButton onPress={() => navigation.goBack()} />
+          ),
+          headerRight: () => (
+            <CartItem onPress={() => navigation.navigate('OrderDetails')} />
+          ),
+        })}
+      />
+
+      <MainStack.Screen
+        name="OrderDetails"
+        component={OrderDetails}
+        options={({ navigation, route }) => ({
+          headerTitle: 'Order Details',
           headerLeft: () => (
             <CustomBackButton onPress={() => navigation.goBack()} />
           ),

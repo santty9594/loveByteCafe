@@ -4,8 +4,7 @@ import OrderPage from './Components/OrderPage';
 class OrderScreen extends Component {
 
     handleListClick = () => {
-        console.log("hello")
-        this.props.navigation.navigate('MenuScreen')
+        this.props.navigation.navigate('MenuScreen', { name: "Menu" })
     }
 
     render() {
