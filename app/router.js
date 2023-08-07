@@ -12,6 +12,8 @@ import LoginScreen from './screens/LoginScreen';
 import MenuScreen from './screens/MenuScreen';
 import PinScreen from './screens/PinScreen';
 import EnterPinScreen from './screens/EnterPinScreen';
+import CustomerInfo from './screens/CustomerInfo';
+import InvoiceScreen from './screens/InvoiceScreen'
 
 
 export default function App() {
@@ -34,8 +36,22 @@ const CustomBackButton = ({ onPress }) => (
 const RootNavigation = () => {
   return (
     <RootStack.Navigator
-      initialRouteName='MenuScreen'
+      initialRouteName='InvoiceScreen'
     >
+      <RootStack.Screen
+        name="InvoiceScreen"
+        component={InvoiceScreen}
+        options={() => ({
+          headerShown: false
+        })}
+      />
+      <RootStack.Screen
+        name="CustomerInfo"
+        component={CustomerInfo}
+        options={() => ({
+          headerShown: false
+        })}
+      />
       <RootStack.Screen
         name="MenuScreen"
         component={MenuScreen}

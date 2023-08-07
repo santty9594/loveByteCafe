@@ -40,10 +40,10 @@ export default function LoginScreen({navigation}) {
     <View style={styles.container}>
       <View style={{flex: 1}}></View>
       <View style={{flex: 2.5, margin: 16}}>
-        <Text style={{color: '#000', fontSize: 26, fontWeight: 'bold'}}>
+        <Text style={{color: '#000', fontSize: 26, fontWeight: 'bold',paddingLeft:16}}>
           Login
         </Text>
-        <Text style={{color: '#BCBCBC', fontSize: 18, fontWeight: 'bold'}}>
+        <Text style={{color: '#BCBCBC', fontSize: 18, fontWeight: 'bold',paddingLeft:16}}>
           Please sign in to continue
         </Text>
         <TextInput
