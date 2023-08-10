@@ -4,6 +4,7 @@ const ImageSource = [
   '../assets/images/beverages.png',
   '../assets/images/north-indian.png',
   '../assets/images/biryani.png',
+  '../assets/images/splash.jpeg',
 ];
 
 export default ImageSource;

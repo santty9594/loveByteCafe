@@ -16,13 +16,13 @@ const OrderItem = ({ OrderItems, handleAddQty, handleRemoveQty }) => {
 
             <View style={{ flex: 0.25, borderWidth: 1, borderRadius: 10, margin: 5, justifyContent: "center" }}>
                 <View style={{ flexDirection: "row", justifyContent: "space-around", margin: 2, alignItems: "center" }}>
-                    <TouchableOpacity onPress={() => handleAddQty(id)}>
+                    <TouchableOpacity onPress={() => handleRemoveQty(id)}>
                         <RemixIcon name='subtract-line' size={25} color={"red"} />
                     </TouchableOpacity>
                     <Text style={{ textAlign: "center", justifyContent: "center" }}>
                         {qaty}
                     </Text>
-                    <TouchableOpacity onPress={() => handleRemoveQty(id)}>
+                    <TouchableOpacity onPress={() => handleAddQty(id)}>
                         <RemixIcon name='add-line' size={25} color={"green"} />
                     </TouchableOpacity>
                 </View>
@@ -30,7 +30,7 @@ const OrderItem = ({ OrderItems, handleAddQty, handleRemoveQty }) => {
 
             <View style={{ flex: 0.15 }}>
                 <PrimaryText color='black'>
-                    {value}
+                   ₹ {value}
                 </PrimaryText>
             </View>
         </View >
@@ -39,8 +39,8 @@ const OrderItem = ({ OrderItems, handleAddQty, handleRemoveQty }) => {
     return (
         <View style={styles.container}>
             <ScrollView>
-                {OrderItems.map((data, i) => (
-                    <Item key={data.key} name={data.name} qaty={data.qaty} value={data.value} id={data.id} />
+                {OrderItems.filter(item => item.qaty !== 0).map((data, i) => (
+                    <Item key={data.key} name={data.name} qaty={data.qaty} value={data.totalAmount} id={data.id} />
                 ))}
             </ScrollView>
         </View>

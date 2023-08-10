@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import OrderItem from './Components/OrderForm';
-import { addQty, removeQty } from './action';
+import { addQty, removeQty, RESET } from './action';
 
 class OrderDetails extends Component {
 
+    componentDidMount() {
+        this.props.RESET()
+    }
 
     handleAddQty = (id) => {
         this.props.addQty(id)
@@ -17,6 +20,7 @@ class OrderDetails extends Component {
 
     render() {
         let { OrderItems } = this.props;
+        console.log(OrderItems)
         return (
             <OrderItem
                 OrderItems={OrderItems}
@@ -27,15 +31,12 @@ class OrderDetails extends Component {
     }
 };
 
-
 function initMapStateToProps(state) {
     return {
         OrderItems: state.MenuReducer.OrderItems,
     };
 }
 
-
-
-export default connect(initMapStateToProps, { addQty, removeQty })(OrderDetails);
+export default connect(initMapStateToProps, { addQty, removeQty, RESET })(OrderDetails);
 
 
