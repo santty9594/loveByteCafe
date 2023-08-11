@@ -87,7 +87,7 @@ import {
       <View style={styles.container}>
         <View style={{flex: 0.5}}></View>
         <View style={{flex: 2.5, margin: 16}}>
-          <Text style={{color: '#000', fontSize: 26, fontWeight: 'bold'}}>
+          <Text style={{color: '#000', fontSize: 26, fontWeight: 'bold',paddingLeft:16}}>
             Sign Up
           </Text>
           <TextInput
