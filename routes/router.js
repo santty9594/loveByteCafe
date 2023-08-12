@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import RemixIcon from 'react-native-remix-icon';
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,10 +11,9 @@ import EnterPinScreen from '../screens/Auth/EnterPinScreen';
 import SetupPinScreen from '../screens/Auth/SetupPinScreen';
 
 import TableScreen from '../screens/Table/TableScreen';
-import OrderScreen from '../screens/Table/OrderScreen';
 import ListScreen from '../screens/Table//ListScreen';
 import MenuScreen from '../screens/Menu/MenuScreen';
-import OrderDetails from '../screens/Menu/OrderDetails';
+import OrderDetails from '../screens/Menu/CartDetails';
 
 export default function App() {
   const userToken = useSelector((state) => state.AuthReducer.loginToken);
@@ -39,11 +38,27 @@ const CustomBackButton = ({ onPress }) => (
 );
 
 
-const CartItem = ({ onPress }) => (
-  <TouchableOpacity onPress={onPress}>
-    <RemixIcon name='shopping-cart-2-line' size={25} color={"#000"} />
-  </TouchableOpacity>
-);
+const CartItem = ({ onPress }) => {
+  const tempSelectedMenuCount = useSelector(state => state.MenuReducer.tempSelectedMenuCount);
+  console.log(tempSelectedMenuCount)
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <RemixIcon name='shopping-cart-2-line' size={25} color={"#000"} />
+      {tempSelectedMenuCount > 0 && (
+        <View style={{
+          height: 20, width: 20, position: 'absolute',
+          justifyContent: "center", alignItems: "center",
+          backgroundColor: "red", borderRadius: 20, top: -10, left: 10, padding: 2
+        }}>
+          <Text style={{ color: '#fff' }}>
+            {tempSelectedMenuCount}
+          </Text>
+        </View>
+      )}
+    </TouchableOpacity>
+  );
+};
+
 
 const LoginStack = createNativeStackNavigator();
 const LoginNavigation = () => {
@@ -67,7 +82,7 @@ const LoginNavigation = () => {
         })}
       />
 
-<MainStack.Screen
+      <MainStack.Screen
         name="EnterPinScreen"
         component={EnterPinScreen}
         options={() => ({
@@ -133,21 +148,10 @@ const MainNavigation = () => {
       />
 
       <MainStack.Screen
-        name="OrderScreen"
-        component={OrderScreen}
-        options={({ navigation, route }) => ({
-          headerTitle: `Table ${route.params.name}` || 'Order',
-          headerLeft: () => (
-            <CustomBackButton onPress={() => navigation.goBack()} />
-          ),
-        })}
-      />
-
-      <MainStack.Screen
         name="MenuScreen"
         component={MenuScreen}
         options={({ navigation, route }) => ({
-          headerTitle: route.params.name || 'Menus',
+          headerTitle: 'Menu',
           headerLeft: () => (
             <CustomBackButton onPress={() => navigation.goBack()} />
           ),
@@ -161,7 +165,7 @@ const MainNavigation = () => {
         name="OrderDetails"
         component={OrderDetails}
         options={({ navigation, route }) => ({
-          headerTitle: 'Order Details',
+          headerTitle: 'Cart',
           headerLeft: () => (
             <CustomBackButton onPress={() => navigation.goBack()} />
           ),

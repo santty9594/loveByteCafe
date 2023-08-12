@@ -11,7 +11,7 @@ const initialState = {
     { key: 7, name: "7", value: 106, waiting: false, booked: false, payment: false, tableType: 1 },
     { key: 8, name: "8", value: 107, waiting: false, booked: false, payment: false, tableType: 1 },
 
-   //Normal
+    //Normal
     { key: 9, name: "1", value: 108, waiting: false, booked: false, payment: false, tableType: 2 },
     { key: 10, name: "2", value: 109, waiting: false, booked: false, payment: false, tableType: 2 },
     { key: 11, name: "3", value: 110, waiting: false, booked: false, payment: false, tableType: 2 },
@@ -21,12 +21,8 @@ const initialState = {
     //Birthday
     { key: 14, name: "1", value: 113, waiting: false, booked: false, payment: false, tableType: 3 },
     { key: 15, name: "2", value: 114, waiting: false, booked: false, payment: false, tableType: 4 },
-
-
   ],
-  tabel: {
-
-  },
+  selectedTable: 0,
   selectCategory: 0
 };
 
@@ -60,6 +56,7 @@ const TableReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         tableList: values,
+        selectedTable: payload
       };
     default:
       return state;

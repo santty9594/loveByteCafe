@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
-import OrderItem from './Components/OrderForm';
-import { addQty, removeQty, RESET } from './action';
+import OrderItem from './Components/CartForm';
+import { addQty, removeQty } from './action';
 
 class OrderDetails extends Component {
-
-    componentDidMount() {
-        this.props.RESET()
-    }
 
     handleAddQty = (id) => {
         this.props.addQty(id)
@@ -19,11 +14,11 @@ class OrderDetails extends Component {
     }
 
     render() {
-        let { OrderItems } = this.props;
-        console.log(OrderItems)
+        let { selectedMenus,selectedTable } = this.props;
         return (
             <OrderItem
-                OrderItems={OrderItems}
+                OrderItems={selectedMenus}
+                selectedTable={selectedTable}
                 handleAddQty={this.handleAddQty}
                 handleRemoveQty={this.handleRemoveQty}
             />
@@ -31,12 +26,14 @@ class OrderDetails extends Component {
     }
 };
 
+
 function initMapStateToProps(state) {
     return {
-        OrderItems: state.MenuReducer.OrderItems,
+        selectedMenus: state.MenuReducer.selectedMenus,
+        selectedTable: state.TableReducer.selectedTable
     };
 }
 
-export default connect(initMapStateToProps, { addQty, removeQty, RESET })(OrderDetails);
+export default connect(initMapStateToProps, { addQty, removeQty })(OrderDetails);
 
 

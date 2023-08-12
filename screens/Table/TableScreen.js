@@ -9,7 +9,7 @@ class TableScreen extends Component {
 
     handleListClick = (item) => {
         this.props.bookedTable(item.value);
-        this.props.navigation.navigate('OrderScreen', { name: item.name })
+        this.props.navigation.navigate('MenuScreen', { name: item.name })
     }
 
     render() {

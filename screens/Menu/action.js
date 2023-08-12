@@ -30,9 +30,9 @@ export const getMenuCategory = (model) => async dispatch => {
     }
 }
 
-export const RESET = (model) => async dispatch => {
+export const addItemMenu = (model) => async dispatch => {
     try {
-        dispatch({ type: 'RESET', });
+        dispatch({ type: 'ADD_MENU_ITEM', payload: model });
     } catch (error) {
     }
 }
@@ -43,7 +43,6 @@ export const addQty = (model) => async dispatch => {
     } catch (error) {
     }
 }
-
 
 export const removeQty = (model) => async dispatch => {
     try {
