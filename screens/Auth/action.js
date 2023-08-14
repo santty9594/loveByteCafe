@@ -36,6 +36,20 @@ export const signup = (model) => async dispatch => {
   }
 }
 
+export const createCustomer = (model) => async dispatch => {
+  try {
+    var temp = await api.signup(model);
+    if (temp && temp.status == 0) {
+      await dispatch({ type: 'CUSTOMER_REGISTER_SUCCESS', payload: "Customer Created Successfully" });
+    } else {
+      await dispatch({ type: 'CUSTOMER_REGISTER_ERROR', payload: temp.message });
+    }
+  } catch (error) {
+
+    dispatch({ type: "CUSTOMER_REGISTER_ERROR", error });
+  }
+}
+
 export const setupPin = (model) => async dispatch => {
   try {
     await dispatch({ type: 'PIN_CREATION_SUCCESS', payload: model });

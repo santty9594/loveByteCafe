@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import MenuCard from './MenuCard';
 
@@ -8,27 +8,40 @@ const MenuScreen = ({ menusItems, menuCategory, handleCardClick }) => {
   const [selectedCategory, setSelectedCategory] = useState(0);
 
 
-  const filteredMenuItems = selectedCategory === 0
-    ? menusItems
-    : menusItems.filter(
-      item =>
-        item.menuid ===
-        menuCategory.find(cat => cat.menu_id === selectedCategory)?.menu_id,
-    );
+  const filteredMenuItems = useMemo(() => {
+    if (selectedCategory === 0) {
+      return menusItems;
+    } else {
+      return menusItems.filter(
+        item =>
+          item.menuid ===
+          menuCategory.find(cat => cat.menu_id === selectedCategory)?.menu_id
+      );
+    }
+  }, [selectedCategory, menusItems, menuCategory]);
 
-  renderItem = ({ item }) => {
+  const renderItem = useMemo(() => ({ item }) => {
     return <MenuCard onPress={() => handleCardClick(item)} item={item} />;
-  };
+  }, [handleCardClick]);
 
-  const renderCategoryItem = ({ item }) => (
+  const renderCategoryItem = useMemo(() => ({ item }) => (
     <TouchableOpacity
-      style={[styles.categoryItem, { backgroundColor: selectedCategory === item.menu_id ? '#4CAF50' : '#E0E0E0' }]}
+      style={[
+        styles.categoryItem,
+        {
+          backgroundColor:
+            selectedCategory === item.menu_id ? '#4CAF50' : '#E0E0E0',
+        },
+      ]}
       onPress={() => setSelectedCategory(item.menu_id)}>
-      <Text style={{ color: selectedCategory === item.menu_id ? '#fff' : '#000' }}>
+      <Text
+        style={{
+          color: selectedCategory === item.menu_id ? '#fff' : '#000',
+        }}>
         {item.name}
       </Text>
     </TouchableOpacity>
-  );
+  ), [selectedCategory]);
 
   return (
     <View style={styles.container}>

@@ -6,9 +6,9 @@ import useValidateMobileNumber from '../Components/hooks/useValidateMobileNumber
 
 export default function CustomerInfo() {
     const { handleMobileNumberValidation } = useValidateMobileNumber()
-    const [inputs, setInputs] = useState({ firstName: '', lastName: '', contactNo: '' });
-    const [errors, setErrors] = useState('');
+    const [inputs, setInputs] = useState({ name: '', lastName: '', contactNo: '' });
     const [selectedLanguage, setSelectedLanguage] = useState();
+    const [errors, setErrors] = useState('');
 
     const handleOnChange = (text, input) => {
         setInputs(prevState => ({ ...prevState, [input]: text }));
@@ -18,17 +18,16 @@ export default function CustomerInfo() {
         setErrors(prevState => ({ ...prevState, [input]: errorMessage }));
     };
 
-
     const onPressSave = async () => {
         Keyboard.dismiss();
         let valid = true;
-        if (!inputs.firstName) {
-            handleError('Please enter first name', 'firstName');
+        if (!inputs.name) {
+            handleError('Please enter first name', 'name');
             valid = false;
         }
-        else if (inputs.firstName.length <= 3 || inputs.firstName > 150) {
+        else if (inputs.name.length <= 3 || inputs.name > 150) {
             valid = false;
-            handleError('Please enter valid first name', 'firstName');
+            handleError('Please enter valid first name', 'name');
         }
         if (!inputs.lastName) {
             handleError('Please enter last name', 'lastName');
@@ -51,35 +50,9 @@ export default function CustomerInfo() {
         }
     };
     return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
             <TextInput
-                style={styles.textInputStyle}
-                contentStyle={styles.textInputContentStyle}
-                label="First Name"
-                value={inputs.firstName}
-                onChangeText={text => handleOnChange(text, 'firstName')}
-                onFocus={() => {
-                    handleError(null, 'firstName');
-                }}
-            />
-            <HelperText type="error" visible={errors.firstName} style={styles.err}>
-                {errors.firstName}
-            </HelperText>
-            <TextInput
-                style={styles.textInputStyle}
-                contentStyle={styles.textInputContentStyle}
-                label="Last Name"
-                value={inputs.lastName}
-                onChangeText={text => handleOnChange(text, 'lastName')}
-                onFocus={() => {
-                    handleError(null, 'lastName');
-                }}
-            />
-            <HelperText type="error" visible={errors.lastName} style={styles.err}>
-                {errors.lastName}
-            </HelperText>
-            <TextInput
-                style={styles.textInputStyle}
+                style={[styles.textInputStyle, { paddingHorizontal: 0 }]}
                 contentStyle={styles.textInputContentStyle}
                 label="Contact Number"
                 keyboardType='number-pad'
@@ -92,7 +65,20 @@ export default function CustomerInfo() {
             <HelperText type="error" visible={errors.contactNo} style={styles.err}>
                 {errors.contactNo}
             </HelperText>
-            {/* <Picker
+            <TextInput
+                style={[styles.textInputStyle, { paddingHorizontal: 0,marginVertical:0 }]}
+                contentStyle={styles.textInputContentStyle}
+                label="Name"
+                value={inputs.name}
+                onChangeText={text => handleOnChange(text, 'name')}
+                onFocus={() => {
+                    handleError(null, 'name');
+                }}
+            />
+            <HelperText type="error" visible={errors.name} style={styles.err}>
+                {errors.name}
+            </HelperText>
+            <Picker
                 style={{ margin: 16 }}
                 selectedValue={selectedLanguage}
                 onValueChange={(itemValue, itemIndex) =>
@@ -100,32 +86,32 @@ export default function CustomerInfo() {
                 }>
                 <Picker.Item label="Male" value="male" />
                 <Picker.Item label="Female" value="female" />
-            </Picker> */}
-            <Button
-                style={{ margin: 10, }}
-                buttonColor="#6495ED"
-                textColor="#fff"
-                mode="contained"
-                onPress={() =>
-                    onPressSave()
-                }>
-                Save
-            </Button>
-        </ScrollView>
+            </Picker>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+        flex: 0.3,
+        marginTop: 8,
+        paddingHorizontal: 16,
+        backgroundColor: "#fff",
     },
     textInputStyle: {
         backgroundColor: '#fff',
-        margin: 16
     },
     textInputContentStyle: {
         color: '#000',
+    },
+    pickerStyle: {
+        marginTop: 16,
+        backgroundColor: '#fff',
+        paddingHorizontal: 0, // To remove left and right padding
+        color: '#000',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 4,
     },
     err: {
         left: 15
