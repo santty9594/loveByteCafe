@@ -25,9 +25,13 @@ class OrderDetails extends Component {
 
     render() {
         let { selectedMenus, selectedTable, selectedTableStartTime } = this.props;
+        selectedTableStartTime = (selectedTableStartTime !== '0:0') ? selectedTableStartTime :
+            new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+
         selectedMenus = Array.isArray(selectedMenus) ?
             selectedMenus.filter(item => item.selectedTable === selectedTable)
             : selectedMenus;
+
         return (
             <OrderItem
                 OrderItems={selectedMenus}

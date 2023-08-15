@@ -8,6 +8,7 @@ const initialState = {
   registerError: null,
   registerMessage: null,
   pinNumber: null,
+  customer: {},
 };
 
 export default AuthReducer = (state = initialState, { type, payload }) => {
@@ -66,6 +67,21 @@ export default AuthReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         pinNumber: payload,
+      };
+    case 'CUSTOMER_REGISTER_SUCCESS':
+      return {
+        ...state,
+        customer: payload,
+      };
+    case 'FETCH_CUSTOMER_DETAILS':
+      return {
+        ...state,
+        customer: payload,
+      };
+    case 'CUSTOMER_RESET':
+      return {
+        ...state,
+        customer: initialState.customer,
       };
     case 'AUTH_LOGOUT_RESET':
       return initialState;

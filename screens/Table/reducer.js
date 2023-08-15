@@ -1,6 +1,5 @@
 
 const initialState = {
-
   tableList: [
     // couple
     { key: 1, name: "1", value: 100, waiting: false, booked: false, payment: false, startTime: '0:0', tableType: 1, },
@@ -26,11 +25,14 @@ const initialState = {
 
   selectedTable: 0,
   selectCategory: 0,
+  totalAmount: 0,
   totalPayAmount: 0,
   tableCharge: 0,
+  totalMinutes:'0',
   selectedTableStartTime: '',
   selectedTableEndTime: ''
 };
+
 
 const changeTableValues = (state, payload) => {
   if (!state || !state.tableList) {
@@ -95,10 +97,21 @@ const TableReducer = (state = initialState, { type, payload }) => {
         tableList: changeStartTime(state, payload)?.updatedValues,
         selectedTableStartTime: changeStartTime(state, payload)?.startTime,
       };
+    case 'ADD_END_TIME':
+      return {
+        ...state,
+        selectedTableEndTime:payload?.endTime,
+        tableCharge: payload?.tableCharge,
+        totalPayAmount: payload?.totalPayAmount,
+        totalMinutes:payload?.totalMinutes
+      };
     case 'TABLE_PLACE_ORDER':
       return {
         ...state,
-        totalPayAmount: 0,
+        totalAmount: payload,
+        tableCharge:0,
+        totalPayAmount:0,
+        totalMinutes:0
       };
     default:
       return state;

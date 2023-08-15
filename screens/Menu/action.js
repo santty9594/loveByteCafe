@@ -55,23 +55,22 @@ export const removeQty = (model, value) => async dispatch => {
     }
 }
 
-
-export const addStartTimeTable = (model) => async dispatch => {
-    try {
-        dispatch({ type: 'ADD_START_TIME', payload: model });
-    } catch (error) {
-    }
-}
-
-
 export const placeOrder = (model) => async dispatch => {
     try {
         dispatch({ type: 'TABLE_PLACE_ORDER', payload: model });
+        dispatch({ type: 'CUSTOMER_RESET', });
     } catch (error) {
         console.log(error)
     }
 }
 
+export const addStartTimeTable = (model) => async dispatch => {
+    try {
+        dispatch({ type: 'ADD_START_TIME', payload: model });
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 
