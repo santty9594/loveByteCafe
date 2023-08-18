@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
+import { TouchableOpacity, Alert, View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import RemixIcon from 'react-native-remix-icon';
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,6 +14,7 @@ import TableScreen from '../screens/Table/TableScreen';
 import ListScreen from '../screens/Table//ListScreen';
 import MenuScreen from '../screens/Menu/MenuScreen';
 import OrderDetails from '../screens/Menu/CartDetails';
+import BillScreen from '../screens/Table/BillScreen';
 
 export default function App() {
   const userToken = useSelector((state) => state.AuthReducer.loginToken);
@@ -39,16 +40,31 @@ const CustomBackButton = ({ onPress }) => (
 
 
 const CartItem = ({ onPress }) => {
+
   const tempSelectedMenuCount = useSelector(state => state.MenuReducer.tempSelectedMenuCount);
-  console.log(tempSelectedMenuCount)
+
+  const handleNavigation = () => {
+    if (tempSelectedMenuCount <= 0) {
+      Alert.alert(
+        'Message',
+        'Please Select at least one item', [
+        { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        { text: 'Yes', onPress: () => console.log('Press Ok'), style: 'Ok' },
+      ],
+        { cancelable: true },
+      )
+      return true
+    }
+    onPress();
+  }
+
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={handleNavigation}>
       <RemixIcon name='shopping-cart-2-line' size={25} color={"#000"} />
       {tempSelectedMenuCount > 0 && (
         <View style={{
           height: 20, width: 20, position: 'absolute',
-          justifyContent: "center", alignItems: "center",
-          backgroundColor: "red", borderRadius: 20, top: -10, left: 10, padding: 2
+          justifyContent: "center", alignItems: "center", backgroundColor: "red", borderRadius: 20, top: -10, left: 10, padding: 2
         }}>
           <Text style={{ color: '#fff' }}>
             {tempSelectedMenuCount}
@@ -97,6 +113,8 @@ const LoginNavigation = () => {
           headerShown: false
         })}
       />
+
+
     </LoginStack.Navigator>
   )
 }
@@ -166,6 +184,17 @@ const MainNavigation = () => {
         component={OrderDetails}
         options={({ navigation, route }) => ({
           headerTitle: 'Cart',
+          headerLeft: () => (
+            <CustomBackButton onPress={() => navigation.goBack()} />
+          ),
+        })}
+      />
+
+      <LoginStack.Screen
+        name="BillScreen"
+        component={BillScreen}
+        options={({ navigation, route }) => ({
+          headerTitle: 'Billing',
           headerLeft: () => (
             <CustomBackButton onPress={() => navigation.goBack()} />
           ),

@@ -4,11 +4,10 @@ import PrimaryText from '../../../Components/PrimaryText';
 import RemixIcon from 'react-native-remix-icon';
 import colors from '../../../constants/colors';
 
-const BIllReciept = ({ }) => {
+const BIllReciept = ({ totalAmount, totalMinutes, totalPayAmount, tableCharge }) => {
     return (
         <View style={styles.container}>
-
-            <View style={{ flexDirection: "row", alignItems: "center", padding: 16 }}>
+            <View style={{ flexDirection: "row", alignItems: "center", paddingTop: 16, paddingLeft: 16 }}>
                 <PrimaryText align='left' color='black' >
                     Bill Reciept
                 </PrimaryText>
@@ -21,52 +20,43 @@ const BIllReciept = ({ }) => {
                         </PrimaryText>
                     </View>
 
-                    <View style={{ marginVertical: 10 }}>
+                    <View style={{ marginVertical: 10, justifyContent: "center" }}>
                         <PrimaryText align='left' color='black'>
-                            Table Charge
+                            {`Table Charge ( ${totalMinutes} minutes)`}   <RemixIcon name='information-line' size={18} color={"#000"} />
                         </PrimaryText>
                     </View>
-
-                    <View style={{ borderWidth: 1, backgroundColor: '#F5F5F5', marginVertical: 4 }} />
-
-                    <View style={{ marginVertical: 10 }}>
-                        <PrimaryText align='left' color='black'>
-                            Total Pay
-                        </PrimaryText>
-                    </View>
-
                 </View>
 
                 <View style={{ flex: 0.3 }}>
                     <View style={{ marginVertical: 10 }}>
                         <PrimaryText align='right' color='black'>
-                            1230 ₹
+                            {totalAmount} ₹
                         </PrimaryText>
                     </View>
 
                     <View style={{ marginVertical: 10 }}>
                         <PrimaryText align='right' color='black'>
-                            1230 ₹
-                        </PrimaryText>
-                    </View>
-
-                    <View style={{ borderWidth: 1, backgroundColor: '#F5F5F5', marginVertical: 4 }} />
-
-                    <View style={{ marginVertical: 10 }}>
-                        <PrimaryText align='right' color='black'>
-                            1230 ₹
+                            {tableCharge} ₹
                         </PrimaryText>
                     </View>
                 </View>
             </View>
 
-            <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", padding: 16 }}>
-                <TouchableOpacity style={[styles.button, { backgroundColor: "green" }]}>
-                    <PrimaryText align='center'>
-                        Place Order
+            <View style={{ borderWidth: 1, backgroundColor: '#F5F5F5', marginHorizontal: 16 }} />
+
+            <View style={{ flexDirection: "row", justifyContent: "space-between", padding: 16 }}>
+                <View >
+                    <PrimaryText align='right' color='black'>
+                        Pay Total
                     </PrimaryText>
-                </TouchableOpacity>
-            </TouchableOpacity>
+                </View>
+                <View >
+                    <PrimaryText align='right' color='black'>
+                        {totalPayAmount} ₹
+                    </PrimaryText>
+                </View>
+            </View>
+
         </View>
     );
 };
@@ -74,7 +64,7 @@ const BIllReciept = ({ }) => {
 const styles = StyleSheet.create({
     container: {
         marginTop: 8,
-        flex: 0.3,
+        flex: 0.34,
         backgroundColor: colors.white,
     },
     button: {

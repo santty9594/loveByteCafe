@@ -4,10 +4,13 @@ import PrimaryText from '../../../Components/PrimaryText';
 import RemixIcon from 'react-native-remix-icon';
 import BillReciept from './BillReciept';
 import InTime from './InTime';
-import Customer from '../../Auth/Components/customerForm';
 import colors from '../../../constants/colors';
 
-const OrderItem = ({ OrderItems, handleAddQty, selectedTable, handleRemoveQty }) => {
+const OrderItem = ({
+    OrderItems, handleClickStartTime,
+    handleAddQty, selectedTable,
+    handleRemoveQty, startTime, handlePlaceOrder
+}) => {
 
     const [totalPay, setTotalPay] = useState(0);
 
@@ -19,7 +22,7 @@ const OrderItem = ({ OrderItems, handleAddQty, selectedTable, handleRemoveQty })
             }
         });
         setTotalPay(amount);
-    }, [OrderItems, selectedTable]);
+    }, [OrderItems, handleAddQty, selectedTable, handleRemoveQty]);
 
     const memoizedItem = useMemo(() => (
         <View style={styles.cart}>
@@ -60,9 +63,9 @@ const OrderItem = ({ OrderItems, handleAddQty, selectedTable, handleRemoveQty })
 
     return (
         <View style={styles.container}>
-            <InTime />
+            <InTime handleStartTime={handleClickStartTime} startTime={startTime} />
             {memoizedItem}
-            <BillReciept totalPay={totalPay} />
+            <BillReciept totalPay={totalPay} handleClick={handlePlaceOrder} />
         </View>
 
     );
@@ -74,7 +77,7 @@ const styles = StyleSheet.create({
     },
     cart: {
         marginTop: 8,
-        flex: 0.5,
+        flex: 0.65,
         backgroundColor: colors.white,
     },
 

@@ -4,6 +4,7 @@ import PrimaryText from '../../../Components/PrimaryText';
 import Constant from '../../../constants/values';
 
 const ListItem = ({ onPress }) => {
+
     const Item = ({ name, value }) => (
         <TouchableOpacity style={styles.item} onPress={() => onPress(name, value)}>
             <View style={styles.item1}>

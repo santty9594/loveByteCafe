@@ -44,3 +44,30 @@ export const setupPin = (model) => async dispatch => {
   }
 }
 
+
+export const createCustomer = (model) => async dispatch => {
+  try {
+    var temp = await api.signup(model);
+    if (temp && temp.status == 0) {
+      await dispatch({ type: 'CUSTOMER_REGISTER_SUCCESS', payload: "Customer Created Successfully" });
+    } else {
+      await dispatch({ type: 'CUSTOMER_REGISTER_ERROR', payload: temp.message });
+    }
+  } catch (error) {
+    dispatch({ type: "CUSTOMER_REGISTER_ERROR", error });
+  }
+}
+
+export const getCustomerByPhone = (model) => async dispatch => {
+  try {
+    var temp = await api.getCustomer(model);
+    if (temp && temp.status == 0) {
+      await dispatch({ type: 'FETCH_CUSTOMER_DETAILS', payload: temp.data });
+    } else {
+      await dispatch({ type: 'FETCH_CUSTOMER_ERROR', payload: temp.message });
+    }
+  } catch (error) {
+    dispatch({ type: "FETCH_CUSTOMER_ERROR", error });
+  }
+}
+

@@ -18,13 +18,13 @@ const BoxWithMargin = ({ items, selectCategory, handleClicked }) => {
             {
               width: BOX_SIZE,
               height: BOX_SIZE,
-              backgroundColor: item.booked ? '#E4CD05' : '#6495ED',
+              backgroundColor: item.booked ? '#E4CD05' : '#fff',
             },
           ]}
           onPress={() => handleClicked(item)}
           key={i}
         >
-          <PrimaryText>{item.name}</PrimaryText>
+          <PrimaryText color=''>{item.name}</PrimaryText>
         </TouchableOpacity>
       ))}
     </ScrollView>
@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   box: {
-    backgroundColor: '#6495ED',
     marginBottom: 10,
     borderRadius: 8,
     alignItems: 'center',

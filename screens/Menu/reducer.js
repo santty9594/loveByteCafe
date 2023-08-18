@@ -23,7 +23,10 @@ const addMenuItem = (state, payload) => {
     if (!state || !state.selectedMenus) {
         return state;
     }
-    let isObject = state.selectedMenus.find((Item) => Item.id === payload.id);
+    let isObject = state.selectedMenus.find(
+        (Item) => Item.id === payload.id && Item.selectedTable === payload.selectedTable
+    );
+
     if (isObject) {
         return state.selectedMenus;
     } else {
@@ -33,10 +36,10 @@ const addMenuItem = (state, payload) => {
 
 
 function calculateSumById(state, payload) {
-    let sum = 0;
+    var sum = 0;
     for (const item of state.selectedMenus) {
-        if (item.selectedTable === payload.selectedTable) {
-            sum = sum + 1;
+        if (item.selectedTable === payload.selectedTable && item.qty) {
+            sum += 1;
         }
     }
     return sum;
@@ -64,9 +67,7 @@ const changeLineItemQty = (state, payload, type) => {
         return element;
     });
     return updatedValues;
-
 };
-
 
 
 export default MenuReducer = (state = initialState, { type, payload }) => {
@@ -76,12 +77,19 @@ export default MenuReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 loginLoading: false,
                 menusItems: payload,
+                tempSelectedMenuCount: 0
             };
         case 'MENU_CATEGORY_FETCH_SUCCESS':
             return {
                 ...state,
                 loginLoading: false,
                 menuCategory: payload,
+                tempSelectedMenuCount: 0
+            };
+        case 'GET_TABLE_MENU_COUNT':
+            return {
+                ...state,
+                tempSelectedMenuCount: calculateSumById(state, payload)
             };
         case 'MENU_FETCH_ERROR':
             return {
@@ -109,6 +117,7 @@ export default MenuReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 selectedMenus: removeQty,
             };
+        
         case 'AUTH_LOGOUT_RESET':
             return initialState;
         default:

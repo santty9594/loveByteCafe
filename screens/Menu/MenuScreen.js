@@ -11,7 +11,7 @@ class MenuScreen extends Component {
 
     componentDidMount() {
         this.props.getMenuItems();
-        this.props.getMenuCategory();
+        this.props.getMenuCategory({}, this.props.selectedTable);
     }
 
     handleCardClick = (value) => {
@@ -21,12 +21,13 @@ class MenuScreen extends Component {
     }
 
     render() {
-        let { menusItems, menuCategory } = this.props;
+        let { menusItems, menuCategory, } = this.props;
         return (
             <MenusComponent
                 menusItems={menusItems}
                 menuCategory={menuCategory}
                 handleCardClick={this.handleCardClick}
+              
             />
         )
     }

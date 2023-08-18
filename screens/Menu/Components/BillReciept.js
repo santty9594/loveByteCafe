@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import PrimaryText from '../../../Components/PrimaryText';
-import RemixIcon from 'react-native-remix-icon';
 import colors from '../../../constants/colors';
 
-const BIllReciept = ({ totalPay }) => {
+const BIllReciept = ({ totalPay, handleClick }) => {
+
     return (
         <View style={styles.container}>
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: 16 }}>
+            <View style={styles.row}>
                 <View>
                     <PrimaryText align='left' color='black' >
                         Total Amount
@@ -20,13 +20,14 @@ const BIllReciept = ({ totalPay }) => {
                 </View>
             </View>
 
-            <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", padding: 16 }}>
-                <TouchableOpacity style={[styles.button, { backgroundColor: "green" }]}>
+            <View 
+                style={{ flexDirection: "row", alignItems: "center", padding: 16 }}>
+                <TouchableOpacity onPress={()=>handleClick(totalPay)} style={[styles.button, { backgroundColor: "green" }]}>
                     <PrimaryText align='center'>
                         Place Order
                     </PrimaryText>
                 </TouchableOpacity>
-            </TouchableOpacity>
+            </View>
         </View>
     );
 };
@@ -34,8 +35,13 @@ const BIllReciept = ({ totalPay }) => {
 const styles = StyleSheet.create({
     container: {
         marginTop: 8,
-        flex: 0.3,
+        flex: 0.2,
+    },
+    row: {
         backgroundColor: colors.white,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between", padding: 16
     },
     button: {
         paddingVertical: 20,

@@ -3,42 +3,56 @@ import { View, StyleSheet, TextInput } from 'react-native';
 import { Button } from 'react-native-paper';
 import PrimaryText from '../../../Components/PrimaryText';
 
-const InTime = ({ handleStartTime, startTime }) => {
+const InOutTime = ({ startTime, setOutTime }) => {
+    
+    console.log(startTime);
 
-    const [inTime, setInTime] = useState(startTime ? startTime : "0:0");
-    const [isDisable, setDisable] = useState(false);
+    const [time, setTime] = useState('0:0');
 
     const handleInputChange = (value) => {
-        setInTime(value);
-        handleStartTime(value);
+        setTime(value);
+        setOutTime(value);
     };
 
-    const ChangeStartTime = () => {
+    const ChangeEndTime = () => {
         let time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-        setInTime(time);
-        handleStartTime(time);
-        setDisable(!isDisable)
+        setTime(time);
+        setOutTime(time);
     }
 
     return (
         <View style={styles.container}>
             <View style={styles.direction}>
-                <View>
-                    <PrimaryText color='black'>In Time Start</PrimaryText>
+                <View style={{ flex: 0.5 }}>
+                    <PrimaryText color='black'>In Time </PrimaryText>
                 </View>
-                <View>
+                <View style={{ flex: 0.5 }}>
                     <TextInput
-                        editable={isDisable}
+                        editable={false}
                         style={styles.input}
-                        value={inTime}
+                        value={startTime}
+                    />
+                </View>
+                <View style={{ flex: 0.5 }}>
+                </View>
+            </View>
+
+            <View style={styles.direction}>
+                <View style={{ flex: 0.5 }}>
+                    <PrimaryText color='black'>Out Time</PrimaryText>
+                </View>
+                <View style={{ flex: 0.5 }}>
+                    <TextInput
+                        style={styles.input}
+                        value={time}
                         onChangeText={(value) => handleInputChange(value)}
                         placeholder="useless placeholder"
                         keyboardType="numeric"
                     />
                 </View>
-                <View>
-                    <Button mode="contained" onPress={() => ChangeStartTime()}>
-                        {isDisable ? 'Edit' : 'Start'}
+                <View style={{ flex: 0.5 }}>
+                    <Button mode="contained" onPress={() => ChangeEndTime()}>
+                        {'End Time'}
                     </Button>
                 </View>
             </View>
@@ -48,7 +62,7 @@ const InTime = ({ handleStartTime, startTime }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0.1,
+        flex: 0.18,
         marginTop: 8,
         paddingHorizontal: 16,
         backgroundColor: "#fff",
@@ -56,17 +70,14 @@ const styles = StyleSheet.create({
     direction: {
         alignItems: "center",
         flexDirection: "row",
-        justifyContent: "space-between",
-        backgroundColor: "#fff",
     },
     input: {
         borderColor: 'gray',
         width: 90,
-        height: 40,
         margin: 12,
         borderWidth: 1,
-        padding: 10,
+        padding: 8,
     },
 });
 
-export default InTime;
+export default InOutTime;
