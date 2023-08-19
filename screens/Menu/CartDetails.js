@@ -5,6 +5,13 @@ import OrderItem from './Components/CartForm';
 import { addQty, removeQty, addStartTimeTable, placeOrder } from './action';
 
 class OrderDetails extends Component {
+    constructor(props) {
+        super(props); {
+            this.state = {
+                initialStartTime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
+            }
+        }
+    }
 
     handleAddQty = (id) => {
         this.props.addQty(id)
@@ -15,18 +22,22 @@ class OrderDetails extends Component {
     }
 
     handleClickStartTime = (startTime) => {
-        this.props.addStartTimeTable({ selectedTable: this.props.selectedTable, startTime })
+        this.props.addStartTimeTable(
+            {
+                selectedTable: this.props.selectedTable, startTime
+            }
+        )
     }
 
-    handlePlaceOrder = (totalPay) => {
-        this.props.placeOrder(totalPay);
+    handlePlaceOrder = async (totalPay) => {
+        await this.handleClickStartTime(this.state.initialStartTime);
+        await this.props.placeOrder(totalPay);
         this.props.navigation.navigate('BillScreen')
     }
 
     render() {
         let { selectedMenus, selectedTable, selectedTableStartTime } = this.props;
-        selectedTableStartTime = (selectedTableStartTime !== '0:0') ? selectedTableStartTime :
-            new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+        selectedTableStartTime = (selectedTableStartTime !== '0:0') ? selectedTableStartTime : this.state.initialStartTime;
 
         selectedMenus = Array.isArray(selectedMenus) ?
             selectedMenus.filter(item => item.selectedTable === selectedTable)

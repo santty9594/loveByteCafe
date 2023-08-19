@@ -1,4 +1,4 @@
-import { StyleSheet, View, Keyboard, } from 'react-native';
+import { StyleSheet, View, Keyboard } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { TextInput, HelperText, Text } from 'react-native-paper';
 import { DropdownComponent } from '../../../Components/Dropdown';
@@ -18,50 +18,18 @@ export default function CustomerInfo({ getCustomerByPhone, customer }) {
 
     const handleOnChange = (text, input) => {
         setInputs(prevState => ({ ...prevState, [input]: text }));
-        if (text.length > 9 && input == 'phone') {
-            getCustomerByPhone({ phone: parseInt(text) });
-        }
+        getCustomerByPhone(text, input);
     };
 
     const handleError = (errorMessage, input) => {
         setErrors(prevState => ({ ...prevState, [input]: errorMessage }));
     };
 
-    const onPressSave = async () => {
-        Keyboard.dismiss();
-        let valid = true;
-        if (!inputs.name) {
-            handleError('Please enter first name', 'name');
-            valid = false;
-        }
-        else if (inputs.name.length <= 3 || inputs.name > 150) {
-            valid = false;
-            handleError('Please enter valid first name', 'name');
-        }
-        if (!inputs.lastName) {
-            handleError('Please enter last name', 'lastName');
-            valid = false;
-        }
-        else if (inputs.lastName.length <= 3 || inputs.lastName > 150) {
-            valid = false;
-            handleError('Please enter valid last name', 'lastName');
-        }
-        if (!inputs.phone) {
-            handleError('Please enter contact number', 'phone');
-            valid = false;
-        }
-        else if (handleEmailValidation(inputs.phone) === false) {
-            valid = false;
-            handleError('Please enter valid last name', 'phone');
-        }
-        if (valid) {
-            console.log('#############');
-        }
-    };
-
 
     return (
+
         <View style={styles.container}>
+
             <View style={{ paddingTop: 16 }}>
                 <PrimaryText align='left' color='black'  >
                     Customer Details
@@ -75,6 +43,7 @@ export default function CustomerInfo({ getCustomerByPhone, customer }) {
                     label="Phone Number"
                     keyboardType='number-pad'
                     value={inputs?.phone}
+                    maxLength={10}
                     onChangeText={text => handleOnChange(text, 'phone')}
                     onFocus={() => {
                         handleError(null, 'phone');
@@ -112,17 +81,18 @@ export default function CustomerInfo({ getCustomerByPhone, customer }) {
                             { label: 'Female', value: 'Female' },
                         ]}
                         value={gender}
-                        onChangeValue={(value) => setGender(value)}
+                        onChangeValue={(value) => { setGender(value), getCustomerByPhone(value, "gender"); }}
                     />
                 </View>
             </View>
-        </View>
+        </View >
+
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0.4,
+        flex: 0.45,
         marginTop: 8,
         paddingHorizontal: 16,
         backgroundColor: "#fff",

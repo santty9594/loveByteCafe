@@ -4,8 +4,6 @@ import { Button } from 'react-native-paper';
 import PrimaryText from '../../../Components/PrimaryText';
 
 const InOutTime = ({ startTime, setOutTime }) => {
-    
-    console.log(startTime);
 
     const [time, setTime] = useState('0:0');
 
@@ -24,7 +22,7 @@ const InOutTime = ({ startTime, setOutTime }) => {
         <View style={styles.container}>
             <View style={styles.direction}>
                 <View style={{ flex: 0.5 }}>
-                    <PrimaryText color='black'>In Time </PrimaryText>
+                    <PrimaryText color='black' align='left' >In Time </PrimaryText>
                 </View>
                 <View style={{ flex: 0.5 }}>
                     <TextInput
@@ -39,7 +37,7 @@ const InOutTime = ({ startTime, setOutTime }) => {
 
             <View style={styles.direction}>
                 <View style={{ flex: 0.5 }}>
-                    <PrimaryText color='black'>Out Time</PrimaryText>
+                    <PrimaryText color='black' align='left' >Out Time</PrimaryText>
                 </View>
                 <View style={{ flex: 0.5 }}>
                     <TextInput
@@ -62,7 +60,7 @@ const InOutTime = ({ startTime, setOutTime }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0.18,
+        flex: 0.2,
         marginTop: 8,
         paddingHorizontal: 16,
         backgroundColor: "#fff",

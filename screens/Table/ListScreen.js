@@ -5,8 +5,9 @@ import ListItem from './Components/ListItem'
 import { tableType } from './action';
 
 class ListScreen extends Component {
-    handleListClick = (name, value) => {
-        this.props.tableType(value)
+
+    handleListClick = async(name, value) => {
+       await this.props.tableType(value)
         this.props.navigation.navigate('TableScreen', { name })
     }
 

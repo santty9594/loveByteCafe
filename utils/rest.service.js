@@ -41,26 +41,16 @@ class RestApi {
                 headers: headers,
                 body: JSON.stringify(args)
             };
-            console.log(options)
+            console.log("options",options)
             let response = await fetch(API_BASE + url, options);
             response = await response.json();
+            console.log("response",response)
             return response;
         } catch (error) {
             throw error;
         }
     }
 
-
-    encodedBody(body) {
-        var formBody = [];
-        for (var property in body) {
-            var encodedKey = encodeURIComponent(property);
-            var encodedValue = encodeURIComponent(body[property]);
-            formBody.push(encodedKey + "=" + encodedValue);
-        }
-        formBody = formBody.join("&");
-        return formBody;
-    }
 
 }
 

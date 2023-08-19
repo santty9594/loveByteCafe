@@ -2,33 +2,37 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Signup from './Components/Signup'
 import Loader from '../../Components/loader';
-import { signup } from './action';
+import { signupUser } from './action';
 
 class SignupScreen extends Component {
 
-  handleListClick = (model) => {
+  handleListClick = () => {
     this.props.navigation.navigate('LoginScreen')
   }
 
-  handleSignup = (model) => {
-    this.props.signup(model);
+  handleSignup = async (model) => {
+    await this.props.signupUser(model);
     if (this.props.registerSuccess) {
       this.props.navigation.navigate('LoginScreen')
-    }else{
+    } else {
       alert(this.props.registerError)
     }
   }
 
+  renderLoading = () => {
+    let { registerLoading } = this.props;
+    return registerLoading && <Loader isLoading={registerLoading} />
+  }
+
   render() {
-    let { registerLoading,registerError } = this.props;
-    if (registerLoading) {
-      <Loader isLoading={registerLoading} />
-    }
     return (
-      <Signup
-        handleListClick={this.handleListClick}
-        handleSignup={this.handleSignup}
-      />
+      <>
+        <Signup
+          handleListClick={this.handleListClick}
+          handleSignup={this.handleSignup}
+        />
+        {this.renderLoading()}
+      </>
     )
   }
 };
@@ -37,9 +41,8 @@ function initMapStateToProps(state) {
   return {
     registerLoading: state.AuthReducer.registerLoading,
     registerError: state.AuthReducer.registerError,
-    registerError: state.AuthReducer.registerError,
-    registerMessage: state.AuthReducer.registerMessage,
+    registerSuccess: state.AuthReducer.registerSuccess,
   };
 }
 
-export default connect(initMapStateToProps, { signup })(SignupScreen);
+export default connect(initMapStateToProps, { signupUser })(SignupScreen);

@@ -6,11 +6,11 @@ import { authLogin } from './action';
 
 class LoginScreen extends Component {
 
-  handleLogin = (data) => {
-    this.props.authLogin(data);
+  handleLogin = async (data) => {
+    await this.props.authLogin(data);
     if (this.props.loginSuccess) {
       this.props.navigation.navigate('SetupPinScreen')
-    }else{
+    } else {
       alert(this.props.loginError)
     }
   }
@@ -19,16 +19,20 @@ class LoginScreen extends Component {
     this.props.navigation.navigate('SignupScreen');
   }
 
-  render() {
+  renderLoading = () => {
     let { loginLoading } = this.props;
-    if (loginLoading) {
-      <Loader isLoading={loginLoading} />
-    }
+    return loginLoading && <Loader isLoading={loginLoading} />
+  }
+
+  render() {
     return (
-      <Login
-        handleLogin={this.handleLogin}
-        handleSignup={this.handleSignup}
-      />
+      <>
+        <Login
+          handleLogin={this.handleLogin}
+          handleSignup={this.handleSignup}
+        />
+        {this.renderLoading()}
+      </>
     )
   }
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import InOutTime from './InOutTime';
-import PrimaryText from '../../../Components/PrimaryText';
 import BillBreakup from './BillBreakup';
 import MakePayment from './MakePayment';
 import Customer from '../../Auth/Components/customerForm'
@@ -9,32 +8,31 @@ import Customer from '../../Auth/Components/customerForm'
 const BillForm = ({
   setOutTime, startTime, totalMinutes,
   totalPayAmount, tableCharge, totalAmount,
-  getCustomerByPhone, customer
-
+  getCustomerByPhone, customer, handleMakePayment
 }) => {
 
   return (
-    <View style={styles.container}>
-
-      <InOutTime
-        startTime={startTime}
-        setOutTime={setOutTime}
-      />
-
-      <BillBreakup
-        totalAmount={totalAmount}
-        totalMinutes={totalMinutes}
-        totalPayAmount={totalPayAmount}
-        tableCharge={tableCharge}
-      />
-
-      <Customer
-        getCustomerByPhone={getCustomerByPhone}
-        customer={customer}
-      />
-
-      <MakePayment />
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <Customer
+          getCustomerByPhone={getCustomerByPhone}
+          customer={customer}
+        />
+        <InOutTime
+          startTime={startTime}
+          setOutTime={setOutTime}
+        />
+        <BillBreakup
+          totalAmount={totalAmount}
+          totalMinutes={totalMinutes}
+          totalPayAmount={totalPayAmount}
+          tableCharge={tableCharge}
+        />
+        <MakePayment
+          handleMakePayment={handleMakePayment}
+        />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 

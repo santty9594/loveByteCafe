@@ -17,6 +17,8 @@ export default AuthReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loginLoading: true,
+        loginSuccess: false,
+        loginError: null,
       };
     case 'AUTH_HYDRATE_TOKEN':
       return {
@@ -46,6 +48,8 @@ export default AuthReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         registerLoading: true,
+        registerSuccess: false,
+        registerMessage: '',
       };
     case 'AUTH_REGISTER_SUCCESS':
       return {
@@ -53,7 +57,7 @@ export default AuthReducer = (state = initialState, { type, payload }) => {
         registerLoading: false,
         registerError: false,
         registerSuccess: true,
-        registerMessage: payload,
+        registerMessage: '',
       };
     case 'AUTH_REGISTER_ERROR':
       return {
