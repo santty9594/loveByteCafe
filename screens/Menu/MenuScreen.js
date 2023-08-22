@@ -8,7 +8,6 @@ import {
 } from './action';
 
 class MenuScreen extends Component {
-
     componentDidMount() {
         this.props.getMenuItems();
         this.props.getMenuCategory({}, this.props.selectedTable);
@@ -22,14 +21,11 @@ class MenuScreen extends Component {
 
     render() {
         let { menusItems, menuCategory, } = this.props;
-        return (
-            <MenusComponent
-                menusItems={menusItems}
-                menuCategory={menuCategory}
-                handleCardClick={this.handleCardClick}
-              
-            />
-        )
+        return <MenusComponent
+            menusItems={menusItems}
+            menuCategory={menuCategory}
+            handleCardClick={this.handleCardClick}
+        />
     }
 };
 

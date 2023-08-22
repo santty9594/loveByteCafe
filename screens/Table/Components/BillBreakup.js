@@ -42,7 +42,7 @@ const BIllReciept = ({ totalAmount, totalMinutes, totalPayAmount, tableCharge })
                 </View>
             </View>
 
-            <View style={{ borderWidth: 1, backgroundColor: '#F5F5F5', marginHorizontal: 16 }} />
+            <View style={{ borderWidth: 1,  borderColor: '#808080', marginHorizontal: 16 }} />
 
             <View style={{ flexDirection: "row", justifyContent: "space-between", padding: 16 }}>
                 <View >
@@ -64,7 +64,7 @@ const BIllReciept = ({ totalAmount, totalMinutes, totalPayAmount, tableCharge })
 const styles = StyleSheet.create({
     container: {
         marginTop: 8,
-        flex: 0.34,
+        flex: 0.4,
         backgroundColor: colors.white,
     },
     button: {

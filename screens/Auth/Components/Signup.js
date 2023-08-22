@@ -4,7 +4,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  ScrollView,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
 import React, { useState } from 'react';
@@ -65,7 +66,7 @@ export default function SignupScreen({ handleSignup, handleListClick }) {
       handleError('Please enter valid password', 'password');
       valid = false;
     }
-    if (!inputs.phone){
+    if (!inputs.phone) {
       handleError('Please enter contact number', 'phone');
       valid = false;
     } else if (handleMobileNumberValidation(inputs.phone) === false) {
@@ -85,109 +86,112 @@ export default function SignupScreen({ handleSignup, handleListClick }) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={{ flex: 0.5 }}></View>
-      <View style={{ flex: 2.5, margin: 16 }}>
-        <Text style={{ color: '#000', fontSize: 26, fontWeight: 'bold' }}>
-          Sign Up
-        </Text>
-        <TextInput
-          style={styles.textInputStyle}
-          contentStyle={styles.textInputContentStyle}
-          label="Full Name"
-          value={inputs.name}
-          onChangeText={text => handleOnChange(text, 'name')}
-          onFocus={() => {
-            handleError(null, 'name');
-          }}
-        />
-        <HelperText type="error" visible={errors.name}>
-          {errors.name}
-        </HelperText>
-        <TextInput
-          style={styles.textInputStyle}
-          contentStyle={styles.textInputContentStyle}
-          label="Mobile Number"
-          keyboardType="number-pad"
-          value={inputs.phone}
-          onChangeText={text => handleOnChange(text, 'phone')}
-          onFocus={() => {
-            handleError(null, 'phone');
-          }}
-        />
-        <HelperText type="error" visible={errors.phone}>
-          {errors.phone}
-        </HelperText>
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={styles.container}>
+          <View style={{ flex: 0.5 }}></View>
+          <View style={{ flex: 2.5, margin: 16 }}>
+            <Text style={{ color: '#000', fontSize: 26, fontWeight: 'bold' }}>
+              Sign Up
+            </Text>
+            <TextInput
+              style={styles.textInputStyle}
+              contentStyle={styles.textInputContentStyle}
+              label="Full Name"
+              value={inputs.name}
+              onChangeText={text => handleOnChange(text, 'name')}
+              onFocus={() => {
+                handleError(null, 'name');
+              }}
+            />
+            <HelperText type="error" visible={errors.name}>
+              {errors.name}
+            </HelperText>
+            <TextInput
+              style={styles.textInputStyle}
+              contentStyle={styles.textInputContentStyle}
+              label="Mobile Number"
+              keyboardType="number-pad"
+              value={inputs.phone}
+              onChangeText={text => handleOnChange(text, 'phone')}
+              onFocus={() => {
+                handleError(null, 'phone');
+              }}
+            />
+            <HelperText type="error" visible={errors.phone}>
+              {errors.phone}
+            </HelperText>
 
-        <TextInput
-          style={styles.textInputStyle}
-          contentStyle={styles.textInputContentStyle}
-          label="Email"
-          value={inputs.email}
-          onChangeText={text => handleOnChange(text, 'email')}
-          onFocus={() => {
-            handleError(null, 'email');
-          }}
-        />
-        <HelperText type="error" visible={errors.email}>
-          {errors.email}
-        </HelperText>
-        <TextInput
-          style={styles.textInputStyle}
-          contentStyle={styles.textInputContentStyle}
-          label="Password"
-          value={inputs.password}
-          onChangeText={text => handleOnChange(text, 'password')}
-          onFocus={() => {
-            handleError(null, 'password');
-          }}
-          onBlur={validatePassword}
-        />
-        <HelperText type="error" visible={errors.password}>
-          {errors.password}
-        </HelperText>
-        <TextInput
-          style={styles.textInputStyle}
-          contentStyle={styles.textInputContentStyle}
-          label="Confirm Password"
-          value={inputs.confirmPassword}
-          onChangeText={text => handleOnChange(text, 'confirmPassword')}
-          onFocus={validatePassword}
-          onBlur={validatePassword}
-        />
-        <HelperText type="error" visible={errors.confirmPassword}>
-          {errors.confirmPassword}
-        </HelperText>
-        <Button
-          style={{ top: 20 }}
-          buttonColor="#6495ED"
-          textColor="#fff"
-          mode="contained"
-          onPress={() => emailSignUpPress()}>
-          Sign Up
-        </Button>
-      </View>
+            <TextInput
+              style={styles.textInputStyle}
+              contentStyle={styles.textInputContentStyle}
+              label="Email"
+              value={inputs.email}
+              onChangeText={text => handleOnChange(text, 'email')}
+              onFocus={() => {
+                handleError(null, 'email');
+              }}
+            />
+            <HelperText type="error" visible={errors.email}>
+              {errors.email}
+            </HelperText>
+            <TextInput
+              style={styles.textInputStyle}
+              contentStyle={styles.textInputContentStyle}
+              label="Password"
+              value={inputs.password}
+              onChangeText={text => handleOnChange(text, 'password')}
+              onFocus={() => {
+                handleError(null, 'password');
+              }}
+              onBlur={validatePassword}
+            />
+            <HelperText type="error" visible={errors.password}>
+              {errors.password}
+            </HelperText>
+            <TextInput
+              style={styles.textInputStyle}
+              contentStyle={styles.textInputContentStyle}
+              label="Confirm Password"
+              value={inputs.confirmPassword}
+              onChangeText={text => handleOnChange(text, 'confirmPassword')}
+              onFocus={validatePassword}
+              onBlur={validatePassword}
+            />
+            <HelperText type="error" visible={errors.confirmPassword}>
+              {errors.confirmPassword}
+            </HelperText>
+            <Button
+              style={{ top: 20 }}
+              buttonColor="#6495ED"
+              textColor="#fff"
+              mode="contained"
+              onPress={() => emailSignUpPress()}>
+              Sign Up
+            </Button>
+          </View>
+          <View
+            style={{
+              flex: 0.5,
+              flexDirection: 'row',
+              alignItems: 'center',
 
-      <View
-        style={{
-          flex: 0.5,
-          flexDirection: 'row',
-          alignItems: 'center',
-
-          justifyContent: 'center',
-        }}>
-        <Text style={{ color: '#000', fontSize: 18, fontWeight: '200' }}>
-          Already have an account ?
-        </Text>
-        <TouchableOpacity
-          onPress={() => handleListClick()}>
-          <Text
-            style={{ color: '#000', fontSize: 18, fontWeight: '700', left: 5 }}>
-            Sign In
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+              justifyContent: 'center',
+            }}>
+            <Text style={{ color: '#000', fontSize: 18, fontWeight: '200' }}>
+              Already have an account ?
+            </Text>
+            <TouchableOpacity
+              onPress={() => handleListClick()}>
+              <Text
+                style={{ color: '#000', fontSize: 18, fontWeight: '700', left: 5 }}>
+                Sign In
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View >
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView >
   );
 }
 
@@ -197,6 +201,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   textInputStyle: {
+    paddingHorizontal: 0,
     backgroundColor: '#fff',
   },
   textInputContentStyle: {

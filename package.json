@@ -25,6 +25,7 @@
     "react-native": "0.70.0",
     "react-native-element-dropdown": "^2.9.0",
     "react-native-flipper": "^0.209.0",
+    "react-native-msal": "^4.0.4",
     "react-native-paper": "^5.9.1",
     "react-native-remix-icon": "^0.4.0",
     "react-native-safe-area-context": "^3.3.2",

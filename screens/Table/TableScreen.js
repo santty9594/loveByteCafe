@@ -1,24 +1,36 @@
 import React, { Component } from 'react';
+import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Table from './Components/Table';
-import { bookedTable } from './action';
-
+import { bookedTable, resetTable } from './action';
 
 class TableScreen extends Component {
 
     handleListClick = (item) => {
+        if (item.booked) {
+            Alert.alert(
+                'Alert',
+                'Do you want to reset this table', [
+                { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                { text: 'Yes', onPress: () => this.props.resetTable(item.value), style: 'Ok' },
+            ],
+                { cancelable: true },
+            )
+            return true
+        }
         this.props.bookedTable(item.value);
         this.props.navigation.navigate('MenuScreen', { name: item.name })
     }
 
     render() {
-        let { tableList, selectCategory, menuCategory } = this.props;
+        let { tableList, selectCategory, } = this.props;
         return (
             <Table
                 items={tableList}
                 selectCategory={selectCategory}
                 handleClicked={this.handleListClick}
+                
 
             />
         )
@@ -35,7 +47,7 @@ function initMapStateToProps(state) {
 }
 
 function initMapDispatchToProps(dispatch) {
-    return bindActionCreators({ bookedTable, }, dispatch);
+    return bindActionCreators({ bookedTable, resetTable }, dispatch);
 }
 
 

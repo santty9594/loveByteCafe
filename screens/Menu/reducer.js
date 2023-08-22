@@ -7,17 +7,7 @@ const initialState = {
     menuCategory: [],
     selectedMenus: [],
     tempSelectedMenuCount: 0,
-    OrderItems: [
-        { key: 1, name: 'Samosha', qaty: 1, value: 10, totalAmount: 10, id: 1 },
-        { key: 2, name: 'Samosha1', qaty: 1, value: 10, totalAmount: 10, id: 2 },
-        { key: 3, name: 'Samosha2', qaty: 1, value: 10, totalAmount: 10, id: 3 },
-        { key: 4, name: 'Samosha3', qaty: 1, value: 10, totalAmount: 10, id: 4 },
-        { key: 5, name: 'Samosha1', qaty: 1, value: 10, totalAmount: 10, id: 5 },
-        { key: 6, name: 'Samosha2', qaty: 1, value: 10, totalAmount: 10, id: 6 },
-        { key: 7, name: 'Samosha3', qaty: 1, value: 10, totalAmount: 10, id: 7 }
-    ]
 };
-
 
 const addMenuItem = (state, payload) => {
     if (!state || !state.selectedMenus) {
@@ -26,12 +16,20 @@ const addMenuItem = (state, payload) => {
     let isObject = state.selectedMenus.find(
         (Item) => Item.id === payload.id && Item.selectedTable === payload.selectedTable
     );
-
     if (isObject) {
         return state.selectedMenus;
     } else {
         return [...state.selectedMenus, payload];
     }
+};
+
+
+const filterMeuItem = (state, payload) => {
+    if (!state || !state.selectedMenus) {
+        return state;
+    }
+    let selectedMenus = state.selectedMenus.filter((Item) => Item.selectedTable !== payload);
+    return selectedMenus;
 };
 
 
@@ -117,7 +115,11 @@ export default MenuReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 selectedMenus: removeQty,
             };
-        
+        case 'RESET_MENU_AGAINST_TABLE':
+            return {
+                ...state,
+                selectedMenus: filterMeuItem(state, payload),
+            };
         case 'AUTH_LOGOUT_RESET':
             return initialState;
         default:

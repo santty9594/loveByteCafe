@@ -10,6 +10,17 @@ export const bookedTable = (id) => ({
   payload: id
 });
 
+
+export const resetTable = (id) => async dispatch => {
+  try {
+    dispatch({ type: 'RESET_TABLE_NUMBER', payload: id });
+    dispatch({ type: 'RESET_MENU_AGAINST_TABLE', payload: id });
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
 export const addEndTime = (model) => async dispatch => {
   try {
 
@@ -18,6 +29,7 @@ export const addEndTime = (model) => async dispatch => {
 
     const time1 = model?.selectedTableStartTime;
     const time2 = model?.selectedTableEndTime;
+
     const totalAmount = model?.totalAmount;
 
     // Create moment objects for the two times
@@ -29,9 +41,8 @@ export const addEndTime = (model) => async dispatch => {
     const minutes = Math.abs(momentTime1.diff(momentTime2, 'minutes'));
 
     function calculateCharge(minutes) {
+      let charge = 0;
       if (minutes) {
-        let charge = 0;
-
         if (minutes <= 70) {
           charge = 100;
         } else if (minutes <= 100) {
@@ -43,13 +54,13 @@ export const addEndTime = (model) => async dispatch => {
         } else if (minutes <= 190) {
           charge = 300;
         }
-
         return charge;
       }
+      return charge;
     }
     const charge = calculateCharge(minutes);
 
-    if (charge && totalAmount) {
+    if (totalAmount) {
       totalPayAmount = totalAmount + charge;
       tableCharge = charge;
     }

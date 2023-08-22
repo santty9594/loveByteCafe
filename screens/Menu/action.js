@@ -68,7 +68,7 @@ export const addStartTimeTable = (model) => async dispatch => {
     try {
         dispatch({ type: 'ADD_START_TIME', payload: model });
     } catch (error) {
-        console.log(error)
+        console.log(">>>>>",error)
     }
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, View, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import PrimaryText from '../../../Components/PrimaryText';
 import colors from '../../../constants/colors';
 
@@ -8,6 +8,8 @@ const BoxWithMargin = ({ items, selectCategory, handleClicked }) => {
   const CARD_MARGIN = 20;
   const BOX_SIZE = (SCREEN_WIDTH - CARD_MARGIN * 4) / 3;
   const filteredItems = items.filter(item => item.tableType === selectCategory);
+
+  console.log(filteredItems)
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -24,7 +26,17 @@ const BoxWithMargin = ({ items, selectCategory, handleClicked }) => {
           onPress={() => handleClicked(item)}
           key={i}
         >
-          <PrimaryText color=''>{item.name}</PrimaryText>
+          {item.booked ? (
+            <View style={styles.alignItems}>
+              <PrimaryText color='black'>{item.name}</PrimaryText>
+              <PrimaryText color='black'>Booked</PrimaryText>
+            </View>
+          ) : (
+            <View style={styles.alignItems}>
+              <PrimaryText color='black'>{item.name}</PrimaryText>
+              <PrimaryText color='black'>Available</PrimaryText>
+            </View>
+          )}
         </TouchableOpacity>
       ))}
     </ScrollView>
@@ -37,6 +49,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexWrap: 'wrap',
     padding: 16,
+  },
+  alignItems: {
+    justifyContent: "center", alignItems: "center"
   },
   box: {
     marginBottom: 10,
