@@ -6747,10 +6747,10 @@
   dependencies:
     "lodash" "^4.17.21"
 
-"react-native-flipper@^0.209.0", "react-native-flipper@>=0.100.0":
-  "integrity" "sha512-NAR3Axb2HpLLgkefGyBnovcP5eyfS5ybn6xLxdFt8zOlZ3rBf+Cae/jhGo0Wz77uf+8Sym5ogPbsGVc1LsxMNg=="
-  "resolved" "https://registry.npmjs.org/react-native-flipper/-/react-native-flipper-0.209.0.tgz"
-  "version" "0.209.0"
+"react-native-flipper@>=0.100.0", "react-native-flipper@0.163.0":
+  "integrity" "sha512-RG0yMlEMe/fYqaoUkhvW2HrqBuRYtq1K3me9y52RBFwPWooZTmUlWjIWGKT9VYVS9T2GGrUV9tpBA8pY9g7CSg=="
+  "resolved" "https://registry.npmjs.org/react-native-flipper/-/react-native-flipper-0.163.0.tgz"
+  "version" "0.163.0"
 
 "react-native-gesture-handler@>= 1.0.0":
   "integrity" "sha512-rr+XwVzXAVpY8co25ukvyI38fKCxTQjz7WajeZktl8qUPdh1twnSExgpT47DqDi4n+m+OiJPAnHfZOkqqAQMOg=="
