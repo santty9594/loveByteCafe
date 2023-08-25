@@ -11,6 +11,7 @@ import {
   import {TextInput, Button, HelperText} from 'react-native-paper';
   import useValidateEmail from '../Components/hooks/useValidateEmail';
   import useValidateMobileNumber from '../Components/hooks/useValidateMobileNumber';
+import colors from '../../constants/colors';
   
   export default function SignupScreen({navigation}) {
     const {handleEmailValidation} = useValidateEmail();
@@ -159,7 +160,8 @@ import {
           </HelperText>
           <Button
             style={{top: 20}}
-            buttonColor="#6495ED"
+            labelStyle={styles.labelStyle}
+            buttonColor={colors.buttonColor}
             textColor="#fff"
             mode="contained"
             onPress={() => emailSignUpPress()}>
@@ -195,12 +197,14 @@ import {
   const styles = StyleSheet.create({
     container: {
       flex: 4,
-      backgroundColor: '#fff',
+      backgroundColor: '#fffff',
     },
     textInputStyle: {
-      backgroundColor: '#fff',
+      backgroundColor: 'blue',
     },
     textInputContentStyle: {
       color: '#000',
     },
+    labelStyle:{fontFamily:'Montserrat-SemiBold'}
+
   });

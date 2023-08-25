@@ -1,9 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard ,Dimensions, ScrollView} from 'react-native';
 import InOutTime from './InOutTime';
 import BillBreakup from './BillBreakup';
 import MakePayment from './MakePayment';
 import Customer from '../../Auth/Components/customerForm'
+
+
+const {height ,width}=    Dimensions.get('window')
 
 const BillForm = ({
   setOutTime, startTime, totalMinutes,
@@ -13,7 +16,7 @@ const BillForm = ({
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
         <Customer
           getCustomerByPhone={getCustomerByPhone}
           customer={customer}
@@ -31,18 +34,20 @@ const BillForm = ({
         <MakePayment
           handleMakePayment={handleMakePayment}
         />
-      </View>
+      </ScrollView>
     </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+     flex: 1,
+      // backgroundColor:'#fff',
+    
   },
   button: {
-    paddingVertical: 20,
-    flex: 1
+   paddingVertical: 20,
+     flex: 1
   },
 });
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TextInput, Button, HelperText } from 'react-native-paper';
+import colors from '../../../constants/colors';
 
 export default function EnterPinScreen({ handleNavigation }) {
   const [pin, setPin] = useState('');
@@ -46,7 +47,8 @@ export default function EnterPinScreen({ handleNavigation }) {
 
         <Button
           style={{ top: 20 }}
-          buttonColor="#6495ED"
+          buttonColor={colors.tableColor}
+          labelStyle={styles.labelStyle}
           textColor="#fff"
           mode="contained"
           onPress={() => handlePinSubmit()}
@@ -62,6 +64,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingHorizontal:16
   },
   textInputStyle: {
     paddingHorizontal:0,
@@ -70,4 +73,6 @@ const styles = StyleSheet.create({
   textInputContentStyle: {
     color: '#000',
   },
+  labelStyle:{fontFamily:'Montserrat-SemiBold'}
+
 })

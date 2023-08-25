@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, Keyboard, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {TextInput, Button, HelperText} from 'react-native-paper';
 import useValidateEmail from  '../Components/hooks/useValidateEmail'
+import colors from '../../constants/colors';
 
 export default function LoginScreen({navigation}) {
   const {handleEmailValidation} = useValidateEmail();
@@ -74,7 +75,8 @@ export default function LoginScreen({navigation}) {
         </HelperText>
         <Button
           style={{top: 20}}
-          buttonColor="#6495ED"
+          labelStyle={styles.labelStyle}
+          buttonColor={colors.tableColor}
           textColor="#fff"
           mode="contained"
           onPress={() => emailSignInPress()}>
@@ -109,8 +111,8 @@ export default function LoginScreen({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 4,
-    backgroundColor: '#fff',
+    flex: 4
+  
   },
   textInputStyle: {
     backgroundColor: '#fff',
@@ -118,4 +120,6 @@ const styles = StyleSheet.create({
   textInputContentStyle: {
     color: '#000',
   },
+  labelStyle:{fontFamily:'Montserrat-SemiBold'}
+
 });

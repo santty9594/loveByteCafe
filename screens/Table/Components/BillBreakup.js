@@ -63,9 +63,9 @@ const BIllReciept = ({ totalAmount, totalMinutes, totalPayAmount, tableCharge })
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 8,
-        flex: 0.4,
-        backgroundColor: colors.white,
+         marginTop: 8,
+         flex: 0.4,
+         backgroundColor: colors.white,
     },
     button: {
         paddingVertical: 20,

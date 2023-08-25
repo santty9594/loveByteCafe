@@ -147,8 +147,10 @@ const MainNavigation = () => {
       <MainStack.Screen
         name="ListScreen"
         component={ListScreen}
+        
         options={() => ({
-          headerShown: false
+          headerShown: false,
+         
         })}
       />
 
@@ -157,6 +159,7 @@ const MainNavigation = () => {
         component={TableScreen}
         options={({ navigation, route }) => ({
           headerTitle: route.params.name || 'Table',
+          headerTitleAlign:"center",
           headerLeft: () => (
             <CustomBackButton
               onPress={() => navigation.goBack()}
@@ -170,6 +173,7 @@ const MainNavigation = () => {
         component={MenuScreen}
         options={({ navigation, route }) => ({
           headerTitle: 'Menu',
+          headerTitleAlign:"center",
           headerLeft: () => (
             <CustomBackButton onPress={() => navigation.goBack()} />
           ),
@@ -184,6 +188,7 @@ const MainNavigation = () => {
         component={OrderDetails}
         options={({ navigation, route }) => ({
           headerTitle: 'Cart',
+          headerTitleAlign:"center",
           headerLeft: () => (
             <CustomBackButton onPress={() => navigation.goBack()} />
           ),
@@ -195,6 +200,7 @@ const MainNavigation = () => {
         component={BillScreen}
         options={({ navigation, route }) => ({
           headerTitle: 'Billing',
+          headerTitleAlign:"center",
           headerLeft: () => (
             <CustomBackButton onPress={() => navigation.goBack()} />
           ),

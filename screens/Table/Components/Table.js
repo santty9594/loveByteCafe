@@ -9,7 +9,6 @@ const BoxWithMargin = ({ items, selectCategory, handleClicked }) => {
   const BOX_SIZE = (SCREEN_WIDTH - CARD_MARGIN * 4) / 3;
   const filteredItems = items.filter(item => item.tableType === selectCategory);
 
-  console.log(filteredItems)
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -20,7 +19,7 @@ const BoxWithMargin = ({ items, selectCategory, handleClicked }) => {
             {
               width: BOX_SIZE,
               height: BOX_SIZE,
-              backgroundColor: item.booked ? '#E4CD05' : '#fff',
+              backgroundColor: item.booked ? `${colors.tableColor}` : '#fff',
             },
           ]}
           onPress={() => handleClicked(item)}

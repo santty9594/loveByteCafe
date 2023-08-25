@@ -1,4 +1,4 @@
-export const API_BASE = 'http://127.0.0.1:3000';
+export const API_BASE = 'http://192.168.1.36:3000';
 
 export const LOGIN_URL = '/auth/login';
 export const REGISTER_URL = '/auth/register';
