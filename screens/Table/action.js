@@ -5,11 +5,15 @@ export const tableType = (id) => ({
   payload: id
 });
 
-export const bookedTable = (id) => ({
-  type: 'BOOK_TABLE_NUMBER',
-  payload: id
-});
 
+export const bookedTable = (id) => async dispatch => {
+  try {
+    dispatch({ type: 'BOOK_TABLE_NUMBER',  payload: id });
+    dispatch({ type: 'GET_TABLE_MENU_COUNT',  payload: { selectedTable: id }});
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 export const resetTable = (id) => async dispatch => {
   try {

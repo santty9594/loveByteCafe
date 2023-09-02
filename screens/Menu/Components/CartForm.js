@@ -29,7 +29,7 @@ const OrderItem = ({
             <ScrollView>
                 {OrderItems.filter(item => item.qty !== 0).map((data, i) => (
                     <View key={i} style={{ flexDirection: "row", alignItems: "center", padding: 16 }}>
-                        <View style={{ flex: 0.6 }}>
+                        <View style={{ flex: 0.55,paddingRight:4 }}>
                             <PrimaryText align='left' color='black'>
                                 {data.name}
                             </PrimaryText>
@@ -49,7 +49,7 @@ const OrderItem = ({
                             </View>
                         </View>
 
-                        <View style={{ flex: 0.15 }}>
+                        <View style={{ flex: 0.2 }}>
                             <PrimaryText color='black'>
                                 ₹ {data.totalAmount}
                             </PrimaryText>
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     },
     cart: {
         marginTop: 8,
-        flex: 0.65,
+        flex: 0.7,
         backgroundColor: colors.white,
     },
 

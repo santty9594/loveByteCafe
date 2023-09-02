@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, TextInput } from 'react-native';
-import { Button } from 'react-native-paper';
+import React, { useState, useRef } from 'react';
+import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import PrimaryText from '../../../Components/PrimaryText';
 
 const InOutTime = ({ startTime, setOutTime }) => {
-
-    const [time, setTime] = useState('0:0');
+    const [time, setTime] = useState(new Date());
+    const [showPicker, setShowPicker] = useState(false);
+    const inputRef = useRef(null);
 
     const handleInputChange = (value) => {
         setTime(value);
         setOutTime(value);
     };
 
-    const ChangeEndTime = () => {
-        let time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-        setTime(time);
-        setOutTime(time);
-    }
+    const onInputPress = () => {
+        setShowPicker(true);
+    };
+
+    const onChange = (event, selectedTime) => {
+        setShowPicker(false);
+        if (selectedTime) {
+            setTime(selectedTime);
+            setOutTime(value);
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -31,8 +38,6 @@ const InOutTime = ({ startTime, setOutTime }) => {
                         value={startTime}
                     />
                 </View>
-                <View style={{ flex: 0.5 }}>
-                </View>
             </View>
 
             <View style={styles.direction}>
@@ -40,18 +45,23 @@ const InOutTime = ({ startTime, setOutTime }) => {
                     <PrimaryText color='black' align='left' >Out Time</PrimaryText>
                 </View>
                 <View style={{ flex: 0.5 }}>
-                    <TextInput
-                        style={styles.input}
-                        value={time}
-                        onChangeText={(value) => handleInputChange(value)}
-                        placeholder="useless placeholder"
-                        keyboardType="numeric"
-                    />
-                </View>
-                <View style={{ flex: 0.5 }}>
-                    <Button mode="contained" onPress={() => ChangeEndTime()}>
-                        {'End Time'}
-                    </Button>
+                    {showPicker && (
+                        <DateTimePicker
+                            value={time}
+                            mode="time"
+                            display="default"
+                            onChange={onChange}
+                        />
+                    )}
+                    <TouchableOpacity onPress={onInputPress}>
+                        <TextInput
+                            ref={inputRef}
+                            style={styles.input}
+                            value={time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            placeholder="Select a Time"
+                            editable={false}
+                        />
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -60,8 +70,8 @@ const InOutTime = ({ startTime, setOutTime }) => {
 
 const styles = StyleSheet.create({
     container: {
-         flex: 0.2,
-     marginTop: 8,
+        flex: 0.2,
+        marginTop: 8,
         paddingHorizontal: 16,
         backgroundColor: "#fff",
         // height:52
@@ -71,9 +81,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     input: {
-        borderColor: 'gray',
+        fontWeight: 'bold',
+        color: 'gray',
         width: 90,
-         margin: 10,
+        height: 30,
+        margin: 12,
         borderWidth: 1,
         padding: 8,
     },

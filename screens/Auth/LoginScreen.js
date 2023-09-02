@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import Login from './Components/Login'
 import Loader from '../../Components/loader'
 import { connect } from 'react-redux';
-import { authLogin } from './action';
+import { authLogin,reset } from './action';
 
 class LoginScreen extends Component {
+
+  componentDidMount(){
+    this.props.reset();
+  }
 
   handleLogin = async (data) => {
     await this.props.authLogin(data);
@@ -48,4 +52,4 @@ function initMapStateToProps(state) {
   };
 }
 
-export default connect(initMapStateToProps, { authLogin })(LoginScreen);
+export default connect(initMapStateToProps, { authLogin,reset })(LoginScreen);

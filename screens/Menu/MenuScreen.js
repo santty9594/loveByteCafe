@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Loader from '../../Components/loader'
 import MenusComponent from './Components/MenuForm';
 import {
     getMenuItems,
     getMenuCategory,
-    addItemMenu
+    addItemMenu,
+    getTableStartTime
 } from './action';
 
 class MenuScreen extends Component {
+
     componentDidMount() {
         this.props.getMenuItems();
         this.props.getMenuCategory({}, this.props.selectedTable);
+        this.props.getTableStartTime(this.props.selectedTable);
     }
 
     handleCardClick = (value) => {
@@ -19,13 +23,23 @@ class MenuScreen extends Component {
         this.props.addItemMenu(model);
     }
 
+    renderLoading = () => {
+        let { loginLoading } = this.props;
+        return loginLoading && <Loader isLoading={loginLoading} />
+    }
+
     render() {
         let { menusItems, menuCategory, } = this.props;
-        return <MenusComponent
-            menusItems={menusItems}
-            menuCategory={menuCategory}
-            handleCardClick={this.handleCardClick}
-        />
+        return (
+            <>
+                <MenusComponent
+                    menusItems={menusItems}
+                    menuCategory={menuCategory}
+                    handleCardClick={this.handleCardClick}
+                />
+                {/* {this.renderLoading()} */}
+            </>
+        )
     }
 };
 
@@ -42,5 +56,6 @@ function initMapStateToProps(state) {
 export default connect(initMapStateToProps, {
     getMenuItems,
     getMenuCategory,
-    addItemMenu
+    addItemMenu,
+    getTableStartTime
 })(MenuScreen);

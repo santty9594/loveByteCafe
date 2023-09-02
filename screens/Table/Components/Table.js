@@ -3,12 +3,11 @@ import { StyleSheet, View, Dimensions, TouchableOpacity, ScrollView } from 'reac
 import PrimaryText from '../../../Components/PrimaryText';
 import colors from '../../../constants/colors';
 
-const BoxWithMargin = ({ items, selectCategory, handleClicked }) => {
+const BoxWithMargin = ({ items, selectCategory, handleClicked, handleResetTable }) => {
   const SCREEN_WIDTH = Dimensions.get('window').width;
   const CARD_MARGIN = 20;
   const BOX_SIZE = (SCREEN_WIDTH - CARD_MARGIN * 4) / 3;
   const filteredItems = items.filter(item => item.tableType === selectCategory);
-
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -27,8 +26,11 @@ const BoxWithMargin = ({ items, selectCategory, handleClicked }) => {
         >
           {item.booked ? (
             <View style={styles.alignItems}>
-              <PrimaryText color='black'>{item.name}</PrimaryText>
-              <PrimaryText color='black'>Booked</PrimaryText>
+              <PrimaryText color='white'>{item.name}</PrimaryText>
+              <PrimaryText color='white'>Booked</PrimaryText>
+              <TouchableOpacity style={styles.button} onPress={() => handleResetTable(item)}>
+                <PrimaryText color='#8b0000'>Reset</PrimaryText>
+              </TouchableOpacity>
             </View>
           ) : (
             <View style={styles.alignItems}>
@@ -58,6 +60,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  button: {
+    backgroundColor: "pink",
+    marginTop: 5,
+    paddingHorizontal: 15,
+    paddingVertical: 2,
+    borderRadius: 8
+  },
+
 });
 
 export default BoxWithMargin;

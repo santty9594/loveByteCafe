@@ -5,6 +5,11 @@ import { AuthApi } from './api';
 const api = new AuthApi();
 const dbHelper = new AsyncStorageHelper();
 
+export const reset = () => ({
+  type: 'AUTH_LOGOUT_RESET',
+});
+
+
 export const authLogin = (model) => async dispatch => {
   try {
     await dispatch({ type: 'AUTH_LOGIN_LOADING' });

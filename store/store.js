@@ -22,9 +22,8 @@ export const store = configureStore({
     reducer: persistedReducer,
     middleware: getDefaultMiddleware => {
         const middleware = getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
+            immutableCheck: false,
+            serializableCheck: false,
         });
         if (__DEV__) {
             const createDebugger = require("redux-flipper").default;

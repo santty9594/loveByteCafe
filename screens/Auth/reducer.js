@@ -88,7 +88,17 @@ export default AuthReducer = (state = initialState, { type, payload }) => {
         customer: initialState.customer,
       };
     case 'AUTH_LOGOUT_RESET':
-      return initialState;
+      return {
+        ...state,
+        loginError: null,
+        loginLoading: false,
+        loginSuccess: false,
+        registerSuccess: false,
+        registerLoading: false,
+        registerError: null,
+        registerMessage: null,
+        customer:{}
+      }
     default:
       return state;
   }

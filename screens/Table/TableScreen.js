@@ -7,18 +7,19 @@ import { bookedTable, resetTable } from './action';
 
 class TableScreen extends Component {
 
+    handleResetTableClick = (item) => {
+        Alert.alert(
+            'Alert',
+            'Do you want to reset this table', [
+            { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            { text: 'Yes', onPress: () => this.props.resetTable(item.value), style: 'Ok' },
+        ],
+            { cancelable: true },
+        )
+        return true
+    }
+
     handleListClick = (item) => {
-        if (item.booked) {
-            Alert.alert(
-                'Alert',
-                'Do you want to reset this table', [
-                { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                { text: 'Yes', onPress: () => this.props.resetTable(item.value), style: 'Ok' },
-            ],
-                { cancelable: true },
-            )
-            return true
-        }
         this.props.bookedTable(item.value);
         this.props.navigation.navigate('MenuScreen', { name: item.name })
     }
@@ -30,8 +31,7 @@ class TableScreen extends Component {
                 items={tableList}
                 selectCategory={selectCategory}
                 handleClicked={this.handleListClick}
-                
-
+                handleResetTable={this.handleResetTableClick}
             />
         )
     }

@@ -15,7 +15,7 @@ export default function LoginScreen({ handleLogin, handleSignup }) {
 
   const { handleEmailValidation } = useValidateEmail();
 
-  const [inputs, setInputs] = useState({ email: ' ', password: ' ' });
+  const [inputs, setInputs] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState('');
 
   const handleOnChange = (text, input) => {

@@ -75,14 +75,12 @@ export default MenuReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 loginLoading: false,
                 menusItems: payload,
-                tempSelectedMenuCount: 0
             };
         case 'MENU_CATEGORY_FETCH_SUCCESS':
             return {
                 ...state,
                 loginLoading: false,
                 menuCategory: payload,
-                tempSelectedMenuCount: 0
             };
         case 'GET_TABLE_MENU_COUNT':
             return {

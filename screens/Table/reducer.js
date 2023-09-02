@@ -38,11 +38,13 @@ const changeTableValues = (state, payload) => {
   if (!state || !state.tableList) {
     return state;
   }
+
   const updatedValues = state.tableList.map((element) => {
     if (element.value === payload) {
       return {
         ...element,
         booked: true,
+        startTime: element.startTime == null ? new Date() : element.startTime,
       };
     }
     return element;
@@ -55,6 +57,7 @@ const resetTableValueChange = (state, payload) => {
   if (!state || !state.tableList) {
     return state;
   }
+
 
   const updatedValues = state.tableList.map((element) => {
     if (element.value === payload) {
@@ -90,7 +93,9 @@ const getStartTimeTable = (state, payload) => {
   if (!state || !state.tableList) {
     return state;
   }
+  console.log("tableList", state.tableList)
   let startTime = state.tableList.find((Item) => Item.value === payload)?.startTime;
+  console.log("startTime", startTime)
   return startTime ? startTime : '0:0';
 };
 
@@ -108,6 +113,10 @@ const TableReducer = (state = initialState, { type, payload }) => {
         ...state,
         tableList: values,
         selectedTable: payload,
+      };
+    case 'GET_START_TIME_TABLE':
+      return {
+        ...state,
         selectedTableStartTime: getStartTimeTable(state, payload)
       };
     case 'RESET_TABLE_NUMBER':

@@ -40,9 +40,7 @@ const CustomBackButton = ({ onPress }) => (
 
 
 const CartItem = ({ onPress }) => {
-
   const tempSelectedMenuCount = useSelector(state => state.MenuReducer.tempSelectedMenuCount);
-
   const handleNavigation = () => {
     if (tempSelectedMenuCount <= 0) {
       Alert.alert(
@@ -147,10 +145,10 @@ const MainNavigation = () => {
       <MainStack.Screen
         name="ListScreen"
         component={ListScreen}
-        
+
         options={() => ({
           headerShown: false,
-         
+
         })}
       />
 
@@ -159,7 +157,7 @@ const MainNavigation = () => {
         component={TableScreen}
         options={({ navigation, route }) => ({
           headerTitle: route.params.name || 'Table',
-          headerTitleAlign:"center",
+          headerTitleAlign: "center",
           headerLeft: () => (
             <CustomBackButton
               onPress={() => navigation.goBack()}
@@ -173,7 +171,7 @@ const MainNavigation = () => {
         component={MenuScreen}
         options={({ navigation, route }) => ({
           headerTitle: 'Menu',
-          headerTitleAlign:"center",
+          headerTitleAlign: "center",
           headerLeft: () => (
             <CustomBackButton onPress={() => navigation.goBack()} />
           ),
@@ -188,7 +186,7 @@ const MainNavigation = () => {
         component={OrderDetails}
         options={({ navigation, route }) => ({
           headerTitle: 'Cart',
-          headerTitleAlign:"center",
+          headerTitleAlign: "center",
           headerLeft: () => (
             <CustomBackButton onPress={() => navigation.goBack()} />
           ),
@@ -200,7 +198,7 @@ const MainNavigation = () => {
         component={BillScreen}
         options={({ navigation, route }) => ({
           headerTitle: 'Billing',
-          headerTitleAlign:"center",
+          headerTitleAlign: "center",
           headerLeft: () => (
             <CustomBackButton onPress={() => navigation.goBack()} />
           ),
