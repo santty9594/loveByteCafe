@@ -44,8 +44,12 @@ const styles = StyleSheet.create({
         justifyContent: "space-between", padding: 16
     },
     button: {
-        paddingVertical: 20,
-        flex: 1
+        // paddingVertical: 20,
+        alignItems:'center',
+        justifyContent:'center',
+        flex: 1,
+        height:50
+        
     },
 });
 

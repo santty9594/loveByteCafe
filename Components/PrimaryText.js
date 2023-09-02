@@ -12,7 +12,7 @@ const PrimaryText = ({
   const textStyle = {
     width: '100%',
     color: color,
-    fontFamily: 'Roboto Slab',
+    fontFamily: 'Montserrat-SemiBold',
     textAlign: align,
     fontWeight: bold ? 'bold' : 'normal',
     fontSize: size,

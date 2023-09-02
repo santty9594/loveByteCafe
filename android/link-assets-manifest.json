@@ -2,6 +2,62 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "assets/fonts/Hind-Bold.ttf",
+      "sha1": "3e31770c8409b78cd98dea1c9379599c73e9a32d"
+    },
+    {
+      "path": "assets/fonts/Hind-Light.ttf",
+      "sha1": "dfa4d7b8868a2db0a66a49085e2634822dab974e"
+    },
+    {
+      "path": "assets/fonts/Hind-Medium.ttf",
+      "sha1": "6d1634a8f97c8426d0a74fadef56dfda9caefb50"
+    },
+    {
+      "path": "assets/fonts/Hind-Regular.ttf",
+      "sha1": "cea8da84b9c4a9c7ebad8fc0084d4e624de0609e"
+    },
+    {
+      "path": "assets/fonts/Hind-SemiBold.ttf",
+      "sha1": "0c9e8fca5676792ed9dc192d0ebaa2aa78c2d3d0"
+    },
+    {
+      "path": "assets/fonts/Lato-Bold.ttf",
+      "sha1": "542498221d97bee5bdbccf86ee8890bf8e8005c9"
+    },
+    {
+      "path": "assets/fonts/Lato-Medium.ttf",
+      "sha1": "c78e94b7cc0b782eef4f9f2be371c3cf9c3f6eaf"
+    },
+    {
+      "path": "assets/fonts/Lato-Regular.ttf",
+      "sha1": "e923c72eda5e50a87e18ff5c71e9ef4b3b6455a3"
+    },
+    {
+      "path": "assets/fonts/Lato-SemiBold.ttf",
+      "sha1": "bb36d50ddf764b413a5102c56203817e9bf13e98"
+    },
+    {
+      "path": "assets/fonts/MaterialIcons.ttf",
+      "sha1": "fc05de31234e0090f7ddc28ce1b23af4026cb1da"
+    },
+    {
+      "path": "assets/fonts/Montserrat-Bold.ttf",
+      "sha1": "4c5b03394078109a583a5ba77c74b045c02e3d9f"
+    },
+    {
+      "path": "assets/fonts/Montserrat-Medium.ttf",
+      "sha1": "be0644fcab3959ef5dc76188689c31ae7976cda0"
+    },
+    {
+      "path": "assets/fonts/Montserrat-Regular.ttf",
+      "sha1": "88f5665acbfbf732cceeee1a40b8c3431a6ca094"
+    },
+    {
+      "path": "assets/fonts/Montserrat-SemiBold.ttf",
+      "sha1": "201ccee5dcb1e9d38716168f3a56598a6808ed51"
+    },
+    {
       "path": "assets/fonts/RobotoSlab-Bold.ttf",
       "sha1": "97511afc2e192a22fd5946f553ee320b57050258"
     },

@@ -60,10 +60,11 @@ const InOutTime = ({ startTime, setOutTime }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0.2,
-        marginTop: 8,
+         flex: 0.2,
+     marginTop: 8,
         paddingHorizontal: 16,
         backgroundColor: "#fff",
+        // height:52
     },
     direction: {
         alignItems: "center",
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     input: {
         borderColor: 'gray',
         width: 90,
-        margin: 12,
+         margin: 10,
         borderWidth: 1,
         padding: 8,
     },

@@ -12,16 +12,17 @@ import React, { useState } from 'react';
 import { TextInput, Button, HelperText } from 'react-native-paper';
 import useValidateEmail from './hooks/useValidateEmail';
 import useValidateMobileNumber from './hooks/useValidateMobileNumber';
+import colors from '../../../constants/colors';
 
 export default function SignupScreen({ handleSignup, handleListClick }) {
   const { handleEmailValidation } = useValidateEmail();
   const { handleMobileNumberValidation } = useValidateMobileNumber();
   const [inputs, setInputs] = useState({
-    name: 'Feroz',
-    phone: '9594835421',
-    email: 'feroz.shaikh@gmail.com',
-    password: 'feroz@123$',
-    confirmPassword: 'feroz@123$',
+    name: '',
+    phone: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
 
   const [errors, setErrors] = useState('');
@@ -55,33 +56,24 @@ export default function SignupScreen({ handleSignup, handleListClick }) {
       handleError('Please enter valid full name', 'name');
       valid = false;
     }
-    if (!inputs.email) {
+    if (!inputs.email || handleEmailValidation(inputs.email) == false) {
       handleError('Please enter email address', 'email');
       valid = false;
-    } else if (handleEmailValidation(inputs.email) === false) {
-      valid = false;
-      handleError('Please enter valid email address', 'email');
-    }
+    } 
     if (!inputs.password || inputs.password.length < 6) {
       handleError('Please enter valid password', 'password');
       valid = false;
     }
-    if (!inputs.phone) {
+    if (!inputs.phone || handleMobileNumberValidation(inputs.phone) == false) {
       handleError('Please enter contact number', 'phone');
       valid = false;
-    } else if (handleMobileNumberValidation(inputs.phone) === false) {
-      handleError(
-        'Please enter Valid contact number starting with 9876 ',
-        'phone',
-      );
-      valid = false;
-    }
+    } 
     if (!inputs.confirmPassword) {
       handleError('Please enter confirm password', 'confirmPassword');
       valid = false;
     }
     if (valid) {
-      handleSignup({ ...inputs });
+     handleSignup({ ...inputs });
     }
   };
 
@@ -163,7 +155,8 @@ export default function SignupScreen({ handleSignup, handleListClick }) {
             </HelperText>
             <Button
               style={{ top: 20 }}
-              buttonColor="#6495ED"
+              buttonColor={colors.tableColor}
+              labelStyle={styles.labelStyle}
               textColor="#fff"
               mode="contained"
               onPress={() => emailSignUpPress()}>
@@ -199,6 +192,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 4,
     backgroundColor: '#fff',
+    paddingHorizontal:16
   },
   textInputStyle: {
     paddingHorizontal: 0,
@@ -207,4 +201,6 @@ const styles = StyleSheet.create({
   textInputContentStyle: {
     color: '#000',
   },
+  labelStyle:{fontFamily:'Montserrat-SemiBold'}
+
 });

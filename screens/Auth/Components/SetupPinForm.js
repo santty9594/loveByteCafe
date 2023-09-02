@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Keyboard } from 'react-native';
 import { TextInput, Button, HelperText } from 'react-native-paper';
+import colors from '../../../constants/colors';
 
 
 const PinScreen = ({ handleNavigation }) => {
@@ -76,7 +77,8 @@ const PinScreen = ({ handleNavigation }) => {
         </HelperText>
         <Button
           style={{ top: 20 }}
-          buttonColor="#6495ED"
+          labelStyle={styles.labelStyle}
+          buttonColor={colors.tableColor}
           textColor="#fff"
           mode="contained"
           onPress={() => handlePinSubmit()}
@@ -94,6 +96,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingHorizontal:16,
   },
   textInputStyle: {
     backgroundColor: '#fff',
@@ -102,6 +105,7 @@ const styles = StyleSheet.create({
   textInputContentStyle: {
     color: '#000',
   },
+  labelStyle:{fontFamily:'Montserrat-SemiBold'}
 
 });
 

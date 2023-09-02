@@ -1,9 +1,12 @@
-import { StyleSheet, View, Keyboard } from 'react-native';
+import { StyleSheet, View, Keyboard ,ScrollView ,Dimensions} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { TextInput, HelperText, Text } from 'react-native-paper';
 import { DropdownComponent } from '../../../Components/Dropdown';
 import PrimaryText from '../../../Components/PrimaryText';
 import useValidateMobileNumber from '../Components/hooks/useValidateMobileNumber';
+
+
+const {height ,width}=    Dimensions.get('window')
 
 export default function CustomerInfo({ getCustomerByPhone, customer }) {
     const { handleMobileNumberValidation } = useValidateMobileNumber()
@@ -73,7 +76,8 @@ export default function CustomerInfo({ getCustomerByPhone, customer }) {
                         style={{
                             backgroundColor: '#ffffff',
                             borderColor: '#E4E8ED',
-                            borderBottomWidth: 1
+                            borderBottomWidth: 1,
+                            height:52
                         }}
                         dropDownHeight={100}
                         data={[
@@ -92,10 +96,11 @@ export default function CustomerInfo({ getCustomerByPhone, customer }) {
 
 const styles = StyleSheet.create({
     container: {
+        // marginBottom:8,
         flex: 0.45,
-        marginTop: 8,
+         marginTop: 8,
         paddingHorizontal: 16,
-        backgroundColor: "#fff",
+        backgroundColor:'#fff'
     },
     textInputStyle: {
         backgroundColor: "#fff",

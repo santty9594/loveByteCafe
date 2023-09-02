@@ -14,4 +14,5 @@ export default {
   globalbgColor:"#6495ED",
   black:'#000000',
   buttonColor:"#6495ED",
+  tableColor:'#4A5FB7'
 };

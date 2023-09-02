@@ -3,17 +3,19 @@ import React, { useState } from 'react';
 import {
   StyleSheet, Text, SafeAreaView, View,
   Keyboard, TouchableWithoutFeedback,
-  KeyboardAvoidingView, TouchableOpacity
+  KeyboardAvoidingView, TouchableOpacity,
+  ScrollView
 } from 'react-native';
 
 import { TextInput, Button, HelperText } from 'react-native-paper';
 import useValidateEmail from './hooks/useValidateEmail'
+import colors from '../../../constants/colors';
 
 export default function LoginScreen({ handleLogin, handleSignup }) {
 
   const { handleEmailValidation } = useValidateEmail();
 
-  const [inputs, setInputs] = useState({ email: 'feroz.shaikh@gmail.com', password: 'feroz@123$' });
+  const [inputs, setInputs] = useState({ email: ' ', password: ' ' });
   const [errors, setErrors] = useState('');
 
   const handleOnChange = (text, input) => {
@@ -28,13 +30,10 @@ export default function LoginScreen({ handleLogin, handleSignup }) {
     try {
       Keyboard.dismiss();
       let valid = true;
-      if (!inputs.email) {
+      if (!inputs.email || handleEmailValidation(inputs.email) == false) {
         handleError('Please enter email address', 'email');
         valid = false;
-      } else if (handleEmailValidation(inputs.email) === false) {
-        valid = false;
-        handleError('Please enter valid email address', 'email');
-      }
+      } 
       if (!inputs.password || inputs.password.length < 6) {
         handleError('Please enter valid password', 'password');
         valid = false;
@@ -88,7 +87,8 @@ export default function LoginScreen({ handleLogin, handleSignup }) {
               </HelperText>
               <Button
                 style={{ top: 20 }}
-                buttonColor="#6495ED"
+                labelStyle={styles.labelStyle}
+                buttonColor={colors.tableColor}
                 textColor="#fff"
                 mode="contained"
                 onPress={emailSignInPress}>
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 4,
     backgroundColor: '#fff',
+    paddingHorizontal:16
   },
   textInputStyle: {
     paddingHorizontal:0,
@@ -133,4 +134,6 @@ const styles = StyleSheet.create({
   textInputContentStyle: {
     color: '#000',
   },
+  labelStyle:{fontFamily:'Montserrat-SemiBold'}
+
 });
