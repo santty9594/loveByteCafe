@@ -56,6 +56,7 @@ export const createCustomer = (model) => async dispatch => {
     } else {
       await dispatch({ type: 'CUSTOMER_REGISTER_ERROR', payload: temp.message });
     }
+    return temp;
   } catch (error) {
     dispatch({ type: "CUSTOMER_REGISTER_ERROR", error });
   }

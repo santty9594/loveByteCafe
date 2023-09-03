@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
        
     },
     button: {
-     paddingVertical: 20,
-        flex: 1
+     paddingVertical: 15,
+     flex: 1
     },
 });
 

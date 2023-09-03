@@ -41,10 +41,10 @@ class RestApi {
                 headers: headers,
                 body: JSON.stringify(args)
             };
-            // console.log("options",options)
+            console.log("options",options)
             let response = await fetch(API_BASE + url, options);
             response = await response.json();
-            // console.log("response",response)
+            console.log("response",response)
             return response;
         } catch (error) {
             throw error;

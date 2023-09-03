@@ -22,7 +22,6 @@ export const getMenuCategory = (model, value) => async dispatch => {
         if (temp && temp.status == 0) {
             let { data } = temp;
             await dispatch({ type: 'MENU_CATEGORY_FETCH_SUCCESS', payload: data });
-            // await dispatch({ type: 'GET_TABLE_MENU_COUNT', payload: { selectedTable: value } });
         } else {
             await dispatch({ type: 'AUTH_REGISTER_ERROR', payload: temp.message });
         }

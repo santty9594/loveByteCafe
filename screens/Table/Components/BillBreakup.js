@@ -22,7 +22,8 @@ const BIllReciept = ({ totalAmount, totalMinutes, totalPayAmount, tableCharge })
 
                     <View style={{ marginVertical: 10, justifyContent: "center" }}>
                         <PrimaryText align='left' color='black'>
-                            {`Table Charge ( ${totalMinutes} minutes)`}   <RemixIcon name='information-line' size={18} color={"#000"} />
+                            {`Table Charge ( ${totalMinutes} minutes)`}  
+                             {/* <RemixIcon name='information-line' size={18} color={"#000"} /> */}
                         </PrimaryText>
                     </View>
                 </View>

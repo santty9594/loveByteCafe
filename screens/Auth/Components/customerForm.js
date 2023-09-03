@@ -1,4 +1,4 @@
-import { StyleSheet, View, Keyboard ,ScrollView ,Dimensions} from 'react-native';
+import { StyleSheet, View, Keyboard, ScrollView, Dimensions } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { TextInput, HelperText, Text } from 'react-native-paper';
 import { DropdownComponent } from '../../../Components/Dropdown';
@@ -6,7 +6,7 @@ import PrimaryText from '../../../Components/PrimaryText';
 import useValidateMobileNumber from '../Components/hooks/useValidateMobileNumber';
 
 
-const {height ,width}=    Dimensions.get('window')
+const { height, width } = Dimensions.get('window')
 
 export default function CustomerInfo({ getCustomerByPhone, customer }) {
     const { handleMobileNumberValidation } = useValidateMobileNumber()
@@ -39,7 +39,7 @@ export default function CustomerInfo({ getCustomerByPhone, customer }) {
                 </PrimaryText>
             </View>
 
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 0.4 }}>
                 <TextInput
                     style={[styles.textInputStyle]}
                     contentStyle={[styles.textInputContentStyle]}
@@ -56,7 +56,7 @@ export default function CustomerInfo({ getCustomerByPhone, customer }) {
                     {errors.phone}
                 </HelperText>
                 <TextInput
-                    style={styles.textInputStyle}
+                    style={[styles.textInputStyle, { marginTop: -24 }]}
                     contentStyle={styles.textInputContentStyle}
                     label="Name"
                     value={inputs?.name}
@@ -68,16 +68,14 @@ export default function CustomerInfo({ getCustomerByPhone, customer }) {
                 <HelperText type="error" visible={errors.name} style={styles.err}>
                     {errors.name}
                 </HelperText>
-                <View >
-                    <Text>
-                        Gender
-                    </Text>
+                <View style={{ marginTop: -10 }}>
+                    <Text>Gender</Text>
                     <DropdownComponent
                         style={{
                             backgroundColor: '#ffffff',
                             borderColor: '#E4E8ED',
                             borderBottomWidth: 1,
-                            height:52
+                            height: 40
                         }}
                         dropDownHeight={100}
                         data={[
@@ -98,9 +96,9 @@ const styles = StyleSheet.create({
     container: {
         // marginBottom:8,
         flex: 0.45,
-         marginTop: 8,
+        marginTop: 8,
         paddingHorizontal: 16,
-        backgroundColor:'#fff'
+        backgroundColor: '#fff'
     },
     textInputStyle: {
         backgroundColor: "#fff",

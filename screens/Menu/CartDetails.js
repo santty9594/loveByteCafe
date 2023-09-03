@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import OrderItem from './Components/CartForm';
 import { addQty, removeQty, addStartTimeTable, placeOrder } from './action';
+import { addEndTime } from '../Table/action';
 
 class OrderDetails extends Component {
     constructor(props) {
@@ -10,7 +12,6 @@ class OrderDetails extends Component {
             }
         }
     }
-
 
     handleAddQty = (id) => {
         this.props.addQty(id)
@@ -29,17 +30,34 @@ class OrderDetails extends Component {
     }
 
     handlePlaceOrder = async (totalPay) => {
-        await this.handleClickStartTime(this.state.initialStartTime);
+        if (totalPay === 0) {
+            Alert.alert(
+                'Message',
+                'Please add at least one menu item', [
+                { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                { text: 'Yes', onPress: () => console.log('Press Ok'), style: 'Ok' },
+            ],
+                { cancelable: true },
+            )
+            return true
+        }
         await this.props.placeOrder(totalPay);
+        this.calculateTime(totalPay);
         this.props.navigation.navigate('BillScreen')
     }
+
+    calculateTime = (totalAmount) => {
+        let { selectedTableStartTime, } = this.props;
+        let model = { totalAmount, selectedTableStartTime, selectedTableEndTime: new Date() };
+        this.props.addEndTime(model);
+    }
+
 
     render() {
         let { selectedMenus, selectedTable, selectedTableStartTime } = this.props;
         selectedMenus = Array.isArray(selectedMenus) ?
             selectedMenus.filter(item => item.selectedTable === selectedTable)
             : selectedMenus;
-
         return (
             <OrderItem
                 OrderItems={selectedMenus}
@@ -63,6 +81,6 @@ function initMapStateToProps(state) {
     };
 }
 
-export default connect(initMapStateToProps, { addQty, removeQty, addStartTimeTable, placeOrder })(OrderDetails);
+export default connect(initMapStateToProps, { addQty, removeQty, addStartTimeTable, placeOrder, addEndTime })(OrderDetails);
 
 

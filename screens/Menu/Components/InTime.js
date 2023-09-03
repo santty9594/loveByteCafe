@@ -4,7 +4,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import PrimaryText from '../../../Components/PrimaryText';
 
 const InTime = ({ handleStartTime, startTime }) => {
-    const [time, setTime] = useState(new Date());
+
+    const [time, setTime] = useState(new Date(startTime));
     const [showPicker, setShowPicker] = useState(false);
     const inputRef = useRef(null);
 
@@ -39,7 +40,7 @@ const InTime = ({ handleStartTime, startTime }) => {
                         <TextInput
                             ref={inputRef}
                             style={styles.input}
-                            value={time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            value={time?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             placeholder="Select a Time"
                             editable={false}
                         />

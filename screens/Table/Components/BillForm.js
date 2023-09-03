@@ -1,12 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback, Keyboard ,Dimensions, ScrollView} from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
 import InOutTime from './InOutTime';
 import BillBreakup from './BillBreakup';
 import MakePayment from './MakePayment';
 import Customer from '../../Auth/Components/customerForm'
 
-
-const {height ,width}=    Dimensions.get('window')
 
 const BillForm = ({
   setOutTime, startTime, totalMinutes,
@@ -41,13 +39,11 @@ const BillForm = ({
 
 const styles = StyleSheet.create({
   container: {
-     flex: 1,
-      // backgroundColor:'#fff',
-    
+    flex: 1,
   },
   button: {
-   paddingVertical: 20,
-     flex: 1
+    paddingVertical: 10,
+    flex: 1
   },
 });
 

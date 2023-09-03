@@ -145,7 +145,6 @@ const MainNavigation = () => {
       <MainStack.Screen
         name="ListScreen"
         component={ListScreen}
-
         options={() => ({
           headerShown: false,
 

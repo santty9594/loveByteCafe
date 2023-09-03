@@ -37,7 +37,6 @@ class MenuScreen extends Component {
                     menuCategory={menuCategory}
                     handleCardClick={this.handleCardClick}
                 />
-                {/* {this.renderLoading()} */}
             </>
         )
     }

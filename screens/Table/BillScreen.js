@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import BillForm from './Components/BillForm'
+import BillForm from './Components/BillForm';
+import Loader from '../../Components/loader';
 import { getCustomerByPhone, createCustomer } from '../Auth/action';
-import { addEndTime } from './action';
+import { addEndTime, makePayment, resetTable } from './action';
 
 class BillScreen extends Component {
 
     constructor(props) {
         super(props); {
             this.state = {
+                loading: false,
                 customer: { name: "", phone: "", gender: "" }
             }
         }
@@ -28,29 +30,64 @@ class BillScreen extends Component {
     }
 
     handleMakePayment = async () => {
-        let { tableCharge, customer } = this.props;
-        !tableCharge && alert("Please Enter Out Time");
-        if (!customer.id) {
-            let { customer } = this.state;
-            await this.props.createCustomer(customer);
+        try {
+            let { totalPayAmount, selectedTable } = this.props;
+            let customer_id = null, customer_name = null;
+            let { customer } = this.props;
+            this.setState({ loading: true });
+            if (!customer.id) {
+                let { customer } = this.state;
+                let response = await this.props.createCustomer(customer);
+                if (response && response.id) {
+                    customer_id = response?.id;
+                    customer_name = response?.name;
+                }
+            } else {
+                customer_id = customer?.id;
+                customer_name = customer?.name;
+            }
+            let model = { customer_id, customer_name, status: true, total_price: totalPayAmount, order_date: new Date() }
+            let resutl = await this.props.makePayment(model);
+            this.setState({ loading: false });
+            if (resutl && resutl.status == 0) {
+                alert(resutl?.message);
+                await this.props.resetTable(selectedTable);
+                setTimeout(() => {
+                    this.props.navigation.navigate('ListScreen')
+                }, 100)
+            } else {
+                alert(resutl?.message);
+            }
+        } catch (error) {
+            this.setState({ loading: false });
+            console.log(error)
         }
+    }
+
+
+    renderLoading = () => {
+        let { loading } = this.state;
+        return loading && <Loader isLoading={loading} />
     }
 
     render() {
         let { totalAmount, totalPayAmount, totalMinutes,
-            tableCharge, customer, selectedTableStartTime, } = this.props;
+            tableCharge, customer, selectedTableStartTime } = this.props;
         return (
-            <BillForm
-                startTime={selectedTableStartTime}
-                totalAmount={totalAmount}
-                totalPayAmount={totalPayAmount}
-                tableCharge={tableCharge}
-                totalMinutes={totalMinutes}
-                customer={customer}
-                setOutTime={this.setOutTime}
-                handleMakePayment={this.handleMakePayment}
-                getCustomerByPhone={this.getCustomerByPhone}
-            />
+            <>
+                <BillForm
+                    startTime={selectedTableStartTime}
+                    totalAmount={totalAmount}
+                    totalPayAmount={totalPayAmount}
+                    tableCharge={tableCharge}
+                    totalMinutes={totalMinutes}
+                    customer={customer}
+                    setOutTime={this.setOutTime}
+                    handleMakePayment={this.handleMakePayment}
+                    getCustomerByPhone={this.getCustomerByPhone}
+                />
+                {this.renderLoading()}
+            </>
         )
     }
 };
@@ -58,6 +95,7 @@ class BillScreen extends Component {
 function initMapStateToProps(state) {
     return {
         selectedTableStartTime: state.TableReducer.selectedTableStartTime,
+        selectedTable:state.TableReducer.selectedTable,
         customer: state.AuthReducer.customer,
         totalPayAmount: state.TableReducer.totalPayAmount,
         totalMinutes: state.TableReducer.totalMinutes,
@@ -66,6 +104,6 @@ function initMapStateToProps(state) {
     };
 }
 
-export default connect(initMapStateToProps, { getCustomerByPhone, addEndTime, createCustomer })(BillScreen);
+export default connect(initMapStateToProps, { getCustomerByPhone, addEndTime, createCustomer, makePayment, resetTable })(BillScreen);
 
 

@@ -1,15 +1,17 @@
+import { TableApi } from './api';
 const moment = require('moment');
+
+const api = new TableApi();
 
 export const tableType = (id) => ({
   type: 'SELECT_TABLE_TYPE',
   payload: id
 });
 
-
 export const bookedTable = (id) => async dispatch => {
   try {
-    dispatch({ type: 'BOOK_TABLE_NUMBER',  payload: id });
-    dispatch({ type: 'GET_TABLE_MENU_COUNT',  payload: { selectedTable: id }});
+    dispatch({ type: 'BOOK_TABLE_NUMBER', payload: id });
+    dispatch({ type: 'GET_TABLE_MENU_COUNT', payload: { selectedTable: id } });
   } catch (error) {
     console.log(error)
   }
@@ -17,13 +19,13 @@ export const bookedTable = (id) => async dispatch => {
 
 export const resetTable = (id) => async dispatch => {
   try {
+    console.log("resetTable",id)
     dispatch({ type: 'RESET_TABLE_NUMBER', payload: id });
     dispatch({ type: 'RESET_MENU_AGAINST_TABLE', payload: id });
   } catch (error) {
     console.log(error)
   }
 }
-
 
 export const addEndTime = (model) => async dispatch => {
   try {
@@ -33,6 +35,7 @@ export const addEndTime = (model) => async dispatch => {
 
     const time1 = model?.selectedTableStartTime;
     const time2 = model?.selectedTableEndTime;
+
 
     const totalAmount = model?.totalAmount;
 
@@ -71,5 +74,14 @@ export const addEndTime = (model) => async dispatch => {
     dispatch({ type: 'ADD_END_TIME', payload: { totalPayAmount, tableCharge, totalMinutes: minutes, endTime: time2 } });
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const makePayment = (model, value) => async dispatch => {
+  try {
+    var temp = await api.makePayment(model);
+    return temp;
+  } catch (error) {
+    dispatch({ type: "AUTH_REGISTER_ERROR", error });
   }
 }
