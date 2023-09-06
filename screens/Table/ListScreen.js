@@ -6,8 +6,12 @@ import { tableType } from './action';
 
 class ListScreen extends Component {
 
-    handleListClick = async(name, value) => {
-       await this.props.tableType(value)
+    handleListClick = async (name, value) => {
+        if (value === 4) {
+            this.props.navigation.navigate('DasboardScreen');
+            return true;
+        }
+        await this.props.tableType(value)
         this.props.navigation.navigate('TableScreen', { name })
     }
 

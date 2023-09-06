@@ -59,7 +59,7 @@ export default function SignupScreen({ handleSignup, handleListClick }) {
     if (!inputs.email || handleEmailValidation(inputs.email) == false) {
       handleError('Please enter email address', 'email');
       valid = false;
-    } 
+    }
     if (!inputs.password || inputs.password.length < 6) {
       handleError('Please enter valid password', 'password');
       valid = false;
@@ -67,27 +67,26 @@ export default function SignupScreen({ handleSignup, handleListClick }) {
     if (!inputs.phone || handleMobileNumberValidation(inputs.phone) == false) {
       handleError('Please enter contact number', 'phone');
       valid = false;
-    } 
+    }
     if (!inputs.confirmPassword) {
       handleError('Please enter confirm password', 'confirmPassword');
       valid = false;
     }
     if (valid) {
-     handleSignup({ ...inputs });
+      handleSignup({ ...inputs });
     }
   };
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={styles.container}>
-          <View style={{ flex: 0.5 }}></View>
-          <View style={{ flex: 2.5, margin: 16 }}>
+        <View style={{ flex: 1, backgroundColor: '#fff', }}>
+          <View style={styles.container}>
             <Text style={{ color: '#000', fontSize: 26, fontWeight: 'bold' }}>
               Sign Up
             </Text>
             <TextInput
-              style={styles.textInputStyle}
+              style={[styles.textInputStyle, { marginTop: 0 }]}
               contentStyle={styles.textInputContentStyle}
               label="Full Name"
               value={inputs.name}
@@ -165,10 +164,10 @@ export default function SignupScreen({ handleSignup, handleListClick }) {
           </View>
           <View
             style={{
-              flex: 0.5,
+              flex: 0.3,
+              padding:16,
               flexDirection: 'row',
-              alignItems: 'center',
-
+              alignItems: 'flex-end',
               justifyContent: 'center',
             }}>
             <Text style={{ color: '#000', fontSize: 18, fontWeight: '200' }}>
@@ -190,17 +189,18 @@ export default function SignupScreen({ handleSignup, handleListClick }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 4,
-    backgroundColor: '#fff',
-    paddingHorizontal:16
+    flex: 0.7,
+    margin: 16,
+    justifyContent: "center",
   },
   textInputStyle: {
     paddingHorizontal: 0,
     backgroundColor: '#fff',
+    marginTop: -24
   },
   textInputContentStyle: {
     color: '#000',
   },
-  labelStyle:{fontFamily:'Montserrat-SemiBold'}
+  labelStyle: { fontFamily: 'Montserrat-SemiBold' }
 
 });

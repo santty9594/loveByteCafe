@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
   textInputStyle: {
     backgroundColor: '#fff',
     paddingHorizontal:0,
+    
   },
   textInputContentStyle: {
     color: '#000',

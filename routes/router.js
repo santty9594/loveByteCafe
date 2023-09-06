@@ -16,6 +16,12 @@ import MenuScreen from '../screens/Menu/MenuScreen';
 import OrderDetails from '../screens/Menu/CartDetails';
 import BillScreen from '../screens/Table/BillScreen';
 
+//Admin
+import AdminDashboard from '../screens/admin/DashboardScreen';
+import MenuUpdateScreen from '../screens/admin/MenuUpdateScreen';
+import MenuCreateScreen from '../screens/admin/MenuCreateScreen';
+import ReportScreen from '../screens/admin/ReportScreen';
+
 export default function App() {
   const userToken = useSelector((state) => state.AuthReducer.loginToken);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -197,6 +203,57 @@ const MainNavigation = () => {
         component={BillScreen}
         options={({ navigation, route }) => ({
           headerTitle: 'Billing',
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <CustomBackButton onPress={() => navigation.goBack()} />
+          ),
+        })}
+      />
+
+
+      <LoginStack.Screen
+        name="DasboardScreen"
+        component={AdminDashboard}
+        options={({ navigation, route }) => ({
+          headerTitle: 'Dashboard',
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <CustomBackButton onPress={() => navigation.goBack()} />
+          ),
+        })}
+      />
+
+
+      <LoginStack.Screen
+        name="MenuUpdateScreen"
+        component={MenuUpdateScreen}
+        options={({ navigation, route }) => ({
+          headerTitle: 'Menu Update',
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <CustomBackButton onPress={() => navigation.goBack()} />
+          ),
+        })}
+      />
+
+
+      <LoginStack.Screen
+        name="MenuCreateScreen"
+        component={MenuCreateScreen}
+        options={({ navigation, route }) => ({
+          headerTitle: 'Menu Create',
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <CustomBackButton onPress={() => navigation.goBack()} />
+          ),
+        })}
+      />
+
+      <LoginStack.Screen
+        name="ReportScreen"
+        component={ReportScreen}
+        options={({ navigation, route }) => ({
+          headerTitle: 'Report',
           headerTitleAlign: "center",
           headerLeft: () => (
             <CustomBackButton onPress={() => navigation.goBack()} />
