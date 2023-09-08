@@ -1,6 +1,30 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import moment from 'moment';
+
+const FilterOptions = {
+  ALL: 'all',
+  TODAY: 'today',
+  YESTERDAY: 'yesterday',
+  LAST_30_DAYS: 'last30days',
+};
+
+const filterData = (data, selectedFilter) => {
+  const currentDate = moment();
+  return data.filter(item => {
+    const itemDate = moment(item.order_date);
+    switch (selectedFilter) {
+      case FilterOptions.TODAY:
+        return itemDate.isSame(currentDate, 'day');
+      case FilterOptions.YESTERDAY:
+        return itemDate.isSame(currentDate.clone().subtract(1, 'days'), 'day');
+      case FilterOptions.LAST_30_DAYS:
+        return itemDate.isAfter(currentDate.clone().subtract(30, 'days'));
+      default:
+        return true; // 'all' filter, show all data
+    }
+  });
+};
 
 const TableItem = ({ customer_name, order_date, total_price }) => (
   <View style={styles.tableRow}>
@@ -12,24 +36,42 @@ const TableItem = ({ customer_name, order_date, total_price }) => (
 
 const TableFooter = ({ totalCustomers, totalDays, totalAmount }) => (
   <View style={styles.tableFooter}>
-    <Text>Customer: {totalCustomers}</Text>
-    <Text>Days: {totalDays}</Text>
-    <Text>Amt: {totalAmount}</Text>
+    <Text>Distinct Customer: {totalCustomers}</Text>
+    <Text>Distinct Days: {totalDays}</Text>
+    <Text>Total: {totalAmount}</Text>
   </View>
 );
 
 const TableScreen = ({ data }) => {
-  const totalCustomers = Array.from(new Set(data.map((item) => item.customer_name))).length;
-  const totalDays = Array.from(new Set(data.map((item) => moment(item.order_date).format('MMM DD YYYY')))).length;
-  const totalAmount = data.reduce((sum, item) => sum + item.total_price, 0);
+  const [selectedFilter, setSelectedFilter] = useState(FilterOptions.ALL);
+  const filteredData = filterData(data, selectedFilter);
+
+  console.log("filteredData",filteredData)
+
+  const totalCustomers = Array.from(new Set(filteredData.map((item) => item.customer_name))).length;
+  const totalDays = Array.from(new Set(filteredData.map((item) => moment(item.order_date).format('MMM DD YYYY')))).length;
+  const totalAmount = filteredData.reduce((sum, item) => sum + item.total_price, 0);
 
   return (
     <View style={styles.container}>
+      <View style={styles.filterContainer}>
+        {Object.values(FilterOptions).map(filter => (
+          <TouchableOpacity
+            key={filter}
+            onPress={() => setSelectedFilter(filter)}
+            style={selectedFilter === filter ? styles.filterButtonSelected : styles.filterButton}
+          >
+            <Text style={selectedFilter === filter ? styles.filterTextSelected : styles.filterText}>
+              {filter.toUpperCase()}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
       <FlatList
-        data={data}
+        data={filteredData}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => <TableItem {...item} />}
-        ListFooterComponent={() => <View style={{ height: 80 }} />} // Spacer for the footer
+        ListFooterComponent={() => <View style={{ height: 80 }} />}
       />
       <TableFooter
         totalCustomers={totalCustomers}
@@ -39,7 +81,6 @@ const TableScreen = ({ data }) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -69,6 +110,28 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+  },
+  filterContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 8,
+  },
+  filterButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 4,
+  },
+  filterButtonSelected: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 4,
+    backgroundColor: '#007BFF',
+  },
+  filterText: {
+    color: '#007BFF',
+  },
+  filterTextSelected: {
+    color: 'white',
   },
 });
 

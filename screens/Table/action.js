@@ -19,7 +19,6 @@ export const bookedTable = (id) => async dispatch => {
 
 export const resetTable = (id) => async dispatch => {
   try {
-    console.log("resetTable",id)
     dispatch({ type: 'RESET_TABLE_NUMBER', payload: id });
     dispatch({ type: 'RESET_MENU_AGAINST_TABLE', payload: id });
   } catch (error) {
@@ -36,15 +35,12 @@ export const addEndTime = (model) => async dispatch => {
     const time1 = model?.selectedTableStartTime;
     const time2 = model?.selectedTableEndTime;
 
-
     const totalAmount = model?.totalAmount;
 
-    // Create moment objects for the two times
     const format = 'hh:mm A';
     const momentTime1 = moment(time1, format);
     const momentTime2 = moment(time2, format);
 
-    // Calculate the time difference in minutes
     const minutes = Math.abs(momentTime1.diff(momentTime2, 'minutes'));
 
     function calculateCharge(minutes) {

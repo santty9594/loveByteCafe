@@ -118,8 +118,6 @@ export default MenuReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 selectedMenus: filterMeuItem(state, payload),
             };
-        case 'AUTH_LOGOUT_RESET':
-            return initialState;
         default:
             return state;
     }

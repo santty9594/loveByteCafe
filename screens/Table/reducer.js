@@ -30,117 +30,79 @@ const initialState = {
   tableCharge: 0,
   totalMinutes: '0',
   selectedTableStartTime: 0,
-  selectedTableEndTime: ''
+  selectedTableEndTime: '',
 };
 
-
-const changeTableValues = (state, payload) => {
-  if (!state || !state.tableList) {
-    return state;
-  }
-
-  const updatedValues = state.tableList.map((element) => {
+// Helper function to update table values
+const updateTableValues = (tableList, payload, updateFn) => {
+  return tableList.map((element) => {
     if (element.value === payload) {
-      return {
-        ...element,
-        booked: true,
-        startTime: element.startTime == null ? new Date() : element.startTime,
-      };
+      return updateFn({ ...element });
     }
     return element;
   });
-  return updatedValues;
-};
-
-
-const resetTableValueChange = (state, payload) => {
-  if (!state || !state.tableList) {
-    return state;
-  }
-
-
-  const updatedValues = state.tableList.map((element) => {
-    if (element.value === payload) {
-      return {
-        ...element, booked: false, startTime: null, waiting: false, payment: false,
-      };
-    }
-    return element;
-  });
-  return updatedValues;
-};
-
-const changeStartTime = (state, payload) => {
-  if (!state || !state.tableList) {
-    return state;
-  }
-
-
-  const updatedValues = state.tableList.map((element) => {
-    if (element.value === payload.selectedTable) {
-      return {
-        ...element, startTime: payload.startTime,
-      };
-    }
-    return element;
-  });
-
-  return updatedValues;
-};
-
-
-const getStartTimeTable = (state, payload) => {
-  if (!state || !state.tableList) {
-    return state;
-  }
-  let startTime = state.tableList.find((Item) => Item.value === payload)?.startTime;
-  return startTime ? startTime : new Date();
 };
 
 const TableReducer = (state = initialState, { type, payload }) => {
+  if (!state || !state.tableList) {
+    return state;
+  }
+
   switch (type) {
     case 'SELECT_TABLE_TYPE':
       return {
         ...state,
-        tableList: state.tableList,
         selectCategory: payload,
       };
     case 'BOOK_TABLE_NUMBER':
-      const values = changeTableValues(state, payload);
       return {
         ...state,
-        tableList: values,
+        tableList: updateTableValues(state.tableList, payload, (element) => ({
+          ...element,
+          booked: true,
+          startTime: element.startTime === null ? new Date() : element.startTime,
+        })),
         selectedTable: payload,
       };
     case 'GET_START_TIME_TABLE':
+      const startTime = state.tableList.find((item) => item.value === payload)?.startTime || new Date();
       return {
         ...state,
-        selectedTableStartTime: getStartTimeTable(state, payload)
+        selectedTableStartTime: startTime,
       };
     case 'RESET_TABLE_NUMBER':
       return {
         ...state,
-        tableList: resetTableValueChange(state, payload),
+        tableList: updateTableValues(state.tableList, payload, (element) => ({
+          ...element,
+          booked: false,
+          startTime: null,
+          waiting: false,
+          payment: false,
+        })),
         selectedTable: 0,
         totalAmount: 0,
         totalPayAmount: 0,
         tableCharge: 0,
         totalMinutes: '0',
-        selectedTableEndTime: ''
+        selectedTableEndTime: '',
       };
     case 'ADD_START_TIME':
       return {
         ...state,
-        tableList: changeStartTime(state, payload),
-        selectedTableStartTime: payload?.startTime,
+        tableList: updateTableValues(state.tableList, payload.selectedTable, (element) => ({
+          ...element,
+          startTime: payload.startTime,
+        })),
+        selectedTableStartTime: payload.startTime,
       };
     case 'ADD_END_TIME':
       return {
         ...state,
-        selectedTableEndTime: payload?.endTime,
-        tableCharge: payload?.tableCharge,
-        totalPayAmount: payload?.totalPayAmount,
-        totalMinutes: payload?.totalMinutes
+        selectedTableEndTime: payload.endTime,
+        tableCharge: payload.tableCharge,
+        totalPayAmount: payload.totalPayAmount,
+        totalMinutes: payload.totalMinutes,
       };
     case 'TABLE_PLACE_ORDER':
       return {
@@ -148,7 +110,7 @@ const TableReducer = (state = initialState, { type, payload }) => {
         totalAmount: payload,
         tableCharge: 0,
         totalPayAmount: 0,
-        totalMinutes: 0
+        totalMinutes: 0,
       };
     default:
       return state;
