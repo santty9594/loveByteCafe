@@ -19,7 +19,6 @@ import BillScreen from '../screens/Table/BillScreen';
 //Admin
 import AdminDashboard from '../screens/admin/DashboardScreen';
 import MenuUpdateScreen from '../screens/admin/MenuUpdateScreen';
-import MenuCreateScreen from '../screens/admin/MenuCreateScreen';
 import ReportScreen from '../screens/admin/ReportScreen';
 
 export default function App() {
@@ -225,23 +224,10 @@ const MainNavigation = () => {
 
 
       <LoginStack.Screen
-        name="MenuUpdateScreen"
+        name="MenuCreateUpdateScreen"
         component={MenuUpdateScreen}
         options={({ navigation, route }) => ({
-          headerTitle: 'Menu Update',
-          headerTitleAlign: "center",
-          headerLeft: () => (
-            <CustomBackButton onPress={() => navigation.goBack()} />
-          ),
-        })}
-      />
-
-
-      <LoginStack.Screen
-        name="MenuCreateScreen"
-        component={MenuCreateScreen}
-        options={({ navigation, route }) => ({
-          headerTitle: 'Menu Create',
+          headerTitle: 'Create/Update Menu',
           headerTitleAlign: "center",
           headerLeft: () => (
             <CustomBackButton onPress={() => navigation.goBack()} />

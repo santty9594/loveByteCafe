@@ -38,7 +38,7 @@ const TableFooter = ({ totalCustomers, totalDays, totalAmount }) => (
   <View style={styles.tableFooter}>
     <Text>Distinct Customer: {totalCustomers}</Text>
     <Text>Distinct Days: {totalDays}</Text>
-    <Text>Total: {totalAmount}</Text>
+    <Text>Total: ₹{totalAmount}</Text>
   </View>
 );
 

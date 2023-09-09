@@ -3,9 +3,8 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import PrimaryText from '../../../Components/PrimaryText';
 
 const items = [
-    { key: 1, name: "Create Menu", value: 'MenuCreateScreen' },
-    { key: 2, name: "Update Menu", value: 'MenuUpdateScreen' },
-    { key: 3, name: "Report", value: 'ReportScreen' },
+    { key: 1, name: "Create Update Menu", value: 'MenuCreateUpdateScreen' },
+    { key: 2, name: "Report", value: 'ReportScreen' },
 ]
 
 const ReportForm = ({ handleClicked }) => {

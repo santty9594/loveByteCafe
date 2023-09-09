@@ -56,6 +56,10 @@ export const addEndTime = (model) => async dispatch => {
           charge = 250;
         } else if (minutes <= 190) {
           charge = 300;
+        } else if (minutes <= 220) {
+          charge = 350;
+        } else if (minutes <= 250) {
+          charge = 400;
         }
         return charge;
       }
