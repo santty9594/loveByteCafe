@@ -32,7 +32,7 @@ export const getMenuCategory = () => async dispatch => {
 
 export const createMenu = (model) => async dispatch => {
     try {
-        var temp = await api.getMenuCategory(model);
+        var temp = await api.createMenu(model);
         return temp;
     } catch (error) {
         console.log("error", error)
@@ -42,6 +42,15 @@ export const createMenu = (model) => async dispatch => {
 export const updateMenu = (model) => async dispatch => {
     try {
         var temp = await api.updateMenu(model);
+        return temp;
+    } catch (error) {
+        console.log("error", error)
+    }
+}
+
+export const deleteMenu = (model) => async dispatch => {
+    try {
+        var temp = await api.deleteMenu(model);
         return temp;
     } catch (error) {
         console.log("error", error)

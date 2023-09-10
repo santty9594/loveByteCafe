@@ -18,7 +18,7 @@ import BillScreen from '../screens/Table/BillScreen';
 
 //Admin
 import AdminDashboard from '../screens/admin/DashboardScreen';
-import MenuUpdateScreen from '../screens/admin/MenuUpdateScreen';
+import MenuCreateUpdateScreen from '../screens/admin/MenuCreateUpdateScreen';
 import ReportScreen from '../screens/admin/ReportScreen';
 
 export default function App() {
@@ -225,7 +225,7 @@ const MainNavigation = () => {
 
       <LoginStack.Screen
         name="MenuCreateUpdateScreen"
-        component={MenuUpdateScreen}
+        component={MenuCreateUpdateScreen}
         options={({ navigation, route }) => ({
           headerTitle: 'Create/Update Menu',
           headerTitleAlign: "center",

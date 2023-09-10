@@ -1,3 +1,4 @@
+import { PrivateValueStore } from "@react-navigation/native";
 
 const initialState = {
     fetchError: null,
@@ -51,19 +52,23 @@ const changeLineItemQty = (state, payload, type) => {
 
     const updatedValues = state.selectedMenus.map((element) => {
         if (element.id === payload) {
+            var qty, totalAmount;
+    
             if (type === 1) {
-                var qty = element.qty + 1;
-                var totalAmount = element.totalAmount + element.price;
+                qty = element.qty + 1;
+                totalAmount = element.totalAmount + element.price;
             } else {
-                var qty = element.qty - 1;
-                var totalAmount = element.totalAmount - element.price;
+                qty = element.qty - 1;
+                totalAmount = element.totalAmount - element.price;
             }
-            return {
-                ...element, qty: qty < 0 ? 0 : qty, totalAmount: totalAmount < 0 ? 0 : totalAmount
-            };
+    
+            if (qty === 0) {
+                return null;
+            }
+            return { ...element, qty, totalAmount };
         }
         return element;
-    });
+    }).filter(Boolean); 
     return updatedValues;
 };
 

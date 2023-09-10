@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
 import { connect } from 'react-redux';
 import Loader from '../../Components/loader';
 import UpdateMenuForm from './Components/UpdateMenuForm';
-import { getMenuItems, getMenuCategory, createMenu, updateMenu } from './action';
+import { getMenuItems, getMenuCategory, createMenu, updateMenu, deleteMenu } from './action';
 
-class MenuUpdate extends Component {
+class MenuCreateUpdate extends Component {
   state = {
     initialMode: 0,
     loading: false,
@@ -44,7 +43,7 @@ class MenuUpdate extends Component {
   handleFetchMenu = async () => {
     try {
       this.setState({ loading: true });
-      const menusResponse = await  this.props.getMenuItems();
+      const menusResponse = await this.props.getMenuItems();
       if (menusResponse.status === 0) {
         this.setState({ menus: menusResponse.data });
       }
@@ -55,6 +54,20 @@ class MenuUpdate extends Component {
     }
   }
 
+  handleCreateMenu = async (data) => {
+    try {
+      this.setState({ loading: true });
+      let respone = await this.props.createMenu(data);
+      if (respone && respone.status == 0) {
+        this.handleFetchMenu();
+      }
+      alert(respone.message)
+      this.setState({ loading: false });
+    } catch (error) {
+      this.setState({ loading: false });
+      console.log("error", error)
+    }
+  };
 
   handleUpdateMenu = async (data) => {
     try {
@@ -72,13 +85,13 @@ class MenuUpdate extends Component {
     }
   };
 
-  handleCreateMenu = async (data) => {
+
+  handleDeleteMenu = async (data) => {
     try {
       this.setState({ loading: true });
-      let model = { ...data, price: parseInt(data.price) };
-      let respone = await this.props.updateMenu(model);
+      let respone = await this.props.deleteMenu(data);
       if (respone && respone.status == 0) {
-
+        this.handleFetchMenu();
       }
       alert(respone.message)
       this.setState({ loading: false });
@@ -101,6 +114,7 @@ class MenuUpdate extends Component {
           menuCategories={menuCategories}
           handleCreate={this.handleCreateMenu}
           handleUpdate={this.handleUpdateMenu}
+          handleDelete={this.handleDeleteMenu}
           initialMode={initialMode}
         />
         {loading && <Loader isLoading={loading} />}
@@ -113,7 +127,8 @@ const mapDispatchToProps = {
   getMenuItems,
   getMenuCategory,
   createMenu,
-  updateMenu
+  updateMenu,
+  deleteMenu
 };
 
-export default connect(null, mapDispatchToProps)(MenuUpdate);
+export default connect(null, mapDispatchToProps)(MenuCreateUpdate);

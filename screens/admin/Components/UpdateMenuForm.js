@@ -1,11 +1,12 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { View, Text, FlatList, Keyboard, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Alert, Text, FlatList, Keyboard, TouchableOpacity, StyleSheet } from 'react-native';
 import { TextInput, HelperText, Button } from 'react-native-paper';
 import RemixIcon from 'react-native-remix-icon';
 
-export default function App({ menus, menuCategories, handleUpdate }) {
+export default function App({ menus, menuCategories, handleUpdate, handleCreate, handleDelete }) {
     const [mode, setMode] = useState(0);
     const [type, setType] = useState("UPDATE");
+    const [menu, setSelectedMenu] = useState({});
     const [updateObject, setUpdateObject] = useState();
     const [name, setName] = useState('');
     const [price, setPrice] = useState();
@@ -30,6 +31,26 @@ export default function App({ menus, menuCategories, handleUpdate }) {
         setName(item.name)
         setUpdateObject(item)
         setMode(1);
+        setType('UPDATE');
+    }
+
+    const handleCreateButton = () => {
+        setPrice('');
+        setName('');
+        setMode(1);
+        setType('CREATE');
+    }
+
+    const handleDeleteButton = (item) => {
+        Alert.alert(
+            'Message',
+            'Do you want to delete this item', [
+            { text: 'Cancel', onPress: () => console.log('Cancel') },
+            { text: 'Confirm', onPress: () => handleDelete(item), style: 'Ok' },
+        ],
+            { cancelable: true },
+        )
+        return true
     }
 
     const handleError = (errorMessage, input) => {
@@ -50,8 +71,18 @@ export default function App({ menus, menuCategories, handleUpdate }) {
 
         if (valid && value == 'UPDATE') {
             handleUpdate({ ...updateObject, name, price });
+        } else {
+            let model = {
+                name,
+                price: parseInt(price),
+                menuid: menu.menu_id,
+                menu_type: menu.name,
+                status: 'Active',
+                type: 'Veg',
+                menu_type: 'Veg',
+            };
+            handleCreate(model);
         }
-
     };
 
     const TableItem = ({ item }) => (
@@ -60,6 +91,9 @@ export default function App({ menus, menuCategories, handleUpdate }) {
             <Text style={[styles.tableCell, { textAlign: "right" }]}> ₹ {item.price}</Text>
             <TouchableOpacity style={{ marginLeft: 10, paddingHorizontal: 10 }} onPress={() => handleEdit(item)}>
                 <RemixIcon name='pencil-line' size={20} color={"#007BFF"} />
+            </TouchableOpacity>
+            <TouchableOpacity style={{ marginLeft: 10, paddingHorizontal: 10 }} onPress={() => handleDeleteButton(item)}>
+                <RemixIcon name='delete-bin-6-line' size={20} color={"#FF0000"} />
             </TouchableOpacity>
         </View >
     );
@@ -73,7 +107,11 @@ export default function App({ menus, menuCategories, handleUpdate }) {
                         selectedCategory === item.menu_id ? '#4CAF50' : '#E0E0E0',
                 },
             ]}
-            onPress={() => setSelectedCategory(item.menu_id)}
+            onPress={() => {
+                setSelectedCategory(item.menu_id),
+                    setSelectedMenu(item)
+            }
+            }
         >
             <Text style={{
                 color: selectedCategory === item.menu_id ? '#fff' : '#000',
@@ -93,7 +131,7 @@ export default function App({ menus, menuCategories, handleUpdate }) {
         }
     }, [selectedCategory, menus, menuCategories]);
 
-    const updateCase = () => {
+    const InputForm = () => {
         return (
             <View style={styles.container}>
                 <TouchableOpacity style={{ marginBottom: 10 }} onPress={() => setMode(0)}>
@@ -140,6 +178,18 @@ export default function App({ menus, menuCategories, handleUpdate }) {
         )
     }
 
+    const createButton = () => {
+        if (menus && menus.length > 0 && (menu.name !== null && menu.name !== 'All' && menu.name !== undefined)) {
+            return (
+                <View style={{ height: 50, backgroundColor: "#fff", justifyContent: 'center', alignItems: "center" }}>
+                    <TouchableOpacity style={{ padding: 10 }} onPress={() => handleCreateButton()}>
+                        <Text style={{ color: "#000" }}>{`Create New Menu for "${menu.name}" Category`} </Text>
+                    </TouchableOpacity>
+                </View>
+            )
+        }
+    }
+
     return (
         <>
             {mode == 0
@@ -154,13 +204,14 @@ export default function App({ menus, menuCategories, handleUpdate }) {
                         />
                     </View>
                     <View style={{ flex: 0.94, marginTop: 10 }}>
+                        {createButton()}
                         <FlatList
                             data={filteredMenuItems}
                             renderItem={TableItem}
                             keyExtractor={(item) => item.id}
                         />
                     </View>
-                </View> : updateCase()
+                </View> : InputForm()
             }
         </>
     );

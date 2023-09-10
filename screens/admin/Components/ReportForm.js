@@ -46,8 +46,6 @@ const TableScreen = ({ data }) => {
   const [selectedFilter, setSelectedFilter] = useState(FilterOptions.ALL);
   const filteredData = filterData(data, selectedFilter);
 
-  console.log("filteredData",filteredData)
-
   const totalCustomers = Array.from(new Set(filteredData.map((item) => item.customer_name))).length;
   const totalDays = Array.from(new Set(filteredData.map((item) => moment(item.order_date).format('MMM DD YYYY')))).length;
   const totalAmount = filteredData.reduce((sum, item) => sum + item.total_price, 0);

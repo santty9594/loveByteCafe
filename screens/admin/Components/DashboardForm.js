@@ -4,7 +4,7 @@ import PrimaryText from '../../../Components/PrimaryText';
 
 const items = [
     { key: 1, name: "Create Update Menu", value: 'MenuCreateUpdateScreen' },
-    { key: 2, name: "Report", value: 'ReportScreen' },
+    { key: 2, name: "Reports", value: 'ReportScreen' },
 ]
 
 const ReportForm = ({ handleClicked }) => {

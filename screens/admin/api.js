@@ -64,7 +64,21 @@ class AdminApi {
   async updateMenu(args) {
     try {
       let _header = await restApi.getHeaders();
-      const path =  '/menu/update';
+      const path = '/menu/update';
+      let headers = {
+        token: _header.token,
+      };
+      const data = await restApi.post(path, headers, args);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteMenu(args) {
+    try {
+      let _header = await restApi.getHeaders();
+      const path = '/menu/delete';
       let headers = {
         token: _header.token,
       };
