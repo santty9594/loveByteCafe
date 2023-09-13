@@ -1,4 +1,5 @@
 import { TableApi } from './api';
+import { chargeTable } from '../../constants/api_constants';
 const moment = require('moment');
 
 const api = new TableApi();
@@ -44,27 +45,19 @@ export const addEndTime = (model) => async dispatch => {
     const minutes = Math.abs(momentTime1.diff(momentTime2, 'minutes'));
 
     function calculateCharge(minutes) {
+
       let charge = 0;
       if (minutes) {
-        if (minutes <= 70) {
-          charge = 100;
-        } else if (minutes <= 100) {
-          charge = 150;
-        } else if (minutes <= 130) {
-          charge = 200;
-        } else if (minutes <= 160) {
-          charge = 250;
-        } else if (minutes <= 190) {
-          charge = 300;
-        } else if (minutes <= 220) {
-          charge = 350;
-        } else if (minutes <= 250) {
-          charge = 400;
+        for (const threshold in chargeTable) {
+          if (minutes <= parseInt(threshold)) {
+            charge = chargeTable[threshold];
+            break;
+          }
         }
-        return charge;
       }
       return charge;
     }
+
     const charge = calculateCharge(minutes);
 
     if (totalAmount) {

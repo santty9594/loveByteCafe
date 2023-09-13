@@ -41,7 +41,7 @@ class RestApi {
                 headers: headers,
                 body: JSON.stringify(args)
             };
-            // console.log("options",options)
+            // console.log("options",url,options)
             let response = await fetch(API_BASE + url, options);
             response = await response.json();
             // console.log("response",response)

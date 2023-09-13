@@ -22,6 +22,7 @@ const InOutTime = ({ startTime, setOutTime }) => {
         }
     };
 
+
     return (
         <View style={styles.container}>
             <View style={styles.direction}>
@@ -32,7 +33,11 @@ const InOutTime = ({ startTime, setOutTime }) => {
                     <TextInput
                         editable={false}
                         style={styles.input}
-                        value={inTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        value={inTime.toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: true,
+                        })}
                     />
                 </View>
             </View>
@@ -54,7 +59,11 @@ const InOutTime = ({ startTime, setOutTime }) => {
                         <TextInput
                             ref={inputRef}
                             style={styles.input}
-                            value={time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            value={time.toLocaleTimeString([], {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                hour12: true,
+                            })}
                             placeholder="Select a Time"
                             editable={false}
                         />

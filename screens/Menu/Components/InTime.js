@@ -21,6 +21,13 @@ const InTime = ({ handleStartTime, startTime }) => {
         }
     };
 
+   
+    const formattedTime = time.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true, 
+    });
+
     return (
         <View style={styles.container}>
             <View style={styles.direction}>
@@ -40,7 +47,7 @@ const InTime = ({ handleStartTime, startTime }) => {
                         <TextInput
                             ref={inputRef}
                             style={styles.input}
-                            value={time?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            value={formattedTime}
                             placeholder="Select a Time"
                             editable={false}
                         />

@@ -9,7 +9,6 @@ export const reset = () => ({
   type: 'AUTH_LOGOUT_RESET',
 });
 
-
 export const authLogin = (model) => async dispatch => {
   try {
     await dispatch({ type: 'AUTH_LOGIN_LOADING' });
@@ -42,6 +41,7 @@ export const signupUser = (model) => async dispatch => {
 
 export const setupPin = (model) => async dispatch => {
   try {
+    dbHelper.set('pin', model);
     await dispatch({ type: 'PIN_CREATION_SUCCESS', payload: model });
   } catch (error) {
     console.log("error", error.message)
