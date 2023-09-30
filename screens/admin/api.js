@@ -89,6 +89,62 @@ class AdminApi {
     }
   }
 
+  async createInventory(args) {
+    try {
+      let _header = await restApi.getHeaders();
+      const path = '/inventory/create';
+      let headers = {
+        token: _header.token,
+      };
+      const data = await restApi.post(path, headers, args);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateInventory(args) {
+    try {
+      let _header = await restApi.getHeaders();
+      const path = '/inventory/update';
+      let headers = {
+        token: _header.token,
+      };
+      const data = await restApi.post(path, headers, args);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getInventory(args) {
+    try {
+      let _header = await restApi.getHeaders();
+      const path = '/inventory/get';
+      let headers = {
+        token: _header.token,
+      };
+      const data = await restApi.post(path, headers, args);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteInventory(args) {
+    try {
+      let _header = await restApi.getHeaders();
+      const path = '/inventory/delete';
+      let headers = {
+        token: _header.token,
+      };
+      const data = await restApi.post(path, headers, args);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 export { AdminApi };

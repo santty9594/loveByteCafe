@@ -48,6 +48,15 @@ export const updateMenu = (model) => async dispatch => {
     }
 }
 
+export const createInventory = (model) => async dispatch => {
+    try {
+        var temp = await api.createInventory(model);
+        return temp;
+    } catch (error) {
+        console.log("error", error)
+    }
+}
+
 export const deleteMenu = (model) => async dispatch => {
     try {
         var temp = await api.deleteMenu(model);
@@ -56,3 +65,32 @@ export const deleteMenu = (model) => async dispatch => {
         console.log("error", error)
     }
 }
+
+export const getInventory = () => async dispatch => {
+    try {
+        var temp = await api.getInventory({});
+        return temp;
+    } catch (error) {
+        console.log("error", error)
+    }
+}
+
+export const updateInventory = (model) => async dispatch => {
+    try {
+        var temp = await api.updateInventory(model);
+        return temp;
+    } catch (error) {
+        console.log("error", error)
+    }
+}
+
+export const deleteInventory = (model) => async dispatch => {
+    try {
+        var temp = await api.deleteInventory(model);
+        return temp;
+    } catch (error) {
+        console.log("error", error)
+    }
+}
+
+

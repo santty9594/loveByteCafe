@@ -19,7 +19,10 @@ import BillScreen from '../screens/Table/BillScreen';
 //Admin
 import AdminDashboard from '../screens/admin/DashboardScreen';
 import MenuCreateUpdateScreen from '../screens/admin/MenuCreateUpdateScreen';
-import ReportScreen from '../screens/admin/ReportScreen';
+import InventoryCreateUpdateScreen from '../screens/admin/InventoryCreateUpdateScreen';
+import CustomerReportScreen from '../screens/admin/CustomerReportScreen';
+import InventroyReportScreen from '../screens/admin/InventoryReportScreen';
+
 
 export default function App() {
   const userToken = useSelector((state) => state.AuthReducer.loginToken);
@@ -236,10 +239,34 @@ const MainNavigation = () => {
       />
 
       <LoginStack.Screen
-        name="ReportScreen"
-        component={ReportScreen}
+        name="InventoryCreateUpdateScreen"
+        component={InventoryCreateUpdateScreen}
         options={({ navigation, route }) => ({
-          headerTitle: 'Report',
+          headerTitle: 'Create/Update Inventory',
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <CustomBackButton onPress={() => navigation.goBack()} />
+          ),
+        })}
+      />
+
+      <LoginStack.Screen
+        name="CustomerReportScreen"
+        component={CustomerReportScreen}
+        options={({ navigation, route }) => ({
+          headerTitle: 'Customer Report',
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <CustomBackButton onPress={() => navigation.goBack()} />
+          ),
+        })}
+      />
+
+      <LoginStack.Screen
+        name="InventroyReportScreen"
+        component={InventroyReportScreen}
+        options={({ navigation, route }) => ({
+          headerTitle: 'Inventory Report',
           headerTitleAlign: "center",
           headerLeft: () => (
             <CustomBackButton onPress={() => navigation.goBack()} />

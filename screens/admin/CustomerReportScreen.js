@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import TableView from './Components/ReportForm';
+import TableView from './Components/CustomerReport';
 import Loader from '../../Components/loader'
 import { connect } from 'react-redux';
 import { getOrder } from './action';
