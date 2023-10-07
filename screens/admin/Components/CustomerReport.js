@@ -26,11 +26,12 @@ const filterData = (data, selectedFilter) => {
   });
 };
 
-const TableItem = ({ customer_name, order_date, total_price }) => (
+const TableItem = ({ customer_name, order_date, total_price, payment_mode }) => (
   <View style={styles.tableRow}>
     <Text style={styles.tableCell}>{customer_name}</Text>
     <Text style={styles.tableCell}>{moment(order_date).format('MMM DD YYYY h:mm')}</Text>
     <Text style={styles.tableCell}> ₹ {total_price}</Text>
+    <Text style={styles.tableCell}> {payment_mode}</Text>
   </View>
 );
 
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
   },
   tableCell: {
-    flex: 1,
+    flex: 0.5,
     textAlign: 'center',
   },
   tableFooter: {

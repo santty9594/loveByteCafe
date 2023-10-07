@@ -36,6 +36,7 @@ export const addEndTime = (model) => async dispatch => {
     const time1 = model?.selectedTableStartTime;
     const time2 = model?.selectedTableEndTime;
 
+
     const totalAmount = model?.totalAmount;
 
     const format = 'hh:mm A';

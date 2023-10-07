@@ -5,13 +5,11 @@ import BillBreakup from './BillBreakup';
 import MakePayment from './MakePayment';
 import Customer from '../../Auth/Components/customerForm'
 
-
 const BillForm = ({
-  setOutTime, startTime, totalMinutes,
+  setOutTime, startTime, totalMinutes,paymentMode,setPaymentMode,
   totalPayAmount, tableCharge, totalAmount,
   getCustomerByPhone, customer, handleMakePayment
 }) => {
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
@@ -20,8 +18,10 @@ const BillForm = ({
           customer={customer}
         />
         <InOutTime
+          paymentMode={paymentMode}
           startTime={startTime}
           setOutTime={setOutTime}
+          setPaymentMode={setPaymentMode}
         />
         <BillBreakup
           totalAmount={totalAmount}

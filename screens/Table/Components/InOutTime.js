@@ -1,12 +1,15 @@
 import React, { useState, useRef } from 'react';
 import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { CheckBox } from 'react-native-elements'
+import RemixIcon from 'react-native-remix-icon';
 import PrimaryText from '../../../Components/PrimaryText';
 
-const InOutTime = ({ startTime, setOutTime }) => {
+const InOutTime = ({ startTime, setOutTime, paymentMode, setPaymentMode }) => {
 
     const [inTime] = useState(new Date(startTime));
     const [time, setTime] = useState(new Date());
+    const [mode, setMode] = useState(paymentMode);
     const [showPicker, setShowPicker] = useState(false);
     const inputRef = useRef(null);
 
@@ -22,54 +25,111 @@ const InOutTime = ({ startTime, setOutTime }) => {
         }
     };
 
+    const onChangeChecbox = (value) => {
+        setMode(value);
+        setPaymentMode(value);
+    };
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.direction}>
-                <View style={{ flex: 0.5 }}>
-                    <PrimaryText color='black' align='left' >In Time </PrimaryText>
-                </View>
-                <View style={{ flex: 0.5 }}>
+    const InTime = () => (
+        <View style={styles.direction}>
+            <View style={{ flex: 0.5 }}>
+                <PrimaryText color='black' align='left' >In Time </PrimaryText>
+            </View>
+            <View style={{ flex: 0.5 }}>
+                <TextInput
+                    editable={false}
+                    style={styles.input}
+                    value={inTime.toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true,
+                    })}
+                />
+            </View>
+        </View>
+    )
+
+    const OutTime = () => (
+        <View style={styles.direction}>
+            <View style={{ flex: 0.5 }}>
+                <PrimaryText color='black' align='left'>Out Time</PrimaryText>
+            </View>
+            <View style={{ flex: 0.5 }}>
+                {showPicker && (
+                    <DateTimePicker
+                        value={time}
+                        mode="time"
+                        display="default"
+                        onChange={onChange}
+                    />
+                )}
+                <TouchableOpacity onPress={onInputPress}>
                     <TextInput
-                        editable={false}
+                        ref={inputRef}
                         style={styles.input}
-                        value={inTime.toLocaleTimeString([], {
+                        value={time.toLocaleTimeString([], {
                             hour: '2-digit',
                             minute: '2-digit',
                             hour12: true,
                         })}
+                        placeholder="Select a Time"
+                        editable={false}
                     />
-                </View>
+                </TouchableOpacity>
             </View>
+        </View>
+    )
 
-            <View style={styles.direction}>
-                <View style={{ flex: 0.5 }}>
-                    <PrimaryText color='black' align='left' >Out Time</PrimaryText>
-                </View>
-                <View style={{ flex: 0.5 }}>
-                    {showPicker && (
-                        <DateTimePicker
-                            value={time}
-                            mode="time"
-                            display="default"
-                            onChange={onChange}
-                        />
-                    )}
-                    <TouchableOpacity onPress={onInputPress}>
-                        <TextInput
-                            ref={inputRef}
-                            style={styles.input}
-                            value={time.toLocaleTimeString([], {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                hour12: true,
-                            })}
-                            placeholder="Select a Time"
-                            editable={false}
-                        />
-                    </TouchableOpacity>
-                </View>
+    const PaymentType = () => (
+        <View style={[styles.direction, { marginVertical: 10 }]}>
+            <View style={{ flex: 0.4 }}>
+                <PrimaryText color='black' align='left'> Payment Mode </PrimaryText>
             </View>
+            <View style={{ flex: 0.6, flexDirection: "row" }}>
+                <CheckBox
+                    containerStyle={{
+                        backgroundColor: 'transparent',
+                        borderColor: 'transparent',
+                        padding: 5,
+                        paddingBottom: 0
+                    }}
+                    size={20}
+                    checkedColor={'#262728'}
+                    uncheckedColor={'#262728'}
+                    textStyle={styles.checkbox}
+                    title={"Cash"}
+                    checkedIcon={<RemixIcon name="radio-button-line" />}
+                    uncheckedIcon={<RemixIcon name="checkbox-blank-circle-line" />}
+                    checked={mode == "Cash"}
+                    onPress={() => onChangeChecbox('Cash')}
+                />
+                <CheckBox
+                    containerStyle={{
+                        backgroundColor: 'transparent',
+                        borderColor: 'transparent',
+                        padding: 5,
+                        paddingBottom: 0
+                    }}
+                    size={20}
+                    checkedColor={'#262728'}
+                    uncheckedColor={'#262728'}
+                    textStyle={styles.checkbox}
+                    title={"UPI"}
+                    checkedIcon={<RemixIcon name="radio-button-line" />}
+                    uncheckedIcon={<RemixIcon name="checkbox-blank-circle-line" />}
+                    checked={mode == "UPI"}
+                    onPress={() => onChangeChecbox('UPI')}
+                />
+            </View>
+        </View>
+    )
+
+
+    return (
+        <View style={styles.container}>
+            <InTime />
+            <OutTime />
+            <PaymentType />
         </View>
     );
 };
@@ -80,7 +140,6 @@ const styles = StyleSheet.create({
         marginTop: 8,
         paddingHorizontal: 16,
         backgroundColor: "#fff",
-        // height:52
     },
     direction: {
         alignItems: "center",
@@ -95,6 +154,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 8,
     },
+    checkbox: {
+        fontFamily: 'Lato-Regular',
+        fontSize: 14,
+        lineHeight: 17,
+        color: '#262728',
+    }
 });
 
 export default InOutTime;

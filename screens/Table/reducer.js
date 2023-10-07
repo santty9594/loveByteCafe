@@ -30,7 +30,7 @@ const initialState = {
   tableCharge: 0,
   totalMinutes: '0',
   selectedTableStartTime: 0,
-  selectedTableEndTime: '',
+  selectedTableEndTime: 0,
 };
 
 // Helper function to update table values
@@ -85,7 +85,7 @@ const TableReducer = (state = initialState, { type, payload }) => {
         totalPayAmount: 0,
         tableCharge: 0,
         totalMinutes: '0',
-        selectedTableEndTime: '',
+        selectedTableEndTime: 0,
       };
     case 'ADD_START_TIME':
       return {

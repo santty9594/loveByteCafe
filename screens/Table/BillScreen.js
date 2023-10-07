@@ -11,7 +11,8 @@ class BillScreen extends Component {
         super(props); {
             this.state = {
                 loading: false,
-                customer: { name: "", phone: "", gender: "" }
+                customer: { name: "", phone: "", gender: "" },
+                paymentMode: "Cash"
             }
         }
     }
@@ -23,6 +24,10 @@ class BillScreen extends Component {
         }
     }
 
+    setPaymentMode = (value) => {
+        this.setState({ paymentMode: value })
+    }
+
     setOutTime = (EndTime) => {
         let { totalAmount, selectedTableStartTime, } = this.props;
         let model = { totalAmount, selectedTableStartTime, selectedTableEndTime: EndTime };
@@ -31,6 +36,7 @@ class BillScreen extends Component {
 
     handleMakePayment = async () => {
         try {
+            let { paymentMode } = this.state;
             let { totalPayAmount, selectedTable } = this.props;
             let customer_id = null, customer_name = null;
             let { customer } = this.props;
@@ -46,7 +52,7 @@ class BillScreen extends Component {
                 customer_id = customer?.id;
                 customer_name = customer?.name;
             }
-            let model = { customer_id, customer_name, status: true, total_price: totalPayAmount, order_date: new Date() }
+            let model = { customer_id, payment_mode: paymentMode, customer_name, status: true, total_price: totalPayAmount, order_date: new Date() };
             let resutl = await this.props.makePayment(model);
             this.setState({ loading: false });
             if (resutl && resutl.status == 0) {
@@ -77,12 +83,14 @@ class BillScreen extends Component {
             <>
                 <BillForm
                     startTime={selectedTableStartTime}
+                    paymentMode={this.state.paymentMode}
                     totalAmount={totalAmount}
                     totalPayAmount={totalPayAmount}
                     tableCharge={tableCharge}
                     totalMinutes={totalMinutes}
                     customer={customer}
                     setOutTime={this.setOutTime}
+                    setPaymentMode={this.setPaymentMode}
                     handleMakePayment={this.handleMakePayment}
                     getCustomerByPhone={this.getCustomerByPhone}
                 />
@@ -95,7 +103,7 @@ class BillScreen extends Component {
 function initMapStateToProps(state) {
     return {
         selectedTableStartTime: state.TableReducer.selectedTableStartTime,
-        selectedTable:state.TableReducer.selectedTable,
+        selectedTable: state.TableReducer.selectedTable,
         customer: state.AuthReducer.customer,
         totalPayAmount: state.TableReducer.totalPayAmount,
         totalMinutes: state.TableReducer.totalMinutes,
