@@ -4,7 +4,7 @@ import PrimaryText from '../../../Components/PrimaryText';
 import colors from '../../../constants/colors';
 
 const BIllReciept = ({ totalPay, handleClick }) => {
-
+    
     return (
         <View style={styles.container}>
             <View style={styles.row}>

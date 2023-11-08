@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import PrimaryText from '../../../Components/PrimaryText';
-import colors from '../../../constants/colors';
 
 const BoxWithMargin = ({ items, selectCategory, handleClicked }) => {
   const SCREEN_WIDTH = Dimensions.get('window').width;

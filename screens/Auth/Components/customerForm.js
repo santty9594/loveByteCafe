@@ -27,10 +27,8 @@ export default function CustomerInfo({ getCustomerByPhone, customer }) {
     const handleError = (errorMessage, input) => {
         setErrors(prevState => ({ ...prevState, [input]: errorMessage }));
     };
-
-
+    
     return (
-
         <View style={styles.container}>
 
             <View style={{ paddingTop: 16 }}>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Alert } from 'react-native';
 import BillForm from './Components/BillForm';
 import Loader from '../../Components/loader';
 import { getCustomerByPhone, createCustomer } from '../Auth/action';
@@ -38,21 +39,49 @@ class BillScreen extends Component {
         try {
             let { paymentMode } = this.state;
             let { totalPayAmount, selectedTable } = this.props;
-            let customer_id = null, customer_name = null;
+            let customer_id = null, customer_name = null; customer_phone = null; customer_gender = null;
             let { customer } = this.props;
             this.setState({ loading: true });
             if (!customer.id) {
                 let { customer } = this.state;
-                let response = await this.props.createCustomer(customer);
-                if (response && response.id) {
-                    customer_id = response?.id;
-                    customer_name = response?.name;
+                if (!customer.name || !customer.phone) {
+                    this.setState({ loading: false });
+                    Alert.alert(
+                        'Message',
+                        'Please enter the customer name and phone number', [
+                        { text: 'Cancel', onPress: () => console.log('Cancel') },
+                        { text: 'OK', onPress: () => console.log('OK'), style: 'Ok' },
+                    ],
+                        { cancelable: true },
+                    )
+                    return true
+                } else {
+                    let response = await this.props.createCustomer(customer);
+                    if (response && response.id) {
+                        customer_id = response?.id;
+                        customer_name = response?.name;
+                        customer_phone = response?.phone;
+                        customer_gender = response?.gender;
+                    }
                 }
             } else {
                 customer_id = customer?.id;
                 customer_name = customer?.name;
+                customer_phone = customer?.phone;
+                customer_gender = customer?.gender;
             }
-            let model = { customer_id, payment_mode: paymentMode, customer_name, status: true, total_price: totalPayAmount, order_date: new Date() };
+
+            let model = {
+                customer_id,
+                payment_mode: paymentMode,
+                customer_name,
+                customer_phone,
+                customer_gender,
+                status: true,
+                total_price: totalPayAmount,
+                order_date: new Date()
+            };
+         
             let resutl = await this.props.makePayment(model);
             this.setState({ loading: false });
             if (resutl && resutl.status == 0) {

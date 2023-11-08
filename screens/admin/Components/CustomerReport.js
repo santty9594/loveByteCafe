@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Dimensions, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import moment from 'moment';
 
 const FilterOptions = {
@@ -26,19 +26,21 @@ const filterData = (data, selectedFilter) => {
   });
 };
 
-const TableItem = ({ customer_name, order_date, total_price, payment_mode }) => (
+const TableItem = ({ customer_name, customer_phone, customer_gender, order_date, total_price, payment_mode }) => (
   <View style={styles.tableRow}>
-    <Text style={styles.tableCell}>{customer_name}</Text>
-    <Text style={styles.tableCell}>{moment(order_date).format('MMM DD YYYY h:mm')}</Text>
-    <Text style={styles.tableCell}> ₹ {total_price}</Text>
-    <Text style={styles.tableCell}> {payment_mode}</Text>
+    <Text style={{ textAlign: "left", width: 100 }}>{customer_name}</Text>
+    <Text style={{ textAlign: "left", width: 100 }}>{customer_phone}</Text>
+    <Text style={{ textAlign: "left", width: 50 }}>{customer_gender}</Text>
+    <Text style={{ textAlign: "left", width: 130 }}>{moment(order_date).format('MMM DD YYYY h:mm')}</Text>
+    <Text style={{ textAlign: "left", width: 50 }}> ₹ {total_price}</Text>
+    <Text style={{ textAlign: "left", width: 40 }}> {payment_mode}</Text>
   </View>
 );
 
 const TableFooter = ({ totalCustomers, totalDays, totalAmount }) => (
   <View style={styles.tableFooter}>
-    <Text>Distinct Customer: {totalCustomers}</Text>
-    <Text>Distinct Days: {totalDays}</Text>
+    <Text>Customer: {totalCustomers}</Text>
+    <Text>Days: {totalDays}</Text>
     <Text>Total: ₹{totalAmount}</Text>
   </View>
 );
@@ -66,12 +68,21 @@ const TableScreen = ({ data }) => {
           </TouchableOpacity>
         ))}
       </View>
-      <FlatList
-        data={filteredData}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => <TableItem {...item} />}
-        ListFooterComponent={() => <View style={{ height: 80 }} />}
-      />
+      <View style={{
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+      }}>
+        <ScrollView horizontal>
+          <ScrollView>
+            {filteredData.map((data, i) => (
+              <View key={i}>
+                <TableItem {...data} />
+              </View>
+            ))}
+          </ScrollView>
+        </ScrollView>
+      </View>
       <TableFooter
         totalCustomers={totalCustomers}
         totalDays={totalDays}
@@ -82,7 +93,8 @@ const TableScreen = ({ data }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height - 60
   },
   tableRow: {
     flexDirection: 'row',
@@ -94,7 +106,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
   },
   tableCell: {
-    flex: 0.5,
     textAlign: 'center',
   },
   tableFooter: {

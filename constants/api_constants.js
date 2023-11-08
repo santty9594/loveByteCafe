@@ -1,4 +1,4 @@
-export const API_BASE = 'http://192.168.1.8:8000';
+export const API_BASE = 'http://13.49.23.181:8000';
 
 export const LOGIN_URL = '/auth/login';
 export const REGISTER_URL = '/auth/register';
