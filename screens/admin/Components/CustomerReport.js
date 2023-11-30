@@ -127,7 +127,7 @@ const TableScreen = ({ data }) => {
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height
+    height: Dimensions.get('window').height - 60
   },
   textRowColumn: {
     color: "#000",
