@@ -37,17 +37,17 @@ export const addItemMenu = (model) => async dispatch => {
     }
 }
 
-export const addQty = (model) => async dispatch => {
+export const addQty = (id, selectedTable) => async dispatch => {
     try {
-        dispatch({ type: 'ADD_QTY_ITEM', payload: model });
+        dispatch({ type: 'ADD_QTY_ITEM', payload: { id, selectedTable } });
     } catch (error) {
         console.log(error)
     }
 }
 
-export const removeQty = (model, value) => async dispatch => {
+export const removeQty = (id, selectedTable) => async dispatch => {
     try {
-        dispatch({ type: 'REMOVE_QTY_ITEM', payload: model });
+        dispatch({ type: 'REMOVE_QTY_ITEM', payload: { id, selectedTable } });
         dispatch({ type: 'GET_TABLE_MENU_COUNT', payload: { selectedTable: value } });
     } catch (error) {
         console.log(error)

@@ -37,67 +37,82 @@ class BillScreen extends Component {
 
     handleMakePayment = async () => {
         try {
-            let { paymentMode } = this.state;
-            let { totalPayAmount, selectedTable } = this.props;
-            let customer_id = null, customer_name = null; customer_phone = null; customer_gender = null;
-            let { customer } = this.props;
+            const { paymentMode } = this.state;
+            const { totalPayAmount, tableList, selectedTable, createCustomer, makePayment, tableCharge,
+                resetTable, navigation, customer, order_in_time, order_out_time, order_amount } = this.props;
+            const { id } = customer;
+
+            const table_no = tableList.find((item) => item.value === selectedTable)?.name;
+
             this.setState({ loading: true });
-            if (!customer.id) {
-                let { customer } = this.state;
-                if (!customer.name || !customer.phone) {
+            if (!id) {
+                const { name: customerName, phone: customerPhone } = this.state.customer;
+
+                if (!customerName || !customerPhone) {
                     this.setState({ loading: false });
                     Alert.alert(
                         'Message',
-                        'Please enter the customer name and phone number', [
-                        { text: 'Cancel', onPress: () => console.log('Cancel') },
-                        { text: 'OK', onPress: () => console.log('OK'), style: 'Ok' },
-                    ],
-                        { cancelable: true },
-                    )
-                    return true
+                        'Please enter the customer name and phone number',
+                        [
+                            { text: 'Cancel', onPress: () => console.log('Cancel') },
+                            { text: 'OK', onPress: () => console.log('OK'), style: 'Ok' },
+                        ],
+                        { cancelable: true }
+                    );
+                    return;
                 } else {
-                    let response = await this.props.createCustomer(customer);
-                    if (response && response.id) {
-                        customer_id = response?.id;
-                        customer_name = response?.name;
-                        customer_phone = response?.phone;
-                        customer_gender = response?.gender;
+                    try {
+                        const response = await createCustomer(this.state.customer);
+                        this.setState({ loading: false });
+
+                        if (response && response.id) {
+                            const { id, name, phone, gender } = response;
+                            customer = { id, name, phone, gender };
+                        }
+                    } catch (error) {
+                        console.error('Error creating customer:', error);
                     }
                 }
-            } else {
-                customer_id = customer?.id;
-                customer_name = customer?.name;
-                customer_phone = customer?.phone;
-                customer_gender = customer?.gender;
             }
 
-            let model = {
-                customer_id,
+            const model = {
+                customer_id: customer.id,
                 payment_mode: paymentMode,
-                customer_name,
-                customer_phone,
-                customer_gender,
+                customer_name: customer.name,
+                customer_phone: customer.phone,
+                customer_gender: customer.gender,
+                table_no: table_no,
+                table_charge: tableCharge,
+                order_amount,
+                order_in_time,
+                order_out_time,
                 status: true,
                 total_price: totalPayAmount,
-                order_date: new Date()
+                order_date: new Date(),
             };
-         
-            let resutl = await this.props.makePayment(model);
-            this.setState({ loading: false });
-            if (resutl && resutl.status == 0) {
-                alert(resutl?.message);
-                await this.props.resetTable(selectedTable);
-                setTimeout(() => {
-                    this.props.navigation.navigate('ListScreen')
-                }, 100)
-            } else {
-                alert(resutl?.message);
+
+            try {
+                const result = await makePayment(model);
+
+                this.setState({ loading: false });
+
+                if (result && result.status === 0) {
+                    alert(result?.message);
+                    await resetTable(selectedTable);
+                    setTimeout(() => {
+                        navigation.navigate('ListScreen');
+                    }, 100);
+                } else {
+                    alert(result?.message);
+                }
+            } catch (error) {
+                this.setState({ loading: false });
+                console.error('Error making payment:', error);
             }
         } catch (error) {
-            this.setState({ loading: false });
-            console.log(error)
+            console.error('General error:', error);
         }
-    }
+    };
 
 
     renderLoading = () => {
@@ -138,6 +153,10 @@ function initMapStateToProps(state) {
         totalMinutes: state.TableReducer.totalMinutes,
         tableCharge: state.TableReducer.tableCharge,
         totalAmount: state.TableReducer.totalAmount,
+        order_in_time: state.TableReducer.order_in_time,
+        order_out_time: state.TableReducer.order_out_time,
+        tableList: state.TableReducer.tableList,
+        order_amount: state.TableReducer.order_amount,
     };
 }
 

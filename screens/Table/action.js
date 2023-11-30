@@ -65,7 +65,20 @@ export const addEndTime = (model) => async dispatch => {
       totalPayAmount = totalAmount + charge;
       tableCharge = charge;
     }
-    dispatch({ type: 'ADD_END_TIME', payload: { totalPayAmount, tableCharge, totalMinutes: minutes, endTime: time2 } });
+
+
+    const order_in_time = time1.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+    const order_out_time = time2.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+
+    dispatch({
+      type: 'ADD_END_TIME',
+      payload: {
+        totalPayAmount, tableCharge,
+        order_amount: totalAmount,
+        totalMinutes: minutes, endTime: time2,
+        order_in_time, order_out_time
+      }
+    });
   } catch (error) {
     console.log(error)
   }

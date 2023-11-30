@@ -26,14 +26,23 @@ const filterData = (data, selectedFilter) => {
   });
 };
 
-const TableItem = ({ customer_name, customer_phone, customer_gender, order_date, total_price, payment_mode }) => (
+
+const TableItem = ({
+  customer_name, customer_phone, customer_gender, table_no,
+  order_date, total_price, order_in_time, order_out_time, order_amount,
+  table_charge, payment_mode }) => (
   <View style={styles.tableRow}>
-    <Text style={{ textAlign: "left", width: 100 }}>{customer_name}</Text>
+    <Text style={{ textAlign: "left", width: 70 }}>{table_no}</Text>
+    <Text style={{ textAlign: "left", width: 120 }}>{customer_name}</Text>
     <Text style={{ textAlign: "left", width: 100 }}>{customer_phone}</Text>
-    <Text style={{ textAlign: "left", width: 50 }}>{customer_gender}</Text>
+    <Text style={{ textAlign: "left", width: 60 }}>{customer_gender}</Text>
     <Text style={{ textAlign: "left", width: 130 }}>{moment(order_date).format('MMM DD YYYY h:mm')}</Text>
-    <Text style={{ textAlign: "left", width: 50 }}> ₹ {total_price}</Text>
-    <Text style={{ textAlign: "left", width: 40 }}> {payment_mode}</Text>
+    <Text style={{ textAlign: "left", width: 100 }}> {order_in_time}</Text>
+    <Text style={{ textAlign: "left", width: 100 }}> {order_out_time}</Text>
+    <Text style={{ textAlign: "left", width: 100 }}>{order_amount && `₹ ${order_amount}`}</Text>
+    <Text style={{ textAlign: "left", width: 100 }}> {table_charge && `₹ ${table_charge}`}</Text>
+    <Text style={{ textAlign: "left", width: 80 }}> {total_price && `₹ ${total_price}`}</Text>
+    <Text style={{ textAlign: "left", width: 100 }}> {payment_mode}</Text>
   </View>
 );
 
@@ -53,48 +62,85 @@ const TableScreen = ({ data }) => {
   const totalDays = Array.from(new Set(filteredData.map((item) => moment(item.order_date).format('MMM DD YYYY')))).length;
   const totalAmount = filteredData.reduce((sum, item) => sum + item.total_price, 0);
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.filterContainer}>
-        {Object.values(FilterOptions).map(filter => (
-          <TouchableOpacity
-            key={filter}
-            onPress={() => setSelectedFilter(filter)}
-            style={selectedFilter === filter ? styles.filterButtonSelected : styles.filterButton}
-          >
-            <Text style={selectedFilter === filter ? styles.filterTextSelected : styles.filterText}>
-              {filter.toUpperCase()}
-            </Text>
-          </TouchableOpacity>
-        ))}
+  const TableHeader = () => {
+    if (!filteredData.length) {
+      return
+    }
+    return (
+      <View style={styles.tableHead}>
+        <Text style={[styles.textRowColumn, { width: 70 }]}>{"Table No"}</Text>
+        <Text style={[styles.textRowColumn, { width: 120 }]}>{"Name"}</Text>
+        <Text style={[styles.textRowColumn, { width: 100 }]}>{"Phone"}</Text>
+        <Text style={[styles.textRowColumn, { width: 60 }]}>{"Gender"}</Text>
+        <Text style={[styles.textRowColumn, { width: 130 }]}>{"Order Date"}</Text>
+        <Text style={[styles.textRowColumn, { width: 100 }]}>{"In Time"}</Text>
+        <Text style={[styles.textRowColumn, { width: 100 }]}>{"Out Time"}</Text>
+        <Text style={[styles.textRowColumn, { width: 100 }]}>{"Order Amount"}</Text>
+        <Text style={[styles.textRowColumn, { width: 100 }]}>{"Table Charge"}</Text>
+        <Text style={[styles.textRowColumn, { width: 80 }]}>{"Total Price"}</Text>
+        <Text style={[styles.textRowColumn, { width: 100 }]}>{"Payment Mode"}</Text>
       </View>
-      <View style={{
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-      }}>
-        <ScrollView horizontal>
-          <ScrollView>
-            {filteredData.map((data, i) => (
-              <View key={i}>
-                <TableItem {...data} />
-              </View>
-            ))}
+    )
+  };
+
+  return (
+    <>
+      <View style={styles.container}>
+        <View style={styles.filterContainer}>
+          {Object.values(FilterOptions).map(filter => (
+            <TouchableOpacity
+              key={filter}
+              onPress={() => setSelectedFilter(filter)}
+              style={selectedFilter === filter ? styles.filterButtonSelected : styles.filterButton}
+            >
+              <Text style={selectedFilter === filter ? styles.filterTextSelected : styles.filterText}>
+                {filter.toUpperCase()}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <View style={{
+          flex: 1,
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+        }}>
+          <ScrollView horizontal>
+            <ScrollView>
+              <TableHeader />
+              {filteredData.map((data, i) => (
+                <View key={i}>
+                  <TableItem {...data} />
+                </View>
+              ))}
+            </ScrollView>
           </ScrollView>
-        </ScrollView>
+        </View>
       </View>
       <TableFooter
         totalCustomers={totalCustomers}
         totalDays={totalDays}
         totalAmount={totalAmount}
       />
-    </View>
+    </>
   );
 };
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - 60
+    height: Dimensions.get('window').height
+  },
+  textRowColumn: {
+    color: "#000",
+    textAlign: 'left'
+  },
+  tableHead: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: '#000',
   },
   tableRow: {
     flexDirection: 'row',

@@ -51,9 +51,9 @@ const changeLineItemQty = (state, payload, type) => {
     }
 
     const updatedValues = state.selectedMenus.map((element) => {
-        if (element.id === payload) {
+        if (element.id === payload.id && element.selectedTable === payload.selectedTable) {
             var qty, totalAmount;
-    
+
             if (type === 1) {
                 qty = element.qty + 1;
                 totalAmount = element.totalAmount + element.price;
@@ -61,14 +61,14 @@ const changeLineItemQty = (state, payload, type) => {
                 qty = element.qty - 1;
                 totalAmount = element.totalAmount - element.price;
             }
-    
+
             if (qty === 0) {
                 return null;
             }
             return { ...element, qty, totalAmount };
         }
         return element;
-    }).filter(Boolean); 
+    }).filter(Boolean);
     return updatedValues;
 };
 

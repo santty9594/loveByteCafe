@@ -14,11 +14,11 @@ class OrderDetails extends Component {
     }
 
     handleAddQty = (id) => {
-        this.props.addQty(id)
+        this.props.addQty(id, this.props.selectedTable);
     }
 
     handleRemoveQty = (id) => {
-        this.props.removeQty(id, this.props.selectedTable)
+        this.props.removeQty(id, this.props.selectedTable);
     }
 
     handleClickStartTime = (startTime) => {
