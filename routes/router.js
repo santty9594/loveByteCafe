@@ -41,8 +41,8 @@ export default function App() {
 }
 
 const CustomBackButton = ({ onPress }) => (
-  <TouchableOpacity onPress={onPress}>
-    <RemixIcon name='arrow-left-line' size={25} color={"#000"} />
+  <TouchableOpacity style={{ paddingVertical: 20, paddingRight: 20, }} onPress={onPress}>
+    <RemixIcon name='arrow-left-line' color={"#000"} />
   </TouchableOpacity>
 );
 
@@ -65,12 +65,12 @@ const CartItem = ({ onPress }) => {
   }
 
   return (
-    <TouchableOpacity onPress={handleNavigation}>
+    <TouchableOpacity style={{ padding: 16, }} onPress={handleNavigation}>
       <RemixIcon name='shopping-cart-2-line' size={25} color={"#000"} />
       {tempSelectedMenuCount > 0 && (
         <View style={{
           height: 20, width: 20, position: 'absolute',
-          justifyContent: "center", alignItems: "center", backgroundColor: "red", borderRadius: 20, top: -10, left: 10, padding: 2
+          justifyContent: "center", alignItems: "center", backgroundColor: "red", borderRadius: 20, top: 15, left: 30, padding: 2
         }}>
           <Text style={{ color: '#fff' }}>
             {tempSelectedMenuCount}

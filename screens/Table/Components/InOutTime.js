@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { CheckBox } from 'react-native-elements'
+import { CheckBox } from 'react-native-elements';
 import RemixIcon from 'react-native-remix-icon';
 import PrimaryText from '../../../Components/PrimaryText';
 
@@ -32,10 +32,10 @@ const InOutTime = ({ startTime, setOutTime, paymentMode, setPaymentMode }) => {
 
     const InTime = () => (
         <View style={styles.direction}>
-            <View style={{ flex: 0.5 }}>
+            <View >
                 <PrimaryText color='black' align='left' >In Time </PrimaryText>
             </View>
-            <View style={{ flex: 0.5 }}>
+            <View >
                 <TextInput
                     editable={false}
                     style={styles.input}
@@ -51,10 +51,10 @@ const InOutTime = ({ startTime, setOutTime, paymentMode, setPaymentMode }) => {
 
     const OutTime = () => (
         <View style={styles.direction}>
-            <View style={{ flex: 0.5 }}>
+            <View>
                 <PrimaryText color='black' align='left'>Out Time</PrimaryText>
             </View>
-            <View style={{ flex: 0.5 }}>
+            <View>
                 {showPicker && (
                     <DateTimePicker
                         value={time}
@@ -82,10 +82,10 @@ const InOutTime = ({ startTime, setOutTime, paymentMode, setPaymentMode }) => {
 
     const PaymentType = () => (
         <View style={[styles.direction, { marginVertical: 10 }]}>
-            <View style={{ flex: 0.4 }}>
+            <View>
                 <PrimaryText color='black' align='left'> Payment Mode </PrimaryText>
             </View>
-            <View style={{ flex: 0.6, flexDirection: "row" }}>
+            <View style={{flexDirection: "row" }}>
                 <CheckBox
                     containerStyle={{
                         backgroundColor: 'transparent',
@@ -124,7 +124,6 @@ const InOutTime = ({ startTime, setOutTime, paymentMode, setPaymentMode }) => {
         </View>
     )
 
-
     return (
         <View style={styles.container}>
             <InTime />
@@ -142,8 +141,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
     },
     direction: {
+        flex:1,
         alignItems: "center",
         flexDirection: "row",
+        justifyContent:"space-between"
     },
     input: {
         fontWeight: 'bold',

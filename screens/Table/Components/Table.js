@@ -1,12 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Dimensions, View, TouchableOpacity, ScrollView } from 'react-native';
 import PrimaryText from '../../../Components/PrimaryText';
 import colors from '../../../constants/colors';
 
 const BoxWithMargin = ({ items, selectCategory, handleClicked, handleResetTable }) => {
-  const SCREEN_WIDTH = Dimensions.get('window').width;
-  const CARD_MARGIN = 20;
-  const BOX_SIZE = (SCREEN_WIDTH - CARD_MARGIN * 4) / 3;
+  let width = Dimensions.get('window').width;
+  const BOX_SIZE = width > 400 ? 200 : 100;
   const filteredItems = items.filter(item => item.tableType === selectCategory);
 
   return (
@@ -46,15 +45,17 @@ const BoxWithMargin = ({ items, selectCategory, handleClicked, handleResetTable 
 
 const styles = StyleSheet.create({
   container: {
+    alignItems:"flex-start",
     flexDirection: 'row',
-    justifyContent: 'space-between',
     flexWrap: 'wrap',
-    padding: 16,
+    margin: 16,
   },
   alignItems: {
-    justifyContent: "center", alignItems: "center"
+    justifyContent: "center",
+    alignItems: "center"
   },
   box: {
+    margin:16,
     marginBottom: 10,
     borderRadius: 8,
     alignItems: 'center',
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "pink",
-    marginTop: 5,
+    marginTop: 10,
     paddingHorizontal: 15,
     paddingVertical: 2,
     borderRadius: 8

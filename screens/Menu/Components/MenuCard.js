@@ -1,7 +1,6 @@
 import { StyleSheet, View, Dimensions, TouchableOpacity, Animated } from 'react-native';
 import React from 'react';
 import PrimaryText from '../../../Components/PrimaryText';
-import { Avatar, Button, Card, Text } from 'react-native-paper';
 const { height, width } = Dimensions.get('screen');
 
 export default function MenuCard({ item, onPress }) {
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
     flex: 0.1,
     backgroundColor: '#fff',
     borderRadius: 8,
-    width: (width - 20*3)/2,
+    width: (width - 20*4)/2,
     height: height *0.14,
     overflow: 'hidden', // To prevent scaled content from overflowing
   },

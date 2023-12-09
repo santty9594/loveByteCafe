@@ -21,11 +21,11 @@ const InTime = ({ handleStartTime, startTime }) => {
         }
     };
 
-   
+
     const formattedTime = time.toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
-        hour12: true, 
+        hour12: true,
     });
 
     return (
@@ -53,8 +53,6 @@ const InTime = ({ handleStartTime, startTime }) => {
                         />
                     </TouchableOpacity>
                 </View>
-                <View>
-                </View>
             </View>
         </View>
     );
@@ -62,8 +60,8 @@ const InTime = ({ handleStartTime, startTime }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0.1,
-        marginTop: 8,
+        flex: 0.05,
+        justifyContent: "center",
         paddingHorizontal: 16,
         backgroundColor: "#fff",
     },

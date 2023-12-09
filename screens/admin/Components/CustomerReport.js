@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, Dimensions, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import moment from 'moment';
 
 const FilterOptions = {
@@ -100,7 +100,7 @@ const TableScreen = ({ data }) => {
           ))}
         </View>
         <View style={{
-          flex: 1,
+          flex: 0.85,
           flexDirection: 'row',
           flexWrap: 'wrap',
         }}>
@@ -127,7 +127,7 @@ const TableScreen = ({ data }) => {
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - 60
+    height: Dimensions.get('window').height - 6
   },
   textRowColumn: {
     color: "#000",

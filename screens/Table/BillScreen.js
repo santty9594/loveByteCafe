@@ -40,15 +40,14 @@ class BillScreen extends Component {
             const { paymentMode } = this.state;
             const { totalPayAmount, tableList, selectedTable, createCustomer, makePayment, tableCharge,
                 resetTable, navigation, customer, order_in_time, order_out_time, order_amount } = this.props;
-            const { id } = customer;
+            const { id, } = customer;
 
             const table_no = tableList.find((item) => item.value === selectedTable)?.name;
 
             this.setState({ loading: true });
             if (!id) {
-                const { name: customerName, phone: customerPhone } = this.state.customer;
-
-                if (!customerName || !customerPhone) {
+                const { name, phone } = this.state.customer;
+                if (!name || !phone) {
                     this.setState({ loading: false });
                     Alert.alert(
                         'Message',
@@ -60,18 +59,17 @@ class BillScreen extends Component {
                         { cancelable: true }
                     );
                     return;
-                } else {
-                    try {
-                        const response = await createCustomer(this.state.customer);
-                        this.setState({ loading: false });
-
-                        if (response && response.id) {
-                            const { id, name, phone, gender } = response;
-                            customer = { id, name, phone, gender };
-                        }
-                    } catch (error) {
-                        console.error('Error creating customer:', error);
+                }
+            } else {
+                try {
+                    const response = await createCustomer(this.state.customer);
+                    this.setState({ loading: false });
+                    if (response && response.id) {
+                        const { id, name, phone, gender } = response;
+                        customer = { id, name, phone, gender };
                     }
+                } catch (error) {
+                    console.error('Error creating customer:', error);
                 }
             }
 
@@ -93,7 +91,6 @@ class BillScreen extends Component {
 
             try {
                 const result = await makePayment(model);
-
                 this.setState({ loading: false });
 
                 if (result && result.status === 0) {

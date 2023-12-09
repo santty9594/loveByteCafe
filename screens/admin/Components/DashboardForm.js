@@ -1,6 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Dimensions, View, TouchableOpacity } from 'react-native';
 import PrimaryText from '../../../Components/PrimaryText';
+let width = Dimensions.get('window').width;
+const BOX_SIZE = width > 400 ? 200 : 100;
 
 const items = [
     { key: 1, name: "Create Update Inventory", value: 'InventoryCreateUpdateScreen' },
@@ -11,10 +13,17 @@ const items = [
 
 const ReportForm = ({ handleClicked }) => {
     return (
-        <View style={styles.container}>
+        <View
+            style={styles.container}>
             {items.map((item, i) => (
                 <TouchableOpacity
-                    style={[styles.box]}
+                    style={[
+                        styles.box,
+                        {
+                            width: BOX_SIZE,
+                            height: BOX_SIZE,
+                        },
+                    ]}
                     onPress={() => handleClicked(item.value)}
                     key={i}
                 >
@@ -37,9 +46,7 @@ const styles = StyleSheet.create({
         justifyContent: "center", alignItems: "center"
     },
     box: {
-        height: 100,
-        width: 100,
-        margin: 10,
+        margin: 16,
         marginBottom: 10,
         borderRadius: 8,
         backgroundColor: "#fff",

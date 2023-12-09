@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     },
     cart: {
         marginTop: 8,
-        flex: 0.7,
+        flex: 0.8,
         backgroundColor: colors.white,
     },
 

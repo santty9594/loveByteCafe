@@ -35,13 +35,14 @@ const BIllReciept = ({ totalPay, handleClick }) => {
 const styles = StyleSheet.create({
     container: {
         marginTop: 8,
-        flex: 0.2,
+        flex: 0.1,
     },
     row: {
         backgroundColor: colors.white,
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between", padding: 16
+        justifyContent: "space-between", 
+        padding: 16
     },
     button: {
         // paddingVertical: 20,

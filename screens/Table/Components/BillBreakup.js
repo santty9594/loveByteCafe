@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import PrimaryText from '../../../Components/PrimaryText';
-import RemixIcon from 'react-native-remix-icon';
 import colors from '../../../constants/colors';
 
 const BIllReciept = ({ totalAmount, totalMinutes, totalPayAmount, tableCharge }) => {

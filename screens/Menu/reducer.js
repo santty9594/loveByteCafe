@@ -1,5 +1,3 @@
-import { PrivateValueStore } from "@react-navigation/native";
-
 const initialState = {
     fetchError: null,
     loginLoading: false,
