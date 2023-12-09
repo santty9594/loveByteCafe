@@ -5,7 +5,7 @@ import { CheckBox } from 'react-native-elements';
 import RemixIcon from 'react-native-remix-icon';
 import PrimaryText from '../../../Components/PrimaryText';
 
-const InOutTime = ({ startTime, setOutTime, paymentMode, setPaymentMode }) => {
+const InOutTime = ({ startTime, setOutTime, selectTableCategory, paymentMode, setPaymentMode }) => {
 
     const [inTime] = useState(new Date(startTime));
     const [time, setTime] = useState(new Date());
@@ -85,7 +85,7 @@ const InOutTime = ({ startTime, setOutTime, paymentMode, setPaymentMode }) => {
             <View>
                 <PrimaryText color='black' align='left'> Payment Mode </PrimaryText>
             </View>
-            <View style={{flexDirection: "row" }}>
+            <View style={{ flexDirection: "row" }}>
                 <CheckBox
                     containerStyle={{
                         backgroundColor: 'transparent',
@@ -126,8 +126,8 @@ const InOutTime = ({ startTime, setOutTime, paymentMode, setPaymentMode }) => {
 
     return (
         <View style={styles.container}>
-            <InTime />
-            <OutTime />
+            {selectTableCategory && selectTableCategory !== 3 && (<InTime />)}
+            {selectTableCategory && selectTableCategory !== 3 && (  <OutTime />)}
             <PaymentType />
         </View>
     );
@@ -141,10 +141,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
     },
     direction: {
-        flex:1,
+        flex: 1,
         alignItems: "center",
         flexDirection: "row",
-        justifyContent:"space-between"
+        justifyContent: "space-between"
     },
     input: {
         fontWeight: 'bold',

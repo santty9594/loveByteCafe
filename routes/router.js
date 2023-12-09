@@ -41,7 +41,7 @@ export default function App() {
 }
 
 const CustomBackButton = ({ onPress }) => (
-  <TouchableOpacity style={{ paddingVertical: 20, paddingRight: 20, }} onPress={onPress}>
+  <TouchableOpacity style={{ paddingVertical: 8, paddingRight: 20, }} onPress={onPress}>
     <RemixIcon name='arrow-left-line' color={"#000"} />
   </TouchableOpacity>
 );

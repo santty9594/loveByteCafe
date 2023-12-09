@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import PrimaryText from '../../../Components/PrimaryText';
 import colors from '../../../constants/colors';
 
-const BIllReciept = ({ totalAmount, totalMinutes, totalPayAmount, tableCharge }) => {
+const BIllReciept = ({ totalAmount, totalMinutes, totalPayAmount, selectTableCategory, tableCharge }) => {
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: "row", alignItems: "center", paddingTop: 16, paddingLeft: 16 }}>
@@ -19,12 +19,13 @@ const BIllReciept = ({ totalAmount, totalMinutes, totalPayAmount, tableCharge })
                         </PrimaryText>
                     </View>
 
-                    <View style={{ marginVertical: 10, justifyContent: "center" }}>
-                        <PrimaryText align='left' color='black'>
-                            {`Table Charge ( ${totalMinutes} minutes)`}  
-                             {/* <RemixIcon name='information-line' size={18} color={"#000"} /> */}
-                        </PrimaryText>
-                    </View>
+                    {selectTableCategory && selectTableCategory !== 3 && (
+                        <View style={{ marginVertical: 10, justifyContent: "center" }}>
+                            <PrimaryText align='left' color='black'>
+                                {`Table Charge ( ${totalMinutes} minutes)`}
+                            </PrimaryText>
+                        </View>
+                    )}
                 </View>
 
                 <View style={{ flex: 0.3 }}>
@@ -34,15 +35,17 @@ const BIllReciept = ({ totalAmount, totalMinutes, totalPayAmount, tableCharge })
                         </PrimaryText>
                     </View>
 
-                    <View style={{ marginVertical: 10 }}>
-                        <PrimaryText align='right' color='black'>
-                            {tableCharge} ₹
-                        </PrimaryText>
-                    </View>
+                    {selectTableCategory && selectTableCategory !== 3 && (
+                        <View style={{ marginVertical: 10 }}>
+                            <PrimaryText align='right' color='black'>
+                                {tableCharge} ₹
+                            </PrimaryText>
+                        </View>
+                    )}
                 </View>
             </View>
 
-            <View style={{ borderWidth: 1,  borderColor: '#808080', marginHorizontal: 16 }} />
+            <View style={{ borderWidth: 1, borderColor: '#808080', marginHorizontal: 16 }} />
 
             <View style={{ flexDirection: "row", justifyContent: "space-between", padding: 16 }}>
                 <View >
@@ -63,9 +66,9 @@ const BIllReciept = ({ totalAmount, totalMinutes, totalPayAmount, tableCharge })
 
 const styles = StyleSheet.create({
     container: {
-         marginTop: 8,
-         flex: 0.4,
-         backgroundColor: colors.white,
+        marginTop: 8,
+        flex: 0.4,
+        backgroundColor: colors.white,
     },
     button: {
         paddingVertical: 20,

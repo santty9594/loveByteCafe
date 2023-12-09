@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
 import InOutTime from './InOutTime';
 import BillBreakup from './BillBreakup';
 import MakePayment from './MakePayment';
 import Customer from '../../Auth/Components/customerForm'
 
 const BillForm = ({
-  setOutTime, startTime, totalMinutes,paymentMode,setPaymentMode,
+  setOutTime, startTime, totalMinutes, paymentMode, setPaymentMode, selectTableCategory,
   totalPayAmount, tableCharge, totalAmount,
   getCustomerByPhone, customer, handleMakePayment
 }) => {
@@ -18,12 +18,14 @@ const BillForm = ({
           customer={customer}
         />
         <InOutTime
+          selectTableCategory={selectTableCategory}
           paymentMode={paymentMode}
           startTime={startTime}
           setOutTime={setOutTime}
           setPaymentMode={setPaymentMode}
         />
         <BillBreakup
+          selectTableCategory={selectTableCategory}
           totalAmount={totalAmount}
           totalMinutes={totalMinutes}
           totalPayAmount={totalPayAmount}

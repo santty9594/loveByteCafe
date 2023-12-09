@@ -5,7 +5,7 @@ import {Picker} from '@react-native-picker/picker';
 import useValidateMobileNumber from '../Components/hooks/useValidateMobileNumber';
 
 export default function CustomerInfo() {
-  const     {handleMobileNumberValidation} =useValidateMobileNumber()
+  const  {handleMobileNumberValidation} =useValidateMobileNumber()
   const [inputs, setInputs] = useState({firstName: '', lastName: '' ,contactNo:''});
   const [errors, setErrors] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState();

@@ -6,7 +6,7 @@ const PrimaryText = ({
   color = Color.primaryColor,
   align = 'center',
   bold = false,
-  size = 20,
+  size = 16,
   children,
 }) => {
   const textStyle = {

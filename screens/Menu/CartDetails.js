@@ -48,23 +48,23 @@ class OrderDetails extends Component {
 
     calculateTime = (totalAmount) => {
         let { selectedTableStartTime, } = this.props;
-        let model = { 
-            totalAmount, 
-            selectedTableStartTime:new Date(selectedTableStartTime),
+        let model = {
+            totalAmount,
+            selectedTableStartTime: new Date(selectedTableStartTime),
             selectedTableEndTime: new Date()
-         };
+        };
         this.props.addEndTime(model);
     }
 
-
     render() {
-        let { selectedMenus, selectedTable, selectedTableStartTime } = this.props;
+        let { selectedMenus, selectedTable, selectedTableStartTime, selectCategory } = this.props;
         selectedMenus = Array.isArray(selectedMenus) ?
             selectedMenus.filter(item => item.selectedTable === selectedTable)
             : selectedMenus;
         return (
             <OrderItem
                 OrderItems={selectedMenus}
+                selectTableCategory={selectCategory}
                 startTime={selectedTableStartTime}
                 selectedTable={selectedTable}
                 handleAddQty={this.handleAddQty}
@@ -80,11 +80,16 @@ class OrderDetails extends Component {
 function initMapStateToProps(state) {
     return {
         selectedMenus: state.MenuReducer.selectedMenus,
+        selectCategory: state.TableReducer.selectCategory,
         selectedTableStartTime: state.TableReducer.selectedTableStartTime,
         selectedTable: state.TableReducer.selectedTable
     };
 }
 
-export default connect(initMapStateToProps, { addQty, removeQty, addStartTimeTable, placeOrder, addEndTime })(OrderDetails);
+export default connect(initMapStateToProps, {
+    addQty, removeQty,
+    addStartTimeTable, placeOrder,
+    addEndTime
+})(OrderDetails);
 
 

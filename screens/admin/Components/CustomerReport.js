@@ -30,13 +30,14 @@ const filterData = (data, selectedFilter) => {
 const TableItem = ({
   customer_name, customer_phone, customer_gender, table_no,
   order_date, total_price, order_in_time, order_out_time, order_amount,
-  table_charge, payment_mode }) => (
+  table_type,table_charge, payment_mode }) => (
   <View style={styles.tableRow}>
     <Text style={{ textAlign: "left", width: 70 }}>{table_no}</Text>
     <Text style={{ textAlign: "left", width: 120 }}>{customer_name}</Text>
     <Text style={{ textAlign: "left", width: 100 }}>{customer_phone}</Text>
     <Text style={{ textAlign: "left", width: 60 }}>{customer_gender}</Text>
     <Text style={{ textAlign: "left", width: 130 }}>{moment(order_date).format('MMM DD YYYY h:mm')}</Text>
+    <Text style={{ textAlign: "left", width: 100 }}> {table_type}</Text>
     <Text style={{ textAlign: "left", width: 100 }}> {order_in_time}</Text>
     <Text style={{ textAlign: "left", width: 100 }}> {order_out_time}</Text>
     <Text style={{ textAlign: "left", width: 100 }}>{order_amount && `₹ ${order_amount}`}</Text>
@@ -73,6 +74,7 @@ const TableScreen = ({ data }) => {
         <Text style={[styles.textRowColumn, { width: 100 }]}>{"Phone"}</Text>
         <Text style={[styles.textRowColumn, { width: 60 }]}>{"Gender"}</Text>
         <Text style={[styles.textRowColumn, { width: 130 }]}>{"Order Date"}</Text>
+        <Text style={[styles.textRowColumn, { width: 100 }]}>{"Table Type"}</Text>
         <Text style={[styles.textRowColumn, { width: 100 }]}>{"In Time"}</Text>
         <Text style={[styles.textRowColumn, { width: 100 }]}>{"Out Time"}</Text>
         <Text style={[styles.textRowColumn, { width: 100 }]}>{"Order Amount"}</Text>
@@ -100,7 +102,7 @@ const TableScreen = ({ data }) => {
           ))}
         </View>
         <View style={{
-          flex: 0.85,
+          flex: 0.84,
           flexDirection: 'row',
           flexWrap: 'wrap',
         }}>

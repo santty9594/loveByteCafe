@@ -8,7 +8,7 @@ import colors from '../../../constants/colors';
 
 const OrderItem = ({
     OrderItems, handleClickStartTime,
-    handleAddQty, selectedTable,
+    handleAddQty, selectedTable, selectTableCategory,
     handleRemoveQty, startTime, handlePlaceOrder
 }) => {
 
@@ -29,7 +29,7 @@ const OrderItem = ({
             <ScrollView>
                 {OrderItems.filter(item => item.qty !== 0).map((data, i) => (
                     <View key={i} style={{ flexDirection: "row", alignItems: "center", padding: 16 }}>
-                        <View style={{ flex: 0.55,paddingRight:4 }}>
+                        <View style={{ flex: 0.55, paddingRight: 4 }}>
                             <PrimaryText align='left' color='black'>
                                 {data.name}
                             </PrimaryText>
@@ -63,7 +63,9 @@ const OrderItem = ({
 
     return (
         <View style={styles.container}>
-            <InTime handleStartTime={handleClickStartTime} startTime={startTime} />
+            {selectTableCategory && selectTableCategory !== 3 && (
+                <InTime handleStartTime={handleClickStartTime} startTime={startTime} />
+            )}
             {memoizedItem}
             <BillReciept totalPay={totalPay} handleClick={handlePlaceOrder} />
         </View>
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
     },
     cart: {
         marginTop: 8,
-        flex: 0.8,
+        flex: 0.7,
         backgroundColor: colors.white,
     },
 

@@ -20,7 +20,6 @@ const initialState = {
 
     //Birthday
     { key: 14, name: "1", value: 113, waiting: false, booked: false, payment: false, startTime: null, tableType: 3, },
-    { key: 15, name: "2", value: 114, waiting: false, booked: false, payment: false, startTime: null, tableType: 4, },
   ],
 
   selectedTable: 0,

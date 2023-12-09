@@ -60,7 +60,7 @@ const InTime = ({ handleStartTime, startTime }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0.05,
+        flex: 0.1,
         justifyContent: "center",
         paddingHorizontal: 16,
         backgroundColor: "#fff",
