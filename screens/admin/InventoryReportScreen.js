@@ -39,7 +39,6 @@ class Dashboard extends Component {
             this.setState({ loading: false })
             if (response && response.status == 0) {
                 let { data } = response;
-                console.log(data)
                 this.setState({ tableData: data })
             }
 

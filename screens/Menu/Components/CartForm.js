@@ -63,7 +63,7 @@ const OrderItem = ({
 
     return (
         <View style={styles.container}>
-            {selectTableCategory && selectTableCategory !== 3 && (
+            {selectTableCategory && (selectTableCategory !== 3 && selectTableCategory !== 2) && (
                 <InTime handleStartTime={handleClickStartTime} startTime={startTime} />
             )}
             {memoizedItem}

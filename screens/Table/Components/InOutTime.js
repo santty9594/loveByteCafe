@@ -126,8 +126,8 @@ const InOutTime = ({ startTime, setOutTime, selectTableCategory, paymentMode, se
 
     return (
         <View style={styles.container}>
-            {selectTableCategory && selectTableCategory !== 3 && (<InTime />)}
-            {selectTableCategory && selectTableCategory !== 3 && (  <OutTime />)}
+            {selectTableCategory && (selectTableCategory !== 3 && selectTableCategory !== 2) && (<InTime />)}
+            {selectTableCategory && (selectTableCategory !== 3 && selectTableCategory !== 2) && (<OutTime />)}
             <PaymentType />
         </View>
     );

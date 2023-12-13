@@ -19,7 +19,7 @@ const BIllReciept = ({ totalAmount, totalMinutes, totalPayAmount, selectTableCat
                         </PrimaryText>
                     </View>
 
-                    {selectTableCategory && selectTableCategory !== 3 && (
+                    {selectTableCategory && selectTableCategory !== 3 && selectTableCategory !== 2 && (
                         <View style={{ marginVertical: 10, justifyContent: "center" }}>
                             <PrimaryText align='left' color='black'>
                                 {`Table Charge ( ${totalMinutes} minutes)`}
@@ -35,7 +35,7 @@ const BIllReciept = ({ totalAmount, totalMinutes, totalPayAmount, selectTableCat
                         </PrimaryText>
                     </View>
 
-                    {selectTableCategory && selectTableCategory !== 3 && (
+                    {selectTableCategory && (selectTableCategory !== 3 && selectTableCategory !== 2) && (
                         <View style={{ marginVertical: 10 }}>
                             <PrimaryText align='right' color='black'>
                                 {tableCharge} ₹
