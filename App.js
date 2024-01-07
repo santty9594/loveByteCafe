@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Image,SafeAreaView } from 'react-native';
 import { Provider } from 'react-redux';
+import { ModalPortal } from 'react-native-modals';
 import persistStore from 'redux-persist/es/persistStore';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store } from './store/store';
@@ -41,6 +42,7 @@ export default class App extends Component {
         <Provider store={store}>
           <PersistGate loading={LoadingView} persistor={persistor}>
             <AppRouter />
+            <ModalPortal />
           </PersistGate>
         </Provider>
       </PaperProvider>

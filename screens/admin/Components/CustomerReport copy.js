@@ -1,18 +1,32 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, Dimensions, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import moment from 'moment';
 import { BottomModalComponent } from '../../../Components/BottomModal';
-import { NoDataFound } from '../../../Components/NoDataFound';
-import DateRangePicker from '../../../Components/DateRangePicker';
 
+const FilterOptions = {
+  ALL: 'all',
+  TODAY: 'today',
+  YESTERDAY: 'yesterday',
+  LAST_30_DAYS: 'last30days',
+};
 
-const dateFilterList = [
-  { key: 1, name: "Today", value: "today" },
-  { key: 2, name: "Yesterday", value: "yesterday" },
-  { key: 3, name: "Last30Days", value: "last30days" },
-  { key: 4, name: "Date Range", value: "daterange" },
-  { key: 5, name: "All", value: "all" },
-]
+const filterData = (data, selectedFilter) => {
+  const currentDate = moment();
+  return data.filter(item => {
+    const itemDate = moment(item.order_date);
+    switch (selectedFilter) {
+      case FilterOptions.TODAY:
+        return itemDate.isSame(currentDate, 'day');
+      case FilterOptions.YESTERDAY:
+        return itemDate.isSame(currentDate.clone().subtract(1, 'days'), 'day');
+      case FilterOptions.LAST_30_DAYS:
+        return itemDate.isAfter(currentDate.clone().subtract(30, 'days'));
+      default:
+        return true; // 'all' filter, show all data
+    }
+  });
+};
+
 
 const TableItem = ({
   customer_name, customer_phone, customer_gender, table_no,
@@ -24,13 +38,13 @@ const TableItem = ({
     <Text style={{ textAlign: "left", width: 100 }}>{customer_phone}</Text>
     <Text style={{ textAlign: "left", width: 60 }}>{customer_gender}</Text>
     <Text style={{ textAlign: "left", width: 130 }}>{moment(order_date).format('MMM DD YYYY h:mm')}</Text>
-    <Text style={{ textAlign: "left", width: 100 }}>{table_type}</Text>
-    <Text style={{ textAlign: "left", width: 100 }}>{order_in_time}</Text>
-    <Text style={{ textAlign: "left", width: 100 }}>{order_out_time}</Text>
+    <Text style={{ textAlign: "left", width: 100 }}> {table_type}</Text>
+    <Text style={{ textAlign: "left", width: 100 }}> {order_in_time}</Text>
+    <Text style={{ textAlign: "left", width: 100 }}> {order_out_time}</Text>
     <Text style={{ textAlign: "left", width: 100 }}>{order_amount && `₹ ${order_amount}`}</Text>
-    <Text style={{ textAlign: "left", width: 100 }}>{table_charge && `₹ ${table_charge}`}</Text>
-    <Text style={{ textAlign: "left", width: 80 }}>{total_price && `₹ ${total_price}`}</Text>
-    <Text style={{ textAlign: "left", width: 100 }}>{payment_mode}</Text>
+    <Text style={{ textAlign: "left", width: 100 }}> {table_charge && `₹ ${table_charge}`}</Text>
+    <Text style={{ textAlign: "left", width: 80 }}> {total_price && `₹ ${total_price}`}</Text>
+    <Text style={{ textAlign: "left", width: 100 }}> {payment_mode}</Text>
   </View>
 );
 
@@ -42,50 +56,26 @@ const TableFooter = ({ totalCustomers, totalDays, totalAmount }) => (
   </View>
 );
 
-const TableScreen = ({ data, fetchDataByDate }) => {
-  const [isModal, setModal] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState(dateFilterList[0].value);
-  const filteredData = data;
+const TableScreen = ({ data }) => {
+  const [isModal, setModal] = useState(true);
+  const [selectedFilter, setSelectedFilter] = useState(FilterOptions.ALL);
+  const filteredData = filterData(data, selectedFilter);
 
   const totalCustomers = Array.from(new Set(filteredData.map((item) => item.customer_name))).length;
   const totalDays = Array.from(new Set(filteredData.map((item) => moment(item.order_date).format('MMM DD YYYY')))).length;
   const totalAmount = filteredData.reduce((sum, item) => sum + item.total_price, 0);
 
-  const handleDateFilterChange = (value) => {
-    setSelectedFilter(value);
-    setModal(false);
-    fetchDataByDate(value)
-  }
-
-  const FilterList = ({ key, name, value }) => {
-    return (
-      <TouchableOpacity
-        key={key}
-        onPress={() => handleDateFilterChange(value)}
-        style={{ flex: 1, paddingHorizontal: 16, paddingVertical: 10, }}>
-        <Text style={selectedFilter === value
-          ? [styles.filterText, { color: "#000" }]
-          : styles.filterText
-        }>
-          {name}
-        </Text>
-      </TouchableOpacity>
-    )
-  }
 
   const DateFilter = () => {
     return (
-      <BottomModalComponent
+      < BottomModalComponent
         isModal={isModal}
-        height={0.3}
+        height={0.4}
+        borderRadius={0}
         handleCloseModal={() => setModal(false)}
       >
-        <View style={{ flex: 1 }}>
-          <FlatList
-            data={dateFilterList}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => <FilterList {...item} />}
-          />
+        <View>
+          <Text>Hello</Text>
         </View>
       </BottomModalComponent >
     )
@@ -113,24 +103,22 @@ const TableScreen = ({ data, fetchDataByDate }) => {
     )
   };
 
-
-  const renderNoData = () => {
-    if (data && data.length === 0) {
-      return <NoDataFound />
-    }
-
-  }
-
   return (
     <>
       <View style={styles.container}>
         <View style={styles.filterContainer}>
-          {selectedFilter == 'daterange' ? (<DateRangePicker />) : (<Text >{`Filter Display : ${selectedFilter?.toUpperCase()} `}</Text>)}
-          <TouchableOpacity onPress={() => setModal(true)}>
-            <Text style={{ color: "blue" }}>FILTER</Text>
-          </TouchableOpacity>
+          {Object.values(FilterOptions).map(filter => (
+            <TouchableOpacity
+              key={filter}
+              onPress={() => setSelectedFilter(filter)}
+              style={selectedFilter === filter ? styles.filterButtonSelected : styles.filterButton}
+            >
+              <Text style={selectedFilter === filter ? styles.filterTextSelected : styles.filterText}>
+                {filter.toUpperCase()}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
-        {renderNoData()}
         <View style={{
           flex: 0.84,
           flexDirection: 'row',
@@ -147,7 +135,7 @@ const TableScreen = ({ data, fetchDataByDate }) => {
             </ScrollView>
           </ScrollView>
         </View>
-      </View >
+      </View>
       <TableFooter
         totalCustomers={totalCustomers}
         totalDays={totalDays}
@@ -202,18 +190,26 @@ const styles = StyleSheet.create({
   },
   filterContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 8,
+  },
+  filterButton: {
     paddingHorizontal: 16,
     paddingVertical: 8,
-    justifyContent: 'space-between',
+    borderRadius: 4,
   },
-
+  filterButtonSelected: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 4,
+    backgroundColor: '#007BFF',
+  },
   filterText: {
-    fontFamily: "Lato-Regular",
-    fontSize: 16,
-    color: "#555459",
-    lineHeight: 19,
-  }
-
+    color: '#007BFF',
+  },
+  filterTextSelected: {
+    color: 'white',
+  },
 });
 
 export default TableScreen;

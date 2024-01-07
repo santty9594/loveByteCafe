@@ -1,5 +1,6 @@
 export default {
   Images: {
+    noData: require('../assets/images/NoDataFound.png'),
     placeholderRestaurant: require('../assets/images/placeholder-res.png'),
     placeholderFood: require('../assets/images/placeholder-food.png'),
     chinese: require('../assets/images/chinese.png'),

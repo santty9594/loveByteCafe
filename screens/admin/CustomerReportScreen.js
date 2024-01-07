@@ -8,7 +8,7 @@ class Dashboard extends Component {
     constructor(props) {
         super(props); {
             this.state = {
-                view: 'All',// 7 days , today tomorrow, last 30 days
+                filter: 'all',// 7 days , today tomorrow, last 30 days
                 skip: 0,
                 limit: 100,
                 loading: true,
@@ -23,8 +23,8 @@ class Dashboard extends Component {
 
     iniState() {
         try {
-            let { view, limit, skip } = this.state;
-            let model = { view, limit, skip };
+            let { filter } = this.state;
+            let model = { filter };
             this.handleFetch(model)
         } catch (error) {
             console.log(error)
@@ -39,7 +39,23 @@ class Dashboard extends Component {
             this.setState({ loading: false })
             if (response && response.status == 0) {
                 let { data } = response;
-                console.log(data)
+                this.setState({ tableData: data })
+            }
+
+        } catch (error) {
+            console.log(error)
+            this.setState({ loading: false })
+        }
+    }
+
+    fetchDataByDate = async (filter) => {
+        try {
+            this.setState({ loading: true });
+            let model = { filter };
+            let response = await this.props.getOrder(model);
+            this.setState({ loading: false })
+            if (response && response.status == 0) {
+                let { data } = response;
                 this.setState({ tableData: data })
             }
 
@@ -63,7 +79,10 @@ class Dashboard extends Component {
         let { tableData } = this.state;
         return (
             <>
-                <TableView data={tableData} />
+                <TableView
+                    data={tableData}
+                    fetchDataByDate={this.fetchDataByDate}
+                />
                 {this.renderLoading()}
             </>
 
