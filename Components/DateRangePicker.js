@@ -9,11 +9,8 @@ const formatDate = (date) => {
   return `${month < 10 ? '0' : ''}${month}/${day < 10 ? '0' : ''}${day}/${year}`;
 };
 
-const DateRangePicker = () => {
-  const [fromDate, setFromDate] = useState(new Date());
-  const [toDate, setToDate] = useState(new Date());
+const DateRangePicker = ({ fromDate, toDate, setFromDate, setToDate }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
-
   const onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || (event && event.nativeEvent.timestamp) || new Date();
     setShowDatePicker(false);
@@ -65,19 +62,22 @@ const DateRangePicker = () => {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
     flexDirection: 'row',
     justifyContent: 'center',
   },
   dateContainer: {
-    height:40,
-    marginHorizontal: 4,
-    backgroundColor:'#828282',
+    height: 35,
+    marginHorizontal: 10,
+    backgroundColor: '#828282',
     borderRadius: 5,
+    backgroundColor: "#fff",
   },
   dateInput: {
-    fontSize:'Lato-Regular',
+    fontSize: 'Lato-Regular',
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
+    color: "#000"
   },
 });
 

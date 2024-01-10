@@ -5,7 +5,6 @@ import { BottomModalComponent } from '../../../Components/BottomModal';
 import { NoDataFound } from '../../../Components/NoDataFound';
 import DateRangePicker from '../../../Components/DateRangePicker';
 
-
 const dateFilterList = [
   { key: 1, name: "Today", value: "today" },
   { key: 2, name: "Yesterday", value: "yesterday" },
@@ -44,6 +43,8 @@ const TableFooter = ({ totalCustomers, totalDays, totalAmount }) => (
 
 const TableScreen = ({ data, fetchDataByDate }) => {
   const [isModal, setModal] = useState(false);
+  const [fromDate, setFromDate] = useState(new Date())
+  const [toDate, setToDate] = useState(new Date())
   const [selectedFilter, setSelectedFilter] = useState(dateFilterList[0].value);
   const filteredData = data;
 
@@ -54,7 +55,19 @@ const TableScreen = ({ data, fetchDataByDate }) => {
   const handleDateFilterChange = (value) => {
     setSelectedFilter(value);
     setModal(false);
-    fetchDataByDate(value)
+    let data = { filter: value, fromDate, toDate }
+    fetchDataByDate(data)
+  }
+  const handleFromDate = (date) => {
+    setFromDate(date)
+    let data = { filter: selectedFilter, fromDate: date, toDate }
+    fetchDataByDate(data)
+  }
+
+  const handleToDate = (date) => {
+    setToDate(date)
+    let data = { filter: selectedFilter, fromDate, toDate:date }
+    fetchDataByDate(data)
   }
 
   const FilterList = ({ key, name, value }) => {
@@ -118,14 +131,20 @@ const TableScreen = ({ data, fetchDataByDate }) => {
     if (data && data.length === 0) {
       return <NoDataFound />
     }
-
   }
 
   return (
     <>
       <View style={styles.container}>
         <View style={styles.filterContainer}>
-          {selectedFilter == 'daterange' ? (<DateRangePicker />) : (<Text >{`Filter Display : ${selectedFilter?.toUpperCase()} `}</Text>)}
+          {selectedFilter == 'daterange' ? (
+            <DateRangePicker
+              fromDate={fromDate}
+              toDate={toDate}
+              setFromDate={(date) => handleFromDate(date)}
+              setToDate={(date) => handleToDate(date)}
+             
+            />) : (<Text >{`Filter Display : ${selectedFilter?.toUpperCase()} `}</Text>)}
           <TouchableOpacity onPress={() => setModal(true)}>
             <Text style={{ color: "blue" }}>FILTER</Text>
           </TouchableOpacity>
