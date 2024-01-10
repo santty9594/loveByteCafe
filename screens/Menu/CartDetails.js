@@ -41,6 +41,9 @@ class OrderDetails extends Component {
             )
             return true
         }
+        if (totalPay < 100) {
+            totalPay = 100;
+        }
         await this.props.placeOrder(totalPay);
         this.calculateTime(totalPay);
         this.props.navigation.navigate('BillScreen')
@@ -48,6 +51,9 @@ class OrderDetails extends Component {
 
     calculateTime = (totalAmount) => {
         let { selectedTableStartTime, } = this.props;
+
+        
+
         let model = {
             totalAmount,
             selectedTableStartTime: new Date(selectedTableStartTime),

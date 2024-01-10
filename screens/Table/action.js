@@ -66,7 +66,6 @@ export const addEndTime = (model) => async dispatch => {
       tableCharge = charge;
     }
 
-
     const order_in_time = time1.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
     const order_out_time = time2.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
 
