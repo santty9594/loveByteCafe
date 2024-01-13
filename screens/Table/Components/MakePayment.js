@@ -16,11 +16,11 @@ const MakePayment = ({ handleMakePayment }) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 8,
         flex: 0.1,
         flexDirection: "row",
         alignItems: "center",
         padding: 10,
+        marginTop: 8,
        
     },
     button: {

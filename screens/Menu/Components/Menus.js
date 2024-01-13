@@ -3,6 +3,7 @@ import { StyleSheet, Dimensions, TouchableOpacity, ScrollView } from 'react-nati
 import PrimaryText from '../../../Components/PrimaryText';
 
 const BoxWithMargin = ({ items, selectCategory, handleClicked }) => {
+
   const SCREEN_WIDTH = Dimensions.get('window').width;
   const CARD_MARGIN = 20;
   const BOX_SIZE = (SCREEN_WIDTH - CARD_MARGIN * 4) / 3;

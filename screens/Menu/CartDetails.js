@@ -50,12 +50,10 @@ class OrderDetails extends Component {
     }
 
     calculateTime = (totalAmount) => {
-        let { selectedTableStartTime, } = this.props;
-
-        
-
+        let { selectedTableStartTime, selectCategory } = this.props;
         let model = {
             totalAmount,
+            selectCategory,
             selectedTableStartTime: new Date(selectedTableStartTime),
             selectedTableEndTime: new Date()
         };

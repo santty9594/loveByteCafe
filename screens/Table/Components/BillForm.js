@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React from 'react';
 import { StyleSheet, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
 import InOutTime from './InOutTime';
 import BillBreakup from './BillBreakup';
@@ -6,13 +6,20 @@ import MakePayment from './MakePayment';
 import Customer from '../../Auth/Components/customerForm'
 
 const BillForm = ({
-  setOutTime, startTime, totalMinutes, paymentMode, setPaymentMode, selectTableCategory,
-  totalPayAmount, tableCharge, totalAmount,
-  getCustomerByPhone, customer, handleMakePayment
+  setOutTime, startTime, totalMinutes, paymentMode,
+  setPaymentMode, selectTableCategory, totalPayAmount,
+  tableCharge, totalAmount, getCustomerByPhone, customer,
+  handleMakePayment
 }) => {
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
+    <TouchableWithoutFeedback
+      onPress={Keyboard.dismiss}
+      accessible={false}
+    >
+      <ScrollView
+        style={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
         <Customer
           getCustomerByPhone={getCustomerByPhone}
           customer={customer}

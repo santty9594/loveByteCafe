@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
+import { Alert, ToastAndroid } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Table from './Components/Table';
@@ -19,6 +19,9 @@ class TableScreen extends Component {
         return true
     }
 
+    handleShitTable = async (item, shitValue) => {
+    };
+
     handleListClick = (item) => {
         this.props.bookedTable(item.value);
         this.props.navigation.navigate('MenuScreen', { name: item.name })
@@ -31,6 +34,7 @@ class TableScreen extends Component {
                 items={tableList}
                 selectCategory={selectCategory}
                 handleClicked={this.handleListClick}
+                handleShitTable={this.handleShitTable}
                 handleResetTable={this.handleResetTableClick}
             />
         )

@@ -16,7 +16,8 @@ const dateFilterList = [
 const TableItem = ({
   customer_name, customer_phone, customer_gender, table_no,
   order_date, total_price, order_in_time, order_out_time, order_amount,
-  table_type, table_charge, payment_mode }) => (
+  table_type, table_charge, payment_mode }) =>
+( 
   <View style={styles.tableRow}>
     <Text style={{ textAlign: "left", width: 70 }}>{table_no}</Text>
     <Text style={{ textAlign: "left", width: 120 }}>{customer_name}</Text>
@@ -66,14 +67,14 @@ const TableScreen = ({ data, fetchDataByDate }) => {
 
   const handleToDate = (date) => {
     setToDate(date)
-    let data = { filter: selectedFilter, fromDate, toDate:date }
+    let data = { filter: selectedFilter, fromDate, toDate: date }
     fetchDataByDate(data)
   }
 
-  const FilterList = ({ key, name, value }) => {
+  const FilterList = ({ name, value }) => {
     return (
       <TouchableOpacity
-        key={key}
+        key={name}
         onPress={() => handleDateFilterChange(value)}
         style={{ flex: 1, paddingHorizontal: 16, paddingVertical: 10, }}>
         <Text style={selectedFilter === value
@@ -126,7 +127,6 @@ const TableScreen = ({ data, fetchDataByDate }) => {
     )
   };
 
-
   const renderNoData = () => {
     if (data && data.length === 0) {
       return <NoDataFound />
@@ -143,18 +143,16 @@ const TableScreen = ({ data, fetchDataByDate }) => {
               toDate={toDate}
               setFromDate={(date) => handleFromDate(date)}
               setToDate={(date) => handleToDate(date)}
-             
-            />) : (<Text >{`Filter Display : ${selectedFilter?.toUpperCase()} `}</Text>)}
+
+            />) : (<Text> {`Filter Display : ${selectedFilter?.toUpperCase()} `} </Text>)}
           <TouchableOpacity onPress={() => setModal(true)}>
-            <Text style={{ color: "blue" }}>FILTER</Text>
+            <Text style={{ color: "blue" }}>
+              FILTER
+            </Text>
           </TouchableOpacity>
         </View>
         {renderNoData()}
-        <View style={{
-          flex: 0.84,
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-        }}>
+        <View style={{ flex: 0.84, flexDirection: 'row', flexWrap: 'wrap' }}>
           <ScrollView horizontal>
             <ScrollView>
               <TableHeader />
@@ -166,7 +164,7 @@ const TableScreen = ({ data, fetchDataByDate }) => {
             </ScrollView>
           </ScrollView>
         </View>
-      </View >
+      </View>
       <TableFooter
         totalCustomers={totalCustomers}
         totalDays={totalDays}
@@ -176,6 +174,7 @@ const TableScreen = ({ data, fetchDataByDate }) => {
     </>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,

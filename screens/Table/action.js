@@ -27,6 +27,16 @@ export const resetTable = (id) => async dispatch => {
   }
 }
 
+export const shiftTable = (id) => async dispatch => {
+  try {
+    dispatch({ type: 'RESET_TABLE_NUMBER', payload: id });
+    dispatch({ type: 'RESET_MENU_AGAINST_TABLE', payload: id });
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
 export const addEndTime = (model) => async dispatch => {
   try {
 
@@ -36,7 +46,7 @@ export const addEndTime = (model) => async dispatch => {
     const time1 = model?.selectedTableStartTime;
     const time2 = model?.selectedTableEndTime;
 
-
+    const selectCategory = model?.selectCategory;
     const totalAmount = model?.totalAmount;
 
     const format = 'hh:mm A';
@@ -61,13 +71,18 @@ export const addEndTime = (model) => async dispatch => {
 
     const charge = calculateCharge(minutes);
 
-    if (totalAmount) {
+    console.log(selectCategory)
+
+    if (totalAmount && selectCategory !== 2 && selectCategory !== 3) {
       totalPayAmount = totalAmount + charge;
       tableCharge = charge;
+    } else {
+      totalPayAmount = totalAmount
     }
 
     const order_in_time = time1.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
     const order_out_time = time2.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+
 
     dispatch({
       type: 'ADD_END_TIME',

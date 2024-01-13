@@ -22,12 +22,11 @@ export default function MenuCard({ item, onPress }) {
       duration: 200,
       useNativeDriver: true,
     }).start();
-    onPress(); // Call the original onPress function
   };
 
   const boxScale = boxAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [1, 0.95], // Scale down a bit when pressed
+    outputRange: [1, 0.95]
   });
 
   return (

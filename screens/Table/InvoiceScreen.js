@@ -8,7 +8,6 @@ export default function InvoiceScreen() {
     {id: '2', name: 'Item 2', price: 15},
   ];
 
-  // Calculate the total amount
   const totalAmount = itemList.reduce((total, item) => total + item.price, 0);
   return (
     <ScrollView style={styles.container}>

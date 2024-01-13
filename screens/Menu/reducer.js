@@ -32,6 +32,15 @@ const filterMeuItem = (state, payload) => {
 };
 
 
+const updateSelectedTable = (state, payload) => {
+    if (!state || !state.selectedMenus) {
+        return state;
+    }
+    let selectedMenus = state.selectedMenus.filter((Item) => Item.selectedTable !== payload);
+    return selectedMenus;
+};
+
+
 function calculateSumById(state, payload) {
     var sum = 0;
     for (const item of state.selectedMenus) {

@@ -35,7 +35,6 @@ const initialState = {
   selectedTableEndTime: 0,
 };
 
-// Helper function to update table values
 const updateTableValues = (tableList, payload, updateFn) => {
   return tableList.map((element) => {
     if (element.value === payload) {

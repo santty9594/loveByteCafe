@@ -30,8 +30,8 @@ class BillScreen extends Component {
     }
 
     setOutTime = (EndTime) => {
-        let { totalAmount, selectedTableStartTime, } = this.props;
-        let model = { totalAmount, selectedTableStartTime, selectedTableEndTime: EndTime };
+        let { totalAmount, selectedTableStartTime, selectTableCategory } = this.props;
+        let model = { totalAmount, selectTableCategory, selectedTableStartTime, selectedTableEndTime: EndTime };
         this.props.addEndTime(model);
     }
 
@@ -165,6 +165,10 @@ function initMapStateToProps(state) {
     };
 }
 
-export default connect(initMapStateToProps, { getCustomerByPhone, addEndTime, createCustomer, makePayment, resetTable })(BillScreen);
+export default connect(initMapStateToProps, {
+    getCustomerByPhone, addEndTime,
+    createCustomer, makePayment,
+    resetTable
+})(BillScreen);
 
 

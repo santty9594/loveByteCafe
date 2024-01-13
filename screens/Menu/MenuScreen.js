@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ToastAndroid } from 'react-native';
 import { connect } from 'react-redux';
 import Loader from '../../Components/loader'
 import MenusComponent from './Components/MenuForm';
@@ -19,13 +20,23 @@ class MenuScreen extends Component {
 
     handleCardClick = (value) => {
         let isObject = null;
+
         let { selectedTable, selectedMenus } = this.props;
+
         isObject = selectedMenus.find(
             (Item) => Item.id === value.id && Item.selectedTable === selectedTable
         );
+
         if (isObject) {
-            alert(`${value.name} is already in your cart.`);
+            ToastAndroid.showWithGravityAndOffset(
+                `${value.name} is already in your cart.`,
+                ToastAndroid.SHORT,
+                ToastAndroid.TOP,
+                25,
+                50,
+            );
         }
+
         let model = { ...value, qty: 1, selectedTable, totalAmount: value.price };
         this.props.addItemMenu(model);
     }

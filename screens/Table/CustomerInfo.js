@@ -1,49 +1,47 @@
-import {ScrollView, StyleSheet, Text, View,Keyboard} from 'react-native';
-import React, {useState} from 'react';
-import {TextInput, Button, HelperText} from 'react-native-paper';
-import {Picker} from '@react-native-picker/picker';
+import { ScrollView, StyleSheet, Text, View, Keyboard } from 'react-native';
+import React, { useState } from 'react';
+import { TextInput, Button, HelperText } from 'react-native-paper';
+import { Picker } from '@react-native-picker/picker';
 import useValidateMobileNumber from '../Components/hooks/useValidateMobileNumber';
 
 export default function CustomerInfo() {
-  const  {handleMobileNumberValidation} =useValidateMobileNumber()
-  const [inputs, setInputs] = useState({firstName: '', lastName: '' ,contactNo:''});
+  const { handleMobileNumberValidation } = useValidateMobileNumber()
+  const [inputs, setInputs] = useState({ firstName: '', lastName: '', contactNo: '' });
   const [errors, setErrors] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState();
 
   const handleOnChange = (text, input) => {
-    setInputs(prevState => ({...prevState, [input]: text}));
+    setInputs(prevState => ({ ...prevState, [input]: text }));
   };
 
   const handleError = (errorMessage, input) => {
-    setErrors(prevState => ({...prevState, [input]: errorMessage}));
+    setErrors(prevState => ({ ...prevState, [input]: errorMessage }));
   };
-
-
 
   const onPressSave = async () => {
     Keyboard.dismiss();
     let valid = true;
-    if (!inputs.firstName  ) {
+    if (!inputs.firstName) {
       handleError('Please enter first name', 'firstName');
       valid = false;
-    } 
-    else if (inputs.firstName.length <= 3 || inputs.firstName > 150  ) {
+    }
+    else if (inputs.firstName.length <= 3 || inputs.firstName > 150) {
       valid = false;
       handleError('Please enter valid first name', 'firstName');
     }
-    if (!inputs.lastName ) {
+    if (!inputs.lastName) {
       handleError('Please enter last name', 'lastName');
       valid = false;
-    } 
-    else if (inputs.lastName.length <= 3 || inputs.lastName > 150  ) {
+    }
+    else if (inputs.lastName.length <= 3 || inputs.lastName > 150) {
       valid = false;
       handleError('Please enter valid last name', 'lastName');
     }
-    if (!inputs.contactNo ) {
+    if (!inputs.contactNo) {
       handleError('Please enter contact number', 'contactNo');
       valid = false;
-    } 
-    else if ( handleEmailValidation(inputs.contactNo) === false) {
+    }
+    else if (handleEmailValidation(inputs.contactNo) === false) {
       valid = false;
       handleError('Please enter valid last name', 'contactNo');
     }
@@ -51,6 +49,7 @@ export default function CustomerInfo() {
       console.log('#############');
     }
   };
+
   return (
     <ScrollView style={styles.container}>
       <TextInput
@@ -94,7 +93,7 @@ export default function CustomerInfo() {
         {errors.contactNo}
       </HelperText>
       <Picker
-      style={{margin:16}}
+        style={{ margin: 16 }}
         selectedValue={selectedLanguage}
         onValueChange={(itemValue, itemIndex) =>
           setSelectedLanguage(itemValue)
@@ -103,15 +102,13 @@ export default function CustomerInfo() {
         <Picker.Item label="Female" value="female" />
       </Picker>
       <Button
-          style={{ margin:10,}}
-          buttonColor="#6495ED"
-          textColor="#fff"
-          mode="contained"
-          onPress={() => 
-            onPressSave()
-          }>
-          Save
-        </Button>
+        style={{ margin: 10, }}
+        buttonColor="#6495ED"
+        textColor="#fff"
+        mode="contained"
+        onPress={() => onPressSave()}>
+        Save
+      </Button>
     </ScrollView>
   );
 }
@@ -123,12 +120,12 @@ const styles = StyleSheet.create({
   },
   textInputStyle: {
     backgroundColor: '#fff',
-    margin:16
+    margin: 16
   },
   textInputContentStyle: {
     color: '#000',
   },
-  err:{
-    left:15
+  err: {
+    left: 15
   }
 });
