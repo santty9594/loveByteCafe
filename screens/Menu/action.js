@@ -2,6 +2,7 @@
 import { MenuApi } from './api';
 
 const api = new MenuApi();
+
 export const getMenuItems = (model) => async dispatch => {
     try {
         var temp = await api.getMenuItems(model);
@@ -70,7 +71,6 @@ export const addStartTimeTable = (model) => async dispatch => {
         console.log(">>>>>", error)
     }
 }
-
 
 export const getTableStartTime = (id) => async dispatch => {
     try {

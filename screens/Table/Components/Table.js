@@ -18,8 +18,8 @@ const BoxWithMargin = ({
   const filteredItems = items?.filter(item => item.tableType === selectCategory);
 
 
-  const handleSelectedTable = (item, name) => {
-    handleShitTable(item, name);
+  const handleSelectedTable = (value) => {
+    handleShitTable(modal.data, value);
     setModal({ isModal: false, data: {} })
   }
 
@@ -32,7 +32,6 @@ const BoxWithMargin = ({
         handleCloseModal={() => setModal({ isModal: false, data: {} })}
       >
         <EmptyTabel
-          data={data}
           selectCategory={selectCategory}
           items={items}
           handleSelectedTable={handleSelectedTable}

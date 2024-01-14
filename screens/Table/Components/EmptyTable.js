@@ -11,7 +11,7 @@ const EmptyTable = ({ items, selectCategory, handleSelectedTable }) => {
         if (!booked && tableType === selectCategory) {
             return (
                 <TouchableOpacity
-                    onPress={() => handleSelectedTable(item, name)}
+                    onPress={() => handleSelectedTable(value)}
                     style={styles.filterListItem}
                     key={value + name}
                 >

@@ -1,6 +1,6 @@
+const moment = require('moment');
 import { TableApi } from './api';
 import { chargeTable } from '../../constants/api_constants';
-const moment = require('moment');
 
 const api = new TableApi();
 
@@ -27,15 +27,14 @@ export const resetTable = (id) => async dispatch => {
   }
 }
 
-export const shiftTable = (id) => async dispatch => {
+export const shiftTable = (resetValue, shitValue) => async dispatch => {
   try {
-    dispatch({ type: 'RESET_TABLE_NUMBER', payload: id });
-    dispatch({ type: 'RESET_MENU_AGAINST_TABLE', payload: id });
+    dispatch({ type: 'SHIT_TABLE_NUMBER', payload: { resetValue, shitValue } });
+    dispatch({ type: 'UPDATE_MENU_AGAINST_TABLE', payload: { resetValue, shitValue } });
   } catch (error) {
     console.log(error)
   }
 }
-
 
 export const addEndTime = (model) => async dispatch => {
   try {

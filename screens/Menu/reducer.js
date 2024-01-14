@@ -22,7 +22,6 @@ const addMenuItem = (state, payload) => {
     }
 };
 
-
 const filterMeuItem = (state, payload) => {
     if (!state || !state.selectedMenus) {
         return state;
@@ -36,8 +35,13 @@ const updateSelectedTable = (state, payload) => {
     if (!state || !state.selectedMenus) {
         return state;
     }
-    let selectedMenus = state.selectedMenus.filter((Item) => Item.selectedTable !== payload);
-    return selectedMenus;
+    const updatedValues = state.selectedMenus.map((element) => {
+        if (element.selectedTable === payload.resetValue) {
+            return { ...element, selectedTable: payload.shitValue };
+        }
+        return element;
+    }).filter(Boolean);
+    return updatedValues;
 };
 
 
@@ -129,6 +133,11 @@ export default MenuReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 selectedMenus: filterMeuItem(state, payload),
+            };
+        case 'UPDATE_MENU_AGAINST_TABLE':
+            return {
+                ...state,
+                selectedMenus: updateSelectedTable(state, payload),
             };
         default:
             return state;

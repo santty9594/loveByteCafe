@@ -22,6 +22,7 @@ export default function MenuCard({ item, onPress }) {
       duration: 200,
       useNativeDriver: true,
     }).start();
+    onPress();
   };
 
   const boxScale = boxAnimation.interpolate({

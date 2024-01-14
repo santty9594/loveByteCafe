@@ -3,7 +3,7 @@ import { Alert, ToastAndroid } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Table from './Components/Table';
-import { bookedTable, resetTable } from './action';
+import { bookedTable, resetTable, shiftTable } from './action';
 
 class TableScreen extends Component {
 
@@ -19,7 +19,9 @@ class TableScreen extends Component {
         return true
     }
 
-    handleShitTable = async (item, shitValue) => {
+    handleShitTable = (item, shitValue) => {
+        if (!item.value && !shitValue) return
+        this.props.shiftTable(item.value, shitValue)
     };
 
     handleListClick = (item) => {
@@ -51,7 +53,7 @@ function initMapStateToProps(state) {
 }
 
 function initMapDispatchToProps(dispatch) {
-    return bindActionCreators({ bookedTable, resetTable }, dispatch);
+    return bindActionCreators({ bookedTable, resetTable, shiftTable }, dispatch);
 }
 
 
