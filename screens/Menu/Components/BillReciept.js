@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import PrimaryText from '../../../Components/PrimaryText';
 import colors from '../../../constants/colors';
 
-const BIllReciept = ({ totalPay, handleClick }) => {
+const BIllReciept = ({ totalPay, selectTableCategory, handleClick }) => {
     return (
         <View style={styles.container}>
             <View style={{ backgroundColor: "#fff", padding: 16 }}>
@@ -20,7 +20,7 @@ const BIllReciept = ({ totalPay, handleClick }) => {
                     </View>
                 </View>
                 <View>
-                    {totalPay < 100 && (
+                    {(totalPay < 100 && selectTableCategory == 1) && (
                         <Text style={styles.note}>
                             Note : {`If you want to get something else, go ahead, because if you order less than 100, you'll need to pay 100`}
                         </Text>

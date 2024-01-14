@@ -6,7 +6,7 @@ const { height, width } = Dimensions.get('screen');
 export default function MenuCard({ item, onPress }) {
   const { name, price } = item;
 
-  const boxAnimation = new Animated.Value(0); // Initial value for animation
+  const boxAnimation = new Animated.Value(0);
 
   const handlePressIn = () => {
     Animated.timing(boxAnimation, {
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: (width - 20*4)/2,
     height: height *0.14,
-    overflow: 'hidden', // To prevent scaled content from overflowing
+    overflow: 'hidden',
   },
   cardContent: {
     flex: 1,

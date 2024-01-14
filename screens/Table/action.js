@@ -70,7 +70,6 @@ export const addEndTime = (model) => async dispatch => {
 
     const charge = calculateCharge(minutes);
 
-    console.log(selectCategory)
 
     if (totalAmount && selectCategory !== 2 && selectCategory !== 3) {
       totalPayAmount = totalAmount + charge;

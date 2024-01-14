@@ -63,11 +63,20 @@ const OrderItem = ({
 
     return (
         <View style={styles.container}>
+            
             {selectTableCategory && (selectTableCategory !== 3 && selectTableCategory !== 2) && (
-                <InTime handleStartTime={handleClickStartTime} startTime={startTime} />
+                <InTime
+                    handleStartTime={handleClickStartTime}
+                    startTime={startTime}
+                />
             )}
+
             {memoizedItem}
-            <BillReciept totalPay={totalPay} handleClick={handlePlaceOrder} />
+
+            <BillReciept
+                selectTableCategory={selectTableCategory}
+                totalPay={totalPay}
+                handleClick={handlePlaceOrder} />
         </View>
 
     );

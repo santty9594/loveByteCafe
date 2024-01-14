@@ -53,12 +53,17 @@ const shiftTableValue = (state, payload) => {
   const shitValue = payload.shitValue;
   const resetValue = payload.resetValue;
 
-  let tempObject = {}
+  const tempObject = state.tableList.find((item) => item.value === resetValue)
 
   const updatedValues = state.tableList.map((element) => {
     if (element.value === resetValue) {
-      tempObject = element;
-      return { ...element, waiting: false, booked: false, payment: false, startTime: null };
+      return {
+        ...element,
+        waiting: false,
+        booked: false,
+        payment: false,
+        startTime: null
+      };
     }
     if (element.value === shitValue) {
       return {
@@ -70,7 +75,9 @@ const shiftTableValue = (state, payload) => {
     }
     return element;
   }).filter(Boolean);
+
   return updatedValues;
+  
 };
 
 const TableReducer = (state = initialState, { type, payload }) => {

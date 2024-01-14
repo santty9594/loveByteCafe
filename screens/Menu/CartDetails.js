@@ -30,6 +30,7 @@ class OrderDetails extends Component {
     }
 
     handlePlaceOrder = async (totalPay) => {
+        let { selectCategory } = this.props;
         if (totalPay === 0) {
             Alert.alert(
                 'Message',
@@ -41,7 +42,7 @@ class OrderDetails extends Component {
             )
             return true
         }
-        if (totalPay < 100) {
+        if (totalPay < 100 && selectCategory === 1) {
             totalPay = 100;
         }
         await this.props.placeOrder(totalPay);
